@@ -1,0 +1,374 @@
+{
+	"info": {
+		"_postman_id": "4f8f7d41-433f-44f1-bef8-e6370a7f2ef1",
+		"name": "GIFit-giphy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "search",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/search?api_key={{API_KEY}}&q=hello world&limit=10&offset=5&rating=g&lang=en",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "{{API_KEY}}",
+							"description": "GIPHY API Key."
+						},
+						{
+							"key": "q",
+							"value": "hello world",
+							"description": "Search query term or phrase. Adding @<username> anywhere in the q parameter effectively changes the search query to be a search for a specific user’s GIFs (user has to be public and verified user by GIPHY.)"
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"description": "The maximum number of objects to return. (Default: “25”). For beta keys max limit is 50"
+						},
+						{
+							"key": "offset",
+							"value": "5",
+							"description": "Specifies the starting position of the results. Defaults to 0."
+						},
+						{
+							"key": "rating",
+							"value": "g",
+							"description": "Filters results by specified rating. Acceptable values include g, pg, pg-13, r. If you do not specify a rating, you will receive results from all possible ratings."
+						},
+						{
+							"key": "lang",
+							"value": "en",
+							"description": "Specify default language for regional content; use a 2-letter ISO 639-1 language code."
+						},
+						{
+							"key": "random_id",
+							"value": null,
+							"description": "An ID/proxy for a specific user.",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "trending",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/trending?api_key={{API_KEY}}&limit=10&offset=5&rating=g",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"trending"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "{{API_KEY}}",
+							"description": "GIPHY API Key."
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"description": "The maximum number of objects to return. (Default: “25”)"
+						},
+						{
+							"key": "offset",
+							"value": "5",
+							"description": "Specifies the starting position of the results. Defaults to 0."
+						},
+						{
+							"key": "rating",
+							"value": "g",
+							"description": "Filters results by specified rating. Acceptable values include g, pg, pg-13, r. If you do not specify a rating, you will receive results from all possible ratings."
+						},
+						{
+							"key": "random_id",
+							"value": null,
+							"description": "An ID/proxy for a specific user.",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "translate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/translate?api_key={{API_KEY}}&s=hello&weirdness=5",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"translate"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "{{API_KEY}}",
+							"description": "GIPHY API Key."
+						},
+						{
+							"key": "s",
+							"value": "hello",
+							"description": "Search term."
+						},
+						{
+							"key": "weirdness",
+							"value": "5",
+							"description": "Value from 0-10 which makes results weirder as you go up the scale.\n"
+						},
+						{
+							"key": "random_id",
+							"value": null,
+							"description": "An ID/proxy for a specific user.",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "random",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/random?api_key={{API_KEY}}&tag=computer&rating=g",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"random"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "{{API_KEY}}",
+							"description": "GIPHY API Key."
+						},
+						{
+							"key": "tag",
+							"value": "computer",
+							"description": "Filters results by specified tag.."
+						},
+						{
+							"key": "rating",
+							"value": "g",
+							"description": "Filters results by specified rating. If you do not specify a rating, you will receive results from all possible ratings."
+						},
+						{
+							"key": "random_id",
+							"value": null,
+							"description": "An ID/proxy for a specific user.",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "randomId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/randomid?api_key={{API_KEY}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"randomid"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "{{API_KEY}}",
+							"description": "GIPHY API Key."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/categories?api_key={{API_KEY}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"categories"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "{{API_KEY}}",
+							"description": "GIPHY API Key."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autocomplete",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/search/tags?api_key={{API_KEY}}&q=foo&limit=5&offset=5",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"search",
+						"tags"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "{{API_KEY}}",
+							"description": "GIPHY API Key."
+						},
+						{
+							"key": "q",
+							"value": "foo",
+							"description": "Tag term."
+						},
+						{
+							"key": "limit",
+							"value": "5",
+							"description": "The maximum number of objects to return. (Default: 5)"
+						},
+						{
+							"key": "offset",
+							"value": "5",
+							"description": "Specifies the starting position of the results. (Default: 0)"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchsuggestions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/tags/related?api_key={{API_KEY}}&term=haha",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"tags",
+						"related"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "{{API_KEY}}",
+							"description": "GIPHY API Key."
+						},
+						{
+							"key": "term",
+							"value": "haha",
+							"description": "Tag term."
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "trendingsearch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/trending/searches?api_key={{API_KEY}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"trending",
+						"searches"
+					],
+					"query": [
+						{
+							"key": "api_key",
+							"value": "{{API_KEY}}",
+							"description": "GIPHY API Key."
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "api.giphy.com/v1/gifs"
+		},
+		{
+			"key": "API_KEY",
+			"value": "lrTzjFGxlhO6YzuxF7djazRM6gEh4gml"
+		}
+	]
+}
