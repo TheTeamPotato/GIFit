@@ -1,9 +1,10 @@
-package com.theteampotato.gifit.ui
+package com.theteampotato.gifit.ui.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,9 +20,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun GIFitSplashCard() {
     Card(modifier = Modifier
-        .width(200.dp)
-        .height(250.dp),
-        shape = RoundedCornerShape(20.dp)
+        .width(180.dp)
+        .height(215.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -43,8 +43,8 @@ private fun GIFitLogoText() {
         val value = "GIFit"
 
         append(value)
-        addStyle(style = SpanStyle(color = Color.Black, fontSize = 64.sp, fontWeight = FontWeight.Bold), start = 0, end = 3)
-        addStyle(style = SpanStyle(fontSize = 64.sp, color = Color.Black), start = 3, end = value.length)
+        addStyle(style = SpanStyle(color = MaterialTheme.colors.onSurface, fontSize = 48.sp, fontWeight = FontWeight.Bold), start = 0, end = 3)
+        addStyle(style = SpanStyle(fontSize = 48.sp, color = MaterialTheme.colors.onSurface), start = 3, end = value.length)
     }
 
     Text(text = string)
@@ -53,8 +53,8 @@ private fun GIFitLogoText() {
 @Composable
 private fun InfoTip(origin: String, translated: String) {
     Column {
-        Text(text = origin, fontSize = 24.sp)
-        Text(text = translated, fontSize = 18.sp, color = Color(red = 131, green = 131, blue = 131))
+        Text(text = origin, fontSize = 18.sp)
+        Text(text = translated, fontSize = 12.sp, color = MaterialTheme.colors.secondaryVariant)
     }
 }
 
