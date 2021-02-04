@@ -9,6 +9,9 @@ buildscript {
         gradlePluginPortal()
         maven(url = "https://developer.huawei.com/repo/")
     }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21")
+    }
 }
 
 allprojects {

@@ -11,10 +11,17 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class CommonModulePlugin : Plugin<Project> {
 
-    private val BaseExtension.isApplicationModule: Boolean
-        get() = defaultConfig is AppExtension
+    private val isApplicationModule: Boolean
+        //get() = defaultConfig is AppExtension
+        get() = moduleName == "app"
+
+    private lateinit var moduleName: String
 
     override fun apply(project: Project) {
+        moduleName = project.name
+
+        println("Module name is $moduleName")
+
         project.plugins.apply {
             apply("kotlin-android")
             apply("kotlin-kapt")
@@ -25,7 +32,11 @@ class CommonModulePlugin : Plugin<Project> {
         if (androidExtension is BaseExtension) {
             androidExtension.applyAndroidConfigurations()
             androidExtension.applyProguardConfigurations()
-            androidExtension.enableJava11(project)
+
+            if (isApplicationModule)
+                androidExtension.enableJava11(project)
+            else
+                androidExtension.enableJava8(project)
         }
     }
 
@@ -45,16 +56,30 @@ class CommonModulePlugin : Plugin<Project> {
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
 
-        flavorDimensions("platform")
-        productFlavors {
-            create("gms") { dimension("platform") }
-            create("hms") { dimension("platform") }
+        if (isApplicationModule) {
+            println("$moduleName - Creating build variants")
+
+            flavorDimensions("platform")
+            productFlavors {
+                create("gms") { dimension("platform") }
+                create("hms") { dimension("platform") }
+            }
         }
 
         sourceSets {
             getByName("main") {
                 java.srcDir("src/main/kotlin")
                 resources.srcDir("src/main/res")
+            }
+
+            getByName("test") {
+                java.srcDir("src/test/kotlin")
+                resources.srcDir("src/test/res")
+            }
+
+            getByName("androidTest") {
+                java.srcDir("src/androidTest/kotlin")
+                resources.srcDir("src/androidTest/res")
             }
         }
     }
