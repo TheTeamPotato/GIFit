@@ -1,4 +1,5 @@
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.project
 
 const val ANDROID_APPLICATION = "com.android.application"
 const val ANDROID_LIBRARY = "com.android.library"
@@ -25,11 +26,7 @@ object Modules {
     const val BASE = ":base"
 
     object Features {
-        const val HOME = ":features:home"
-        const val LOGIN = ":features:login"
         const val SPLASH = ":features:splash"
-        const val WELCOME = ":features:welcome"
-        const val WORKSPACE = ":features:workspace"
     }
 
     object Layers {
@@ -146,10 +143,24 @@ object Libraries {
             const val JUNIT_RUNNER = "androidx.test:runner:$JUNIT_VERSION"
             const val JUNIT_RULES = "androidx.test:rules:$JUNIT_VERSION"
         }
+
+        object UI {
+            private const val COMPOSE_UI_TEST_JUNIT4_VERSION = "1.0.0-alpha10"
+            const val COMPOSE_UI_TEST_JUNIT4 = "androidx.compose.ui:ui-test-junit4:$COMPOSE_UI_TEST_JUNIT4_VERSION"
+        }
     }
 
 }
 
+// Modules
+val DependencyHandler.FEATURE_SPLASH
+    get() = implementation(project(Modules.Features.SPLASH))
+
+// Layers
+val DependencyHandler.LAYER_UI
+    get() = implementation(project(Modules.Layers.UI))
+
+// Dependencies
 val DependencyHandler.ACCOMPANIST
     get() = implementation(Libraries.ACCOMPANIST_COIL)
 
@@ -204,7 +215,7 @@ private fun DependencyHandler.showkase() {
     kapt(Libraries.SHOWKASE_COMPILER)
 }
 
-private fun DependencyHandler.implementation(depName: String) {
+private fun DependencyHandler.implementation(depName: Any) {
     add("implementation", depName)
 }
 

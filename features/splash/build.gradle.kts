@@ -1,17 +1,18 @@
 plugins {
-    id(ANDROID_APPLICATION)
-    id(DAGGER_HILT_ANDROID_PLUGIN) // TODO: Why this doesn't work but above works?
+    id(ANDROID_LIBRARY)
+    id(DAGGER_HILT_ANDROID_PLUGIN)
     id(COMMON_MODULE_PLUGIN)
 }
-
 
 android.buildFeatures.compose = true
 
 dependencies {
-    FEATURE_SPLASH
+    LAYER_UI
 
+    ACCOMPANIST
     BASE
     COMPOSE
     DAGGER_HILT
     KOTLIN_STANDARD_LIBRARY
+    MATERIAL_DESIGN
 }
