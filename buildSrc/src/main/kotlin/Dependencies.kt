@@ -44,6 +44,7 @@ object Libraries {
     private const val TIMBER_VERSION = "4.7.1"
 
     const val ACCOMPANIST_COIL = "dev.chrisbanes.accompanist:accompanist-coil:$ACCOMPANIST_VERSION"
+    const val COIL_GIF = "io.coil-kt:coil-gif:1.1.1"
     const val MATERIAL_DESIGN = "com.google.android.material:material:$MATERIAL_DESIGN_VERSION"
     const val PERMISSION_DISPATCHER = "org.permissionsdispatcher:permissionsdispatcher:$PERMISSION_DISPATCHER_VERSION"
     const val PERMISSION_DISPATCHER_PROCESSOR = "org.permissionsdispatcher:permissionsdispatcher-processor:$PERMISSION_DISPATCHER_VERSION"
@@ -162,7 +163,7 @@ val DependencyHandler.LAYER_UI
 
 // Dependencies
 val DependencyHandler.ACCOMPANIST
-    get() = implementation(Libraries.ACCOMPANIST_COIL)
+    get() = accompanist()
 
 val DependencyHandler.BASE
     get() = base()
@@ -181,6 +182,11 @@ val DependencyHandler.MATERIAL_DESIGN
 
 val DependencyHandler.SHOWKASE
     get() = showkase()
+
+private fun DependencyHandler.accompanist() {
+    implementation(Libraries.ACCOMPANIST_COIL)
+    implementation(Libraries.COIL_GIF)
+}
 
 private fun DependencyHandler.base() {
     implementation(Libraries.AndroidX.APPCOMPAT)

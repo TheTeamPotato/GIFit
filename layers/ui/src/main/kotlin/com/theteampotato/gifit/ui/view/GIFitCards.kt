@@ -1,7 +1,6 @@
 package com.theteampotato.gifit.ui.view
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
@@ -9,7 +8,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.annotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -48,14 +46,6 @@ private fun GIFitLogoText() {
     }
 
     Text(text = string)
-}
-
-@Composable
-private fun InfoTip(origin: String, translated: String) {
-    Column {
-        Text(text = origin, fontSize = 18.sp)
-        Text(text = translated, fontSize = 12.sp, color = MaterialTheme.colors.secondaryVariant)
-    }
 }
 
 @Composable

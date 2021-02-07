@@ -15,12 +15,14 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun GIFitTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        colors = colors,
-        typography = Typography(fontFamily),
-        shapes = Shapes(medium = RoundedCornerShape(20.dp)),
-        content = content
-    )
+    ProvideImageLoader {
+        MaterialTheme(
+            colors = colors,
+            typography = Typography(fontFamily),
+            shapes = Shapes(medium = RoundedCornerShape(20.dp)),
+            content = content
+        )
+    }
 }
 
 private val colors = Colors(
