@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_route">Search</string>
+    <string name="history_route">History</string>
+    <string name="favorites_route">Favorites</string>
+    <string name="trending_route">Trending</string>
+</resources>
