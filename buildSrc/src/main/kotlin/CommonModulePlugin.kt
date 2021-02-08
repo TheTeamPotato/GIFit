@@ -1,13 +1,17 @@
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
+import org.gradle.api.Action
 
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.withType
+import org.gradle.kotlin.dsl.*
+
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 class CommonModulePlugin : Plugin<Project> {
 
@@ -26,7 +30,10 @@ class CommonModulePlugin : Plugin<Project> {
             apply("kotlin-android")
             apply("kotlin-kapt")
             apply("kotlin-parcelize")
+            apply(BuildScript.KTLINT_PLUGIN)
         }
+
+        project.applyKtLintConfigurations()
 
         val androidExtension = project.extensions.getByName("android")
         if (androidExtension is BaseExtension) {
@@ -37,6 +44,48 @@ class CommonModulePlugin : Plugin<Project> {
                 androidExtension.enableJava11(project)
             else
                 androidExtension.enableJava8(project)
+        }
+    }
+
+    private fun Project.applyKtLintConfigurations() {
+        val ktLint = project.extensions.getByName("ktlint")
+        println("ktLint is ${ktLint.javaClass.simpleName}")
+
+        // Run `ktlintCheck` task after each module prebuild
+        afterEvaluate {
+            tasks {
+                val ktLintCheck = tasks.named("ktlintCheck")
+                /*val assembleDebug = tasks.named(if (isApplicationModule) "assembleGmsDebug" else "assembleDebug")
+
+                assembleDebug {
+                    dependsOn(ktLintCheck)
+                }*/
+
+                "preBuild" {
+                    dependsOn(ktLintCheck)
+                }
+            }
+        }
+
+        ktlint {
+            //version.set("0.38.1")
+            android.set(true)
+            coloredOutput.set(true)
+            //debug.set(true)
+            enableExperimentalRules.set(true)
+            verbose.set(true)
+            ignoreFailures.set(true)
+            outputToConsole.set(true)
+            reporters {
+                //reporter(ReporterType.PLAIN)
+                //reporter(ReporterType.CHECKSTYLE)
+                reporter(ReporterType.HTML)
+                reporter(ReporterType.JSON)
+            }
+            filter {
+                exclude("**/generated/**")
+                include("**/kotlin/**")
+            }
         }
     }
 
@@ -130,5 +179,11 @@ class CommonModulePlugin : Plugin<Project> {
             }
         }
     }
+
+    /**
+     * Configures the [ktlint][org.jlleitschuh.gradle.ktlint.KtlintExtension] extension.
+     */
+    private fun Project.`ktlint`(configure: Action<KtlintExtension>): Unit =
+        (this as org.gradle.api.plugins.ExtensionAware).extensions.configure("ktlint", configure)
 
 }

@@ -25,11 +25,13 @@ fun ResultCard(imageURL: String) {
     Box(
         Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp)) {
+            .padding(horizontal = 12.dp)
+    ) {
         Box(
             Modifier
                 .fillMaxWidth()
-                .padding(top = 12.dp, start = 6.dp, end = 6.dp)) {
+                .padding(top = 12.dp, start = 6.dp, end = 6.dp)
+        ) {
             ContentCard(imageURL = imageURL)
         }
         FavoriteCardIcon(modifier = Modifier.align(Alignment.TopEnd))
