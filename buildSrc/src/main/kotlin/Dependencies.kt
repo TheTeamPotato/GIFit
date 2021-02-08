@@ -12,7 +12,9 @@ object BuildScript {
     private const val APP_GALLERY_CONNECT_VERSION = "1.4.2.301"
     private const val KOTLIN_VERSION = "1.4.21"
 
+    const val KTLINT_PLUGIN_VERSION = "9.4.1"
     const val VERSIONS_PLUGIN_VERSION = "0.36.0"
+    const val KTLINT_PLUGIN = "org.jlleitschuh.gradle.ktlint"
     const val VERSIONS_PLUGIN = "com.github.ben-manes.versions"
 
     const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:$ANDROID_GRADLE_VERSION"
