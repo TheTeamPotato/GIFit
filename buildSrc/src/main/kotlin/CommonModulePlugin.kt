@@ -31,6 +31,9 @@ class CommonModulePlugin : Plugin<Project> {
             apply("kotlin-kapt")
             apply("kotlin-parcelize")
             apply(BuildScript.KTLINT_PLUGIN)
+
+            if (moduleName == "data")
+                apply("kotlinx-serialization")
         }
 
         project.applyKtLintConfigurations()

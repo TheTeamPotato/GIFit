@@ -5,6 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon_gifit"
+        android:name=".GIFitApplication"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:supportsRtl="true">

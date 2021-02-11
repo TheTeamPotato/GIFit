@@ -10,7 +10,7 @@ object BuildScript {
     private const val ANDROID_GRADLE_VERSION = "7.0.0-alpha05"
     private const val ANDROID_HILT_GRADLE_VERSION = "2.31.2-alpha"
     private const val APP_GALLERY_CONNECT_VERSION = "1.4.2.301"
-    private const val KOTLIN_VERSION = "1.4.21"
+    private const val KOTLIN_VERSION = "1.4.30"
 
     const val KTLINT_PLUGIN_VERSION = "9.4.1"
     const val VERSIONS_PLUGIN_VERSION = "0.36.0"
@@ -111,9 +111,24 @@ object Libraries {
     }
 
     object Kotlin {
-        private const val VERSION = "1.4.10"
+        private const val VERSION = "1.4.30"
 
         const val STANDARD_LIB = "org.jetbrains.kotlin:kotlin-stdlib:$VERSION"
+    }
+
+    object Ktor {
+        private const val KTOR_VERSION = "1.5.1"
+
+        const val KTOR_ANDROID_CLIENT = "io.ktor:ktor-client-android:$KTOR_VERSION"
+        const val KTOR_CIO_CLIENT = "io.ktor:ktor-client-cio:$KTOR_VERSION"
+        const val KTOR_KOTLINX_SERIALIZATION = "io.ktor:ktor-client-serialization:$KTOR_VERSION"
+        const val KTOR_SERIALIZATION_JVM = "io.ktor:ktor-client-serialization-jvm:$KTOR_VERSION"
+    }
+
+    object KotlinxSerialization {
+        private const val KOTLINX_SERIALIZATION_JSON_VERSION = "1.0.1"
+
+        const val KOTLINX_SERIALIZATION_JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:$KOTLINX_SERIALIZATION_JSON_VERSION"
     }
 
     object Hilt {
@@ -160,6 +175,9 @@ val DependencyHandler.FEATURE_SPLASH
     get() = implementation(project(Modules.Features.SPLASH))
 
 // Layers
+val DependencyHandler.LAYER_DATA
+    get() = implementation(project(Modules.Layers.DATA))
+
 val DependencyHandler.LAYER_UI
     get() = implementation(project(Modules.Layers.UI))
 
@@ -178,6 +196,12 @@ val DependencyHandler.DAGGER_HILT
 
 val DependencyHandler.KOTLIN_STANDARD_LIBRARY
     get() = implementation(Libraries.Kotlin.STANDARD_LIB)
+
+val DependencyHandler.KTOR
+    get() = ktor()
+
+val DependencyHandler.KOTLINX_SERIALIZATION
+    get() = kotlinxSerialization()
 
 val DependencyHandler.MATERIAL_DESIGN
     get() = implementation(Libraries.MATERIAL_DESIGN)
@@ -199,6 +223,8 @@ private fun DependencyHandler.base() {
     implementation(Libraries.AndroidX.LIFECYCLE_EXTENSIONS)
     implementation(Libraries.AndroidX.LIFECYCLE_RUNTIME_KTX)
     implementation(Libraries.AndroidX.LIFECYCLE_VIEWMODEL_KTX)
+
+    implementation(Libraries.TIMBER)
 }
 
 private fun DependencyHandler.compose() {
@@ -216,6 +242,19 @@ private fun DependencyHandler.hilt() {
     implementation(Libraries.Hilt.HILT_LIFECYCLE_VIEWMODEL)
     kapt(Libraries.Hilt.HILT_ANDROID_COMPILER)
     kapt(Libraries.Hilt.HILT_COMPILER)
+}
+
+private fun DependencyHandler.ktor() {
+    api(Libraries.Ktor.KTOR_ANDROID_CLIENT)
+    implementation(Libraries.Ktor.KTOR_CIO_CLIENT)
+    //implementation(Libraries.Ktor.KTOR_KOTLINX_SERIALIZATION)
+    implementation(Libraries.Ktor.KTOR_SERIALIZATION_JVM)
+
+    //implementation(Libraries.Ktor.KTOR_SERIALIZATION)
+}
+
+private fun DependencyHandler.kotlinxSerialization() {
+    implementation(Libraries.KotlinxSerialization.KOTLINX_SERIALIZATION_JSON)
 }
 
 private fun DependencyHandler.showkase() {
