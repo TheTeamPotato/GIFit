@@ -8,10 +8,15 @@ android.buildFeatures.compose = true
 
 dependencies {
     FEATURE_SPLASH
+    LAYER_DATA
     LAYER_UI
 
     BASE
     COMPOSE
     DAGGER_HILT
     KOTLIN_STANDARD_LIBRARY
+}
+
+kapt {
+    correctErrorTypes = true
 }
