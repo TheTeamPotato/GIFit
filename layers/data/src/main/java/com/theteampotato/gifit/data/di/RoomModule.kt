@@ -20,4 +20,3 @@ object RoomModule {
     fun providesSearchResultDao(database: GIFitRoomDatabase) = database.searchResultDao()
 
 }
-

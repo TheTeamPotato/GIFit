@@ -41,7 +41,6 @@ fun <T> LiveData<T>.getOrAwaitValue(
         if (!latch.await(time, timeUnit)) {
             throw TimeoutException("LiveData value was never set.")
         }
-
     } finally {
         // Whatever happens, don't forget to remove the observer!
         this.removeObserver(observer)

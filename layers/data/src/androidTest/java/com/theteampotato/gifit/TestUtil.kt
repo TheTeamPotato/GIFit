@@ -22,14 +22,16 @@ object TestUtil {
             translatedValue = "Merhaba de!",
             searchType = SearchType.SENTENCE,
             showInHistory = false
-        ), SearchResult(
+        ),
+        SearchResult(
             searchString = "Wake up",
             resultGiftUrl = "https://media4.giphy.com/media/f3Fyup5KscPQvfR5sS/giphy.gif?cid=1decc7f7fd9em9bngu7e8rmnspctrjo2pxikswvml123awdk&rid=giphy.gif",
             isFavorite = true,
             translatedValue = "Uyan",
             searchType = SearchType.SENTENCE,
             showInHistory = false
-        ), SearchResult(
+        ),
+        SearchResult(
             searchString = "Dance It",
             resultGiftUrl = "https://media4.giphy.com/media/f3Fyup5KscPQvfR5sS/giphy.gif?cid=1decc7f7fd9em9bngu7e8rmnspctrjo2pxikswvml123awdk&rid=giphy.gif",
             isFavorite = true,
