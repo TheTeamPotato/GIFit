@@ -20,12 +20,12 @@ object KtorModule {
 
     @Singleton
     @Provides
-    fun providesHttpClient() : HttpClient = HttpClient(Android) {
+    fun providesHttpClient(): HttpClient = HttpClient(Android) {
         engine {
             connectTimeout = 100_000
             socketTimeout = 100_000
 
-            //proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", serverPort))
+            // proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", serverPort))
         }
         install(JsonFeature) {
             serializer = KotlinxSerializer(json = kotlinx.serialization.json.Json {

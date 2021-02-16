@@ -18,4 +18,3 @@ class Ktor @Inject constructor(val client: HttpClient) {
     fun close() = client.close()
 
 }
-

@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import timber.log.Timber
 
 @Composable
 fun GIFitBottomNavBar(
@@ -36,5 +37,5 @@ fun GIFitBottomNavBar(
 @Preview
 @Composable
 fun PreviewGIFitBottomNavBar() {
-    GIFitBottomNavBar("Search", { Log.i("Info", "Navigating to $it") }, getScreens())
+    GIFitBottomNavBar("Search", { Timber.d("Navigating to $it") }, getScreens())
 }
