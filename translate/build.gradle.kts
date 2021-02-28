@@ -3,17 +3,20 @@ plugins {
     id(COMMON_MODULE_PLUGIN)
 }
 
-android.buildFeatures.compose = true
-
 dependencies {
-    ACCOMPANIST
     BASE
-    COMPOSE
+    GOOGLE_MLKIT_TRANSLATE
     KOTLIN_STANDARD_LIBRARY
-    MATERIAL_DESIGN
-    SHOWKASE
 
     ANDROID_TEST
     COROUTINES_TEST
     LOCAL_TEST_JUNIT5
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+moduleConfigurations {
+    useJUnitRunner5 = true
 }

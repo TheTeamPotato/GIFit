@@ -7,10 +7,7 @@ import androidx.compose.material.Shapes
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.font.ResourceFont
-import androidx.compose.ui.text.font.fontFamily
+import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -41,17 +38,15 @@ private val colors = Colors(
     isLight = true
 )
 
-private val fontFamily = fontFamily(
-    fonts = listOf(
-        ResourceFont(
-            resId = R.font.roboto_regular,
-            weight = FontWeight.W400,
-            style = FontStyle.Normal
-        ),
-        ResourceFont(
-            resId = R.font.roboto_bold,
-            weight = FontWeight.W700,
-            style = FontStyle.Normal
-        )
+val fontFamily = FontFamily(
+    Font(
+        resId = R.font.roboto_regular,
+        weight = FontWeight.W400,
+        style = FontStyle.Normal
+    ),
+    Font(
+        resId = R.font.roboto_bold,
+        weight = FontWeight.W700,
+        style = FontStyle.Normal
     )
 )

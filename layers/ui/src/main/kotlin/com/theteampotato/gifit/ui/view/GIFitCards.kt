@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.annotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,7 +37,7 @@ fun GIFitSplashCard() {
 
 @Composable
 private fun GIFitLogoText() {
-    val string = annotatedString {
+    val string = buildAnnotatedString {
         val value = "GIFit"
 
         append(value)

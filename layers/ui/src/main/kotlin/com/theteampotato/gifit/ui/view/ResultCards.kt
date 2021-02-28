@@ -47,14 +47,14 @@ private fun FavoriteCardIcon(modifier: Modifier = Modifier) {
 
     Button(
         modifier = modifier.size(35.dp),
-        colors = ButtonConstants.defaultButtonColors(
+        colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.surface,
             contentColor = MaterialTheme.colors.onBackground
         ),
         onClick = { isFavorite.value = !isFavorite.value },
         shape = CircleShape
     ) {
-        Image(modifier = Modifier.size(25.dp), imageVector = imageVector, colorFilter = colorFilter)
+        Image(modifier = Modifier.size(25.dp), contentDescription = null, imageVector = imageVector, colorFilter = colorFilter)
     }
 }
 
@@ -93,6 +93,7 @@ private fun GIFitImage(modifier: Modifier = Modifier, imageURL: String) {
     Card(modifier.fillMaxWidth().height(250.dp)) {
         CoilImage(
             data = imageURL,
+            contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds
         )
