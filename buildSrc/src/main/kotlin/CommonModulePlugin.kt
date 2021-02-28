@@ -106,15 +106,24 @@ class CommonModulePlugin : Plugin<Project> {
             verbose.set(true)
             ignoreFailures.set(true)
             outputToConsole.set(true)
+            disabledRules.set(
+                setOf(
+                    "colon-spacing",
+                    "experimental:multiline-if-else",
+                    "no-blank-line-before-rbrace",
+                    "no-wildcard-imports",
+                    "import-ordering"
+                    )
+            )
+            filter {
+                exclude("**/generated/**")
+                include("**/kotlin/**")
+            }
             reporters {
                 //reporter(ReporterType.PLAIN)
                 //reporter(ReporterType.CHECKSTYLE)
                 reporter(ReporterType.HTML)
                 reporter(ReporterType.JSON)
-            }
-            filter {
-                exclude("**/generated/**")
-                include("**/kotlin/**")
             }
         }
     }

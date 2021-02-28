@@ -71,7 +71,7 @@ private fun ContentCard(modifier: Modifier = Modifier, imageURL: String) {
                 imageURL = imageURL
             )
             Divider(
-                color = Color(209, 209,209),
+                color = Color(209, 209, 209),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = horizontalPaddingInDp)

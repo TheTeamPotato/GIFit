@@ -19,8 +19,7 @@ object BuildScript {
     const val VERSIONS_PLUGIN = "com.github.ben-manes.versions"
 
     const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:$ANDROID_GRADLE_VERSION"
-    const val ANDROID_HILT_GRADLE_PLUGIN =
-        "com.google.dagger:hilt-android-gradle-plugin:$ANDROID_HILT_GRADLE_VERSION"
+    const val ANDROID_HILT_GRADLE_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:$ANDROID_HILT_GRADLE_VERSION"
     const val APP_GALLERY_CONNECT_PLUGIN = "com.huawei.agconnect:agcp:$APP_GALLERY_CONNECT_VERSION"
     const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
 }
@@ -77,6 +76,8 @@ object Libraries {
             "androidx.navigation:navigation-ui-ktx:$NAVIGATION_COMPONENT_VERSION"
         const val LIFECYCLE_EXTENSIONS =
             "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
+        const val LIFECYCLE_EXTENSIONS_LIVEDATA =
+            "androidx.lifecycle:lifecycle-livedata-ktx:$LIFECYCLE_VERSION"
         const val LIFECYCLE_RUNTIME_KTX =
             "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
         const val LIFECYCLE_VIEWMODEL_KTX =
@@ -91,19 +92,14 @@ object Libraries {
         private const val COMPOSE_UI_TOOLING_VERSION = "1.0.0-beta01"
         private const val COMPOSE_VERSION = "1.0.0-beta01"
 
-        const val FOUNDATION =
-            "androidx.compose.foundation:foundation:$COMPOSE_VERSION" // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-        const val MATERIAL =
-            "androidx.compose.material:material:$COMPOSE_VERSION" // Material Design
+        const val FOUNDATION = "androidx.compose.foundation:foundation:$COMPOSE_VERSION" // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+        const val MATERIAL = "androidx.compose.material:material:$COMPOSE_VERSION" // Material Design
         const val UI = "androidx.compose.ui:ui:$COMPOSE_VERSION"
-        const val MATERIAL_ICONS_CORE =
-            "androidx.compose.material:material-icons-core:$COMPOSE_VERSION" // Material design icons
-        const val MATERIAL_ICONS_EXTENDED =
-            "androidx.compose.material:material-icons-extended:$COMPOSE_VERSION"
+        const val MATERIAL_ICONS_CORE = "androidx.compose.material:material-icons-core:$COMPOSE_VERSION" // Material design icons
+        const val MATERIAL_ICONS_EXTENDED = "androidx.compose.material:material-icons-extended:$COMPOSE_VERSION"
         const val NAVIGATION = "androidx.navigation:navigation-compose:$COMPOSE_NAVIGATION_VERSION"
         const val LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
-        const val UI_TOOLING =
-            "androidx.compose.ui:ui-tooling:$COMPOSE_UI_TOOLING_VERSION" // Tooling support (Previews, etc.)
+        const val UI_TOOLING = "androidx.compose.ui:ui-tooling:$COMPOSE_UI_TOOLING_VERSION" // Tooling support (Previews, etc.)
     }
 
     object Google {
@@ -179,10 +175,13 @@ object Libraries {
     }
 
     object Test {
+        private const val HAMCREST_VERSION = "1.3"
         private const val JUNIT_VERSION = "4.13.1"
-        private const val MOCKK_VERSION = "1.10.6"
+        private const val KOTLINX_COROUTINES_VERSION = "1.4.2"
+        private const val MOCKITO_CORE_VERSION = "2.21.0"
         private const val MOCKITO_INLINE_VERSION = "3.3.3"
         private const val MOCKITO_KOTLIN_VERSION = "2.2.0"
+        private const val MOCKK_VERSION = "1.10.6"
         private const val TRUTH_VERSION = "1.1.2"
 
         const val JUNIT = "junit:junit:$JUNIT_VERSION"
@@ -192,11 +191,16 @@ object Libraries {
         const val MOCKITO_KOTLIN =
             "com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_KOTLIN_VERSION"
         const val TRUTH = "com.google.truth:truth:$TRUTH_VERSION"
+        const val MOCKITO_CORE = "org.mockito:mockito-core:$MOCKITO_CORE_VERSION"
+        const val KOTLINX_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLINX_COROUTINES_VERSION"
+        const val HAMCREST = "org.hamcrest:hamcrest-all:$HAMCREST_VERSION"
 
         object AndroidX {
+            private const val ARCH_VERSION = "2.1.0"
             private const val CORE_VERSION = "1.0.0"
             private const val JUNIT_VERSION = "1.1.1"
 
+            const val ARCH = "androidx.arch.core:core-testing:$ARCH_VERSION"
             const val CORE = "androidx.test:core:$CORE_VERSION"
             const val JUNIT_RUNNER = "androidx.test:runner:$JUNIT_VERSION"
             const val JUNIT_RULES = "androidx.test:rules:$JUNIT_VERSION"
@@ -291,6 +295,7 @@ private fun DependencyHandler.base() {
     implementation(Libraries.AndroidX.FRAGMENT_KTX)
     implementation(Libraries.AndroidX.MULTIDEX)
     implementation(Libraries.AndroidX.LIFECYCLE_EXTENSIONS)
+    implementation(Libraries.AndroidX.LIFECYCLE_EXTENSIONS_LIVEDATA)
     implementation(Libraries.AndroidX.LIFECYCLE_RUNTIME_KTX)
     implementation(Libraries.AndroidX.LIFECYCLE_VIEWMODEL_KTX)
 

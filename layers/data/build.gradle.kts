@@ -4,16 +4,23 @@ plugins {
     id(COMMON_MODULE_PLUGIN)
 }
 
+android.packagingOptions {
+    resources.excludes.apply {
+        add("META-INF/AL2.0")
+        add("META-INF/LGPL2.1")
+    }
+}
+
 dependencies {
     BASE
     DAGGER_HILT
     KOTLIN_STANDARD_LIBRARY
     KTOR
     KOTLINX_SERIALIZATION
+    ROOM
 
     ANDROID_TEST
-    COROUTINES_TEST
-    LOCAL_TEST_JUNIT5
+    LOCAL_TEST
 }
 
 kapt {

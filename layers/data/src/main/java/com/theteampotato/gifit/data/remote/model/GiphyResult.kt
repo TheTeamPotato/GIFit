@@ -1,4 +1,4 @@
-package com.theteampotato.gifit.data.model
+package com.theteampotato.gifit.data.remote.model
 
 @kotlinx.serialization.Serializable
 data class GiphyResult(val data: List<GiphyData>)
