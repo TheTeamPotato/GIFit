@@ -28,12 +28,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + parentJob
 
-    @Inject
-    lateinit var service: GiphyService
-
-    @Inject
-    lateinit var translator: GoogleMLKitTranslator
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
