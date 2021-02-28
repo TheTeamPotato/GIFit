@@ -1,6 +1,5 @@
 package com.theteampotato.gifit.ui.view
 
-import android.util.Log
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -20,10 +19,10 @@ fun GIFitBottomNavBar(
     BottomNavigation(backgroundColor = Color.White) {
         items.forEach { screen ->
             BottomNavigationItem(
-                icon = { Icon(screen.icon) },
+                icon = { Icon(screen.icon, contentDescription = null) },
                 label = { Text(stringResource(id = screen.resourceId)) },
                 selected = currentRoute == screen.route,
-                alwaysShowLabels = true,
+                alwaysShowLabel = true,
                 selectedContentColor = Color.Black,
                 unselectedContentColor = Color.Gray,
                 onClick = {

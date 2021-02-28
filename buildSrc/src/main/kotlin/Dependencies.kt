@@ -10,7 +10,7 @@ object BuildScript {
     private const val ANDROID_GRADLE_VERSION = "7.0.0-alpha05"
     private const val ANDROID_HILT_GRADLE_VERSION = "2.31.2-alpha"
     private const val APP_GALLERY_CONNECT_VERSION = "1.4.2.301"
-    private const val KOTLIN_VERSION = "1.4.30"
+    private const val KOTLIN_VERSION = "1.4.31"
 
     const val KTLINT_PLUGIN_VERSION = "9.4.1"
     const val VERSIONS_PLUGIN_VERSION = "0.36.0"
@@ -39,7 +39,7 @@ object Modules {
 }
 
 object Libraries {
-    private const val ACCOMPANIST_VERSION = "0.4.0"
+    private const val ACCOMPANIST_VERSION = "0.6.1"
     private const val MATERIAL_DESIGN_VERSION = "1.3.0-rc01"
     private const val PERMISSION_DISPATCHER_VERSION = "4.8.0"
     private const val SHOWKASE_VERSION = "1.0.0-alpha03"
@@ -65,6 +65,7 @@ object Libraries {
         private const val LIFECYCLE_VERSION = "2.2.0"
         private const val ROOM_VERSION = "2.3.0-beta01"
 
+        const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:1.3.0-alpha03"
         const val APPCOMPAT = "androidx.appcompat:appcompat:$APPCOMPAT_VERSION"
         const val CORE = "androidx.core:core:$CORE_VERSION"
         const val CORE_KTX = "androidx.core:core-ktx:$CORE_VERSION"
@@ -92,14 +93,20 @@ object Libraries {
         private const val COMPOSE_UI_TOOLING_VERSION = "1.0.0-beta01"
         private const val COMPOSE_VERSION = "1.0.0-beta01"
 
+        const val ANIMATION = "androidx.compose.animation:animation:$COMPOSE_VERSION"
         const val FOUNDATION = "androidx.compose.foundation:foundation:$COMPOSE_VERSION" // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+        const val FOUNDATION_LAYOUT = "androidx.compose.foundation:foundation-layout:$COMPOSE_VERSION"
         const val MATERIAL = "androidx.compose.material:material:$COMPOSE_VERSION" // Material Design
-        const val UI = "androidx.compose.ui:ui:$COMPOSE_VERSION"
         const val MATERIAL_ICONS_CORE = "androidx.compose.material:material-icons-core:$COMPOSE_VERSION" // Material design icons
         const val MATERIAL_ICONS_EXTENDED = "androidx.compose.material:material-icons-extended:$COMPOSE_VERSION"
         const val NAVIGATION = "androidx.navigation:navigation-compose:$COMPOSE_NAVIGATION_VERSION"
-        const val LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
+        const val RUNTIME = "androidx.compose.runtime:runtime:$COMPOSE_VERSION"
+        const val RUNTIME_LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
+        const val UI = "androidx.compose.ui:ui:$COMPOSE_VERSION"
         const val UI_TOOLING = "androidx.compose.ui:ui-tooling:$COMPOSE_UI_TOOLING_VERSION" // Tooling support (Previews, etc.)
+
+        //const val layout = "androidx.compose.foundation:foundation-layout:$version"
+        //const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
     }
 
     object Google {
@@ -125,7 +132,7 @@ object Libraries {
     }
 
     object Kotlin {
-        private const val VERSION = "1.4.30"
+        private const val VERSION = "1.4.31"
 
         const val STANDARD_LIB = "org.jetbrains.kotlin:kotlin-stdlib:$VERSION"
 
@@ -289,6 +296,7 @@ private fun DependencyHandler.accompanist() {
 }
 
 private fun DependencyHandler.base() {
+    implementation(Libraries.AndroidX.ACTIVITY_COMPOSE)
     implementation(Libraries.AndroidX.APPCOMPAT)
     implementation(Libraries.AndroidX.CORE)
     implementation(Libraries.AndroidX.CORE_KTX)
@@ -303,12 +311,15 @@ private fun DependencyHandler.base() {
 }
 
 private fun DependencyHandler.compose() {
-    implementation(Libraries.Compose.UI)
+    implementation(Libraries.Compose.ANIMATION)
     implementation(Libraries.Compose.FOUNDATION)
+    implementation(Libraries.Compose.FOUNDATION_LAYOUT)
     implementation(Libraries.Compose.MATERIAL)
     implementation(Libraries.Compose.MATERIAL_ICONS_CORE)
     implementation(Libraries.Compose.MATERIAL_ICONS_EXTENDED)
-    implementation(Libraries.Compose.LIVEDATA)
+    implementation(Libraries.Compose.RUNTIME)
+    implementation(Libraries.Compose.RUNTIME_LIVEDATA)
+    implementation(Libraries.Compose.UI)
     implementation(Libraries.Compose.UI_TOOLING)
 }
 

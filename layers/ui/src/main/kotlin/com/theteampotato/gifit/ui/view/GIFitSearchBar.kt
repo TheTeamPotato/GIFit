@@ -4,10 +4,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
@@ -30,30 +29,35 @@ fun GIFitSearchBar(
         val inputValue = remember {
             mutableStateOf(searchQuery)
         }
+
         TextField(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             value = inputValue.value,
             onValueChange = {
                 inputValue.value = it
                 onSearchQueryChanged(it)
             },
             leadingIcon = {
-                Icon(Icons.Filled.Search)
+                Icon(imageVector = Icons.Filled.Search, contentDescription = null)
             },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done,
             ),
-            onImeActionPerformed = { action, softKeyboardController ->
+            keyboardActions = KeyboardActions {
+
+            },
+            /*onImeActionPerformed = { action, softKeyboardController ->
                 if (action == ImeAction.Done) {
                     softKeyboardController?.hideSoftwareKeyboard()
                 }
-            },
+            },*/
             placeholder = { Text(text = placeholderText) },
-            activeColor = Color.Transparent,
-            inactiveColor = Color.Gray,
-            backgroundColor = Color.White,
+            colors = TextFieldDefaults.textFieldColors(
+                textColor = Color.Transparent,
+                disabledTextColor = Color.Gray,
+                backgroundColor = Color.White
+            ),
             shape = RoundedCornerShape(20.dp)
         )
     }

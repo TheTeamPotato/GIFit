@@ -4,7 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonConstants
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -30,14 +30,18 @@ fun ListenableInfoTip(modifier: Modifier = Modifier, origin: String, translated:
         Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
             Button(
                 modifier = Modifier.size(sizeInDp),
-                colors = ButtonConstants.defaultButtonColors(
+                colors = ButtonDefaults.buttonColors(
                     backgroundColor = MaterialTheme.colors.background,
                     contentColor = MaterialTheme.colors.onBackground
                 ),
                 onClick = {},
                 shape = CircleShape
             ) {
-                Image(modifier = Modifier.size(sizeInDp).padding(5.dp), imageVector = Icons.Rounded.VolumeUp)
+                Image(
+                    modifier = Modifier.size(sizeInDp).padding(5.dp),
+                    contentDescription = null,
+                    imageVector = Icons.Rounded.VolumeUp
+                )
             }
             Column {
                 Text(text = origin, fontSize = 21.sp)
