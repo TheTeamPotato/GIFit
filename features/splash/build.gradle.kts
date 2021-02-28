@@ -15,8 +15,16 @@ dependencies {
     DAGGER_HILT
     KOTLIN_STANDARD_LIBRARY
     MATERIAL_DESIGN
+
+    ANDROID_TEST
+    COROUTINES_TEST
+    LOCAL_TEST_JUNIT5
 }
 
 kapt {
     correctErrorTypes = true
+}
+
+moduleConfigurations {
+    useJUnitRunner5 = true
 }

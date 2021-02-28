@@ -1,8 +1,8 @@
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
-import org.gradle.api.Action
 
+import org.gradle.api.Action
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -24,12 +24,13 @@ class CommonModulePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         moduleName = project.name
 
-        println("Module name is $moduleName")
+        printModuleASCIIArt(moduleName)
 
         project.plugins.apply {
             apply("kotlin-android")
             apply("kotlin-kapt")
             apply("kotlin-parcelize")
+            //apply(BuildScript.JUNIT5_PLUGIN)
             apply(BuildScript.KTLINT_PLUGIN)
 
             if (moduleName == "data")
@@ -38,16 +39,42 @@ class CommonModulePlugin : Plugin<Project> {
 
         project.applyKtLintConfigurations()
 
-        val androidExtension = project.extensions.getByName("android")
-        if (androidExtension is BaseExtension) {
-            androidExtension.applyAndroidConfigurations()
-            androidExtension.applyProguardConfigurations()
+        val androidExtension = project.extensions.getByName("android") as? BaseExtension ?: return
 
-            if (isApplicationModule)
-                androidExtension.enableJava11(project)
-            else
-                androidExtension.enableJava8(project)
-        }
+        project.applyModuleConfigurations(androidExtension)
+
+        androidExtension.applyAndroidConfigurations()
+        androidExtension.applyProguardConfigurations()
+
+        if (isApplicationModule)
+            androidExtension.enableJava11(project)
+        else
+            androidExtension.enableJava8(project)
+
+    }
+
+    private fun printModuleASCIIArt(moduleName: String) {
+        println(
+            """
+              _
+             | |
+             | |===( )   //////
+             |_|   |||  | o o|
+                    ||| (  > )                  ____
+                     ||| \= /                  ||   \_
+                      ||||||                   ||     |
+                      ||||||                ...||__/|-"
+                      ||||||             __|________|__
+                        |||             |______________|
+                        |||             || ||      || ||
+                        |||             || ||      || ||
+------------------------|||-------------||-||------||-||-------
+                        |__>            || ||      || ||
+
+
+                    Building $moduleName module...
+            """
+        )
     }
 
     private fun Project.applyKtLintConfigurations() {
@@ -92,6 +119,29 @@ class CommonModulePlugin : Plugin<Project> {
         }
     }
 
+    private fun Project.applyModuleConfigurations(androidExtension: BaseExtension) {
+        val modulePluginExtension = project.extensions.create(
+            "moduleConfigurations",
+            CommonModulePluginExtension::class
+        )
+
+        project.afterEvaluate {
+            println("useJUnitRunner5 is ${modulePluginExtension.useJUnitRunner5}")
+
+            with(modulePluginExtension) {
+                if (useJUnitRunner5) {
+                    with(androidExtension) {
+                        project.plugins.apply(BuildScript.JUNIT5_PLUGIN)
+                        defaultConfig.testInstrumentationRunnerArgument(
+                            "runnerBuilder",
+                            "de.mannodermaus.junit5.AndroidJUnit5Builder"
+                        )
+                    }
+                }
+            }
+        }
+    }
+
     private fun BaseExtension.applyAndroidConfigurations() {
         buildToolsVersion(AppConfig.BUILD_TOOLS_VERSION)
         compileSdkVersion(AppConfig.COMPILE_SDK)
@@ -106,6 +156,7 @@ class CommonModulePlugin : Plugin<Project> {
             targetSdkVersion(AppConfig.TARGET_SDK)
 
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+            //testInstrumentationRunnerArgument("runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder")
         }
 
         if (isApplicationModule) {
@@ -134,9 +185,32 @@ class CommonModulePlugin : Plugin<Project> {
                 resources.srcDir("src/androidTest/res")
             }
         }
+
+        packagingOptions {
+            resources.excludes.apply {
+                add("META-INF/LICENSE*")
+                add("META-INF/AL2.0")
+                add("META-INF/LGPL2.1")
+            }
+
+            /*pickFirst("META-INF/DEPENDENCIES")
+            pickFirst("META-INF/ASL2.0")*/
+
+            //exclude("META-INF/DEPENDENCIES")
+            /*exclude("META-INF/LICENSE")
+            exclude("META-INF/LICENSE.txt")
+            exclude("META-INF/license.txt")
+            exclude("META-INF/NOTICE")
+            exclude("META-INF/NOTICE.txt")
+            exclude("META-INF/notice.txt")*/
+            //exclude("META-INF/ASL2.0")
+            //exclude("META-INF/*.kotlin_module")
+        }
     }
 
     private fun BaseExtension.applyProguardConfigurations() {
+        println("ProguardConfigurations are applying...")
+
         val proguardFile = "proguard-rules.pro"
 
         when (this) {

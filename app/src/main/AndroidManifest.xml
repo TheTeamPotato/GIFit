@@ -17,6 +17,7 @@
         </activity>
     </application>
 
+    <!--TODO: Move this permission to `data` module-->
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

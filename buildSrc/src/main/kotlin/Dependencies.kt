@@ -14,18 +14,19 @@ object BuildScript {
 
     const val KTLINT_PLUGIN_VERSION = "9.4.1"
     const val VERSIONS_PLUGIN_VERSION = "0.36.0"
+    const val JUNIT5_PLUGIN = "de.mannodermaus.android-junit5"
     const val KTLINT_PLUGIN = "org.jlleitschuh.gradle.ktlint"
     const val VERSIONS_PLUGIN = "com.github.ben-manes.versions"
 
     const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:$ANDROID_GRADLE_VERSION"
-    const val ANDROID_HILT_GRADLE_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:$ANDROID_HILT_GRADLE_VERSION"
+    const val ANDROID_HILT_GRADLE_PLUGIN =
+        "com.google.dagger:hilt-android-gradle-plugin:$ANDROID_HILT_GRADLE_VERSION"
     const val APP_GALLERY_CONNECT_PLUGIN = "com.huawei.agconnect:agcp:$APP_GALLERY_CONNECT_VERSION"
     const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
 }
 
 object Modules {
-    const val DATA_ANDROID = ":data-android"
-    const val BASE = ":base"
+    const val TRANSLATE = ":translate"
 
     object Features {
         const val SPLASH = ":features:splash"
@@ -48,8 +49,10 @@ object Libraries {
     const val ACCOMPANIST_COIL = "dev.chrisbanes.accompanist:accompanist-coil:$ACCOMPANIST_VERSION"
     const val COIL_GIF = "io.coil-kt:coil-gif:1.1.1"
     const val MATERIAL_DESIGN = "com.google.android.material:material:$MATERIAL_DESIGN_VERSION"
-    const val PERMISSION_DISPATCHER = "org.permissionsdispatcher:permissionsdispatcher:$PERMISSION_DISPATCHER_VERSION"
-    const val PERMISSION_DISPATCHER_PROCESSOR = "org.permissionsdispatcher:permissionsdispatcher-processor:$PERMISSION_DISPATCHER_VERSION"
+    const val PERMISSION_DISPATCHER =
+        "org.permissionsdispatcher:permissionsdispatcher:$PERMISSION_DISPATCHER_VERSION"
+    const val PERMISSION_DISPATCHER_PROCESSOR =
+        "org.permissionsdispatcher:permissionsdispatcher-processor:$PERMISSION_DISPATCHER_VERSION"
     const val SHOWKASE = "com.airbnb.android:showkase:$SHOWKASE_VERSION"
     const val SHOWKASE_COMPILER = "com.airbnb.android:showkase-processor:$SHOWKASE_VERSION"
     const val TIMBER = "com.jakewharton.timber:timber:$TIMBER_VERSION"
@@ -68,11 +71,16 @@ object Libraries {
         const val CORE_KTX = "androidx.core:core-ktx:$CORE_VERSION"
         const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:$FRAGMENT_KTX_VERSION"
         const val MULTIDEX = "androidx.multidex:multidex:$MULTIDEX_VERSION"
-        const val NAVIGATION_COMPONENT = "androidx.navigation:navigation-fragment-ktx:$NAVIGATION_COMPONENT_VERSION"
-        const val NAVIGATION_COMPONENT_UI = "androidx.navigation:navigation-ui-ktx:$NAVIGATION_COMPONENT_VERSION"
-        const val LIFECYCLE_EXTENSIONS = "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
-        const val LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
-        const val LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
+        const val NAVIGATION_COMPONENT =
+            "androidx.navigation:navigation-fragment-ktx:$NAVIGATION_COMPONENT_VERSION"
+        const val NAVIGATION_COMPONENT_UI =
+            "androidx.navigation:navigation-ui-ktx:$NAVIGATION_COMPONENT_VERSION"
+        const val LIFECYCLE_EXTENSIONS =
+            "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
+        const val LIFECYCLE_RUNTIME_KTX =
+            "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
+        const val LIFECYCLE_VIEWMODEL_KTX =
+            "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
         const val ROOM = "androidx.room:room-runtime:$ROOM_VERSION"
         const val ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
         const val ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"
@@ -83,20 +91,27 @@ object Libraries {
         private const val COMPOSE_UI_TOOLING_VERSION = "1.0.0-alpha08"
         private const val COMPOSE_VERSION = "1.0.0-alpha08"
 
-        const val FOUNDATION = "androidx.compose.foundation:foundation:$COMPOSE_VERSION" // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-        const val MATERIAL = "androidx.compose.material:material:$COMPOSE_VERSION" // Material Design
+        const val FOUNDATION =
+            "androidx.compose.foundation:foundation:$COMPOSE_VERSION" // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+        const val MATERIAL =
+            "androidx.compose.material:material:$COMPOSE_VERSION" // Material Design
         const val UI = "androidx.compose.ui:ui:$COMPOSE_VERSION"
-        const val MATERIAL_ICONS_CORE = "androidx.compose.material:material-icons-core:$COMPOSE_VERSION" // Material design icons
-        const val MATERIAL_ICONS_EXTENDED = "androidx.compose.material:material-icons-extended:$COMPOSE_VERSION"
+        const val MATERIAL_ICONS_CORE =
+            "androidx.compose.material:material-icons-core:$COMPOSE_VERSION" // Material design icons
+        const val MATERIAL_ICONS_EXTENDED =
+            "androidx.compose.material:material-icons-extended:$COMPOSE_VERSION"
         const val NAVIGATION = "androidx.navigation:navigation-compose:$COMPOSE_NAVIGATION_VERSION"
         const val LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
-        const val UI_TOOLING = "androidx.compose.ui:ui-tooling:$COMPOSE_UI_TOOLING_VERSION" // Tooling support (Previews, etc.)
+        const val UI_TOOLING =
+            "androidx.compose.ui:ui-tooling:$COMPOSE_UI_TOOLING_VERSION" // Tooling support (Previews, etc.)
     }
 
-    object Coroutines {
-        private const val COROUTINES_ANDROID_VERSION = "1.4.2"
+    object Google {
+        object MLKit {
+            private const val TRANSLATE_VERSION = "16.1.1"
 
-        const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_ANDROID_VERSION"
+            const val TRANSLATE = "com.google.mlkit:translate:$TRANSLATE_VERSION"
+        }
     }
 
     object HMS {
@@ -105,15 +120,30 @@ object Libraries {
 
         const val HWID = "com.huawei.hms:hwid:$HWID_VERSION"
         const val TEXT_RECOGNITION = "com.huawei.hms:ml-computer-vision-ocr:$OCR_VERSION"
-        const val TEXT_RECOGNITION_LATIN = "com.huawei.hms:ml-computer-vision-ocr-latin-model:$OCR_VERSION"
-        const val TEXT_RECOGNITION_CHINESE_ENGLISH = "com.huawei.hms:ml-computer-vision-ocr-cn-model:$OCR_VERSION"
-        const val TEXT_RECOGNITION_JAPANESE_KOREAN = "com.huawei.hms:ml-computer-vision-ocr-jk-model:$OCR_VERSION"
+        const val TEXT_RECOGNITION_LATIN =
+            "com.huawei.hms:ml-computer-vision-ocr-latin-model:$OCR_VERSION"
+        const val TEXT_RECOGNITION_CHINESE_ENGLISH =
+            "com.huawei.hms:ml-computer-vision-ocr-cn-model:$OCR_VERSION"
+        const val TEXT_RECOGNITION_JAPANESE_KOREAN =
+            "com.huawei.hms:ml-computer-vision-ocr-jk-model:$OCR_VERSION"
     }
 
     object Kotlin {
         private const val VERSION = "1.4.30"
 
         const val STANDARD_LIB = "org.jetbrains.kotlin:kotlin-stdlib:$VERSION"
+
+        object Coroutines {
+            private const val COROUTINES_ANDROID_VERSION = "1.4.2"
+
+            const val COROUTINES_ANDROID =
+                "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_ANDROID_VERSION"
+
+            object Test {
+                const val TEST =
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_ANDROID_VERSION"
+            }
+        }
     }
 
     object Ktor {
@@ -128,7 +158,8 @@ object Libraries {
     object KotlinxSerialization {
         private const val KOTLINX_SERIALIZATION_JSON_VERSION = "1.0.1"
 
-        const val KOTLINX_SERIALIZATION_JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:$KOTLINX_SERIALIZATION_JSON_VERSION"
+        const val KOTLINX_SERIALIZATION_JSON =
+            "org.jetbrains.kotlinx:kotlinx-serialization-json:$KOTLINX_SERIALIZATION_JSON_VERSION"
     }
 
     object Hilt {
@@ -138,24 +169,33 @@ object Libraries {
 
         const val HILT_ANDROID = "com.google.dagger:hilt-android:$HILT_VERSION"
         const val HILT_ANDROID_COMPILER = "com.google.dagger:hilt-android-compiler:$HILT_VERSION"
-        const val HILT_LIFECYCLE_VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:$HILT_LIFECYCLE_VIEWMODEL_VERSION"
+        const val HILT_LIFECYCLE_VIEWMODEL =
+            "androidx.hilt:hilt-lifecycle-viewmodel:$HILT_LIFECYCLE_VIEWMODEL_VERSION"
         const val HILT_COMPILER = "androidx.hilt:hilt-compiler:$HILT_COMPILER_VERSION"
+
+        object Test {
+            const val TESTING = "com.google.dagger:hilt-android-testing:$HILT_VERSION"
+        }
     }
 
     object Test {
         private const val JUNIT_VERSION = "4.13.1"
+        private const val MOCKK_VERSION = "1.10.6"
         private const val MOCKITO_INLINE_VERSION = "3.3.3"
         private const val MOCKITO_KOTLIN_VERSION = "2.2.0"
         private const val TRUTH_VERSION = "1.1.2"
 
         const val JUNIT = "junit:junit:$JUNIT_VERSION"
+        const val MOCKK = "io.mockk:mockk:$MOCKK_VERSION"
+        const val MOCKK_ANDROID = "io.mockk:mockk-android:$MOCKK_VERSION"
         const val MOCKITO_INLINE = "org.mockito:mockito-inline:$MOCKITO_INLINE_VERSION"
-        const val MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_KOTLIN_VERSION"
+        const val MOCKITO_KOTLIN =
+            "com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_KOTLIN_VERSION"
         const val TRUTH = "com.google.truth:truth:$TRUTH_VERSION"
 
         object AndroidX {
             private const val CORE_VERSION = "1.0.0"
-            private const val JUNIT_VERSION = "1.1.0"
+            private const val JUNIT_VERSION = "1.1.1"
 
             const val CORE = "androidx.test:core:$CORE_VERSION"
             const val JUNIT_RUNNER = "androidx.test:runner:$JUNIT_VERSION"
@@ -164,11 +204,16 @@ object Libraries {
 
         object UI {
             private const val COMPOSE_UI_TEST_JUNIT4_VERSION = "1.0.0-alpha10"
-            const val COMPOSE_UI_TEST_JUNIT4 = "androidx.compose.ui:ui-test-junit4:$COMPOSE_UI_TEST_JUNIT4_VERSION"
+            const val COMPOSE_UI_TEST_JUNIT4 =
+                "androidx.compose.ui:ui-test-junit4:$COMPOSE_UI_TEST_JUNIT4_VERSION"
         }
     }
 
 }
+
+// Internal Libraries
+val DependencyHandler.TRANSLATE
+    get() = implementation(project(Modules.TRANSLATE))
 
 // Modules
 val DependencyHandler.FEATURE_SPLASH
@@ -191,8 +236,14 @@ val DependencyHandler.BASE
 val DependencyHandler.COMPOSE
     get() = compose()
 
+val DependencyHandler.COROUTINES
+    get() = coroutines()
+
 val DependencyHandler.DAGGER_HILT
     get() = hilt()
+
+val DependencyHandler.GOOGLE_MLKIT_TRANSLATE
+    get() = implementation(Libraries.Google.MLKit.TRANSLATE)
 
 val DependencyHandler.KOTLIN_STANDARD_LIBRARY
     get() = implementation(Libraries.Kotlin.STANDARD_LIB)
@@ -206,8 +257,27 @@ val DependencyHandler.KOTLINX_SERIALIZATION
 val DependencyHandler.MATERIAL_DESIGN
     get() = implementation(Libraries.MATERIAL_DESIGN)
 
+val DependencyHandler.ROOM
+    get() = room()
+
 val DependencyHandler.SHOWKASE
     get() = showkase()
+
+// Test
+val DependencyHandler.ANDROID_TEST
+    get() = androidInstrumentationTest(useJUnit5 = true)
+
+val DependencyHandler.COROUTINES_TEST
+    get() = coroutinesTest()
+
+val DependencyHandler.LOCAL_TEST
+    get() = test(useJUnit5 = false)
+
+val DependencyHandler.LOCAL_TEST_JUNIT5
+    get() = test(useJUnit5 = true)
+
+val DependencyHandler.HILT_TEST
+    get() = hiltTest()
 
 private fun DependencyHandler.accompanist() {
     implementation(Libraries.ACCOMPANIST_COIL)
@@ -237,6 +307,10 @@ private fun DependencyHandler.compose() {
     implementation(Libraries.Compose.UI_TOOLING)
 }
 
+private fun DependencyHandler.coroutines() {
+    implementation(Libraries.Kotlin.Coroutines.COROUTINES_ANDROID)
+}
+
 private fun DependencyHandler.hilt() {
     implementation(Libraries.Hilt.HILT_ANDROID)
     implementation(Libraries.Hilt.HILT_LIFECYCLE_VIEWMODEL)
@@ -257,6 +331,49 @@ private fun DependencyHandler.kotlinxSerialization() {
     implementation(Libraries.KotlinxSerialization.KOTLINX_SERIALIZATION_JSON)
 }
 
+private fun DependencyHandler.test(useJUnit5: Boolean) {
+    if (useJUnit5) {
+        testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
+        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.2")
+        testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.3.2")
+    } else {
+        testImplementation(Libraries.Test.JUNIT)
+    }
+
+    testImplementation(Libraries.Test.MOCKK)
+    testImplementation(Libraries.Test.TRUTH)
+}
+
+private fun DependencyHandler.androidInstrumentationTest(useJUnit5: Boolean) {
+    if (useJUnit5) {
+        androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.4.1")
+        androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.0.0")
+        androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.0.0")
+    }
+
+    androidTestImplementation(Libraries.Test.AndroidX.CORE)
+    androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
+    androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
+    androidTestImplementation(Libraries.Test.MOCKK_ANDROID)
+    androidTestImplementation(Libraries.Test.TRUTH)
+}
+
+private fun DependencyHandler.coroutinesTest() {
+    androidTestImplementation(Libraries.Kotlin.Coroutines.Test.TEST)
+}
+
+private fun DependencyHandler.hiltTest() {
+    androidTestImplementation(Libraries.Hilt.Test.TESTING)
+    kaptAndroidTest(Libraries.Hilt.HILT_ANDROID_COMPILER)
+}
+
+private fun DependencyHandler.room() {
+    implementation(Libraries.AndroidX.ROOM)
+    implementation(Libraries.AndroidX.ROOM_KTX)
+    kapt(Libraries.AndroidX.ROOM_COMPILER)
+}
+
 private fun DependencyHandler.showkase() {
     implementation(Libraries.SHOWKASE)
     kapt(Libraries.SHOWKASE_COMPILER)
@@ -264,6 +381,26 @@ private fun DependencyHandler.showkase() {
 
 private fun DependencyHandler.implementation(depName: Any) {
     add("implementation", depName)
+}
+
+private fun DependencyHandler.testImplementation(depName: Any) {
+    add("testImplementation", depName)
+}
+
+private fun DependencyHandler.androidTestImplementation(depName: Any) {
+    add("androidTestImplementation", depName)
+}
+
+private fun DependencyHandler.androidTestRuntimeOnly(depName: Any) {
+    add("androidTestRuntimeOnly", depName)
+}
+
+private fun DependencyHandler.testRuntimeOnly(depName: Any) {
+    add("testRuntimeOnly", depName)
+}
+
+private fun DependencyHandler.kaptAndroidTest(depName: Any) {
+    add("kaptAndroidTest ", depName)
 }
 
 private fun DependencyHandler.kapt(depName: String) {
