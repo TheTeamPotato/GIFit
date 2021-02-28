@@ -88,8 +88,8 @@ object Libraries {
 
     object Compose {
         private const val COMPOSE_NAVIGATION_VERSION = "1.0.0-alpha03"
-        private const val COMPOSE_UI_TOOLING_VERSION = "1.0.0-alpha08"
-        private const val COMPOSE_VERSION = "1.0.0-alpha08"
+        private const val COMPOSE_UI_TOOLING_VERSION = "1.0.0-beta01"
+        private const val COMPOSE_VERSION = "1.0.0-beta01"
 
         const val FOUNDATION =
             "androidx.compose.foundation:foundation:$COMPOSE_VERSION" // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
