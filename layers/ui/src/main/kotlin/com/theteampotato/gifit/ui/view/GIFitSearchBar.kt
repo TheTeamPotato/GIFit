@@ -21,20 +21,20 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun GIFitSearchBar(
+    modifier: Modifier = Modifier,
     searchQuery: String,
     onSearchQueryChanged: (String) -> Unit,
     placeholderText: String = "Search..."
 ) {
-    Row(modifier = Modifier.fillMaxHeight()) {
-        val inputValue = remember {
+    Row(modifier = modifier) {
+        /*val inputValue = remember {
             mutableStateOf(searchQuery)
-        }
+        }*/
 
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            value = inputValue.value,
+            value = searchQuery,
             onValueChange = {
-                inputValue.value = it
                 onSearchQueryChanged(it)
             },
             leadingIcon = {
@@ -54,7 +54,7 @@ fun GIFitSearchBar(
             },*/
             placeholder = { Text(text = placeholderText) },
             colors = TextFieldDefaults.textFieldColors(
-                textColor = Color.Transparent,
+                textColor = Color.Black,
                 disabledTextColor = Color.Gray,
                 backgroundColor = Color.White
             ),
@@ -66,5 +66,5 @@ fun GIFitSearchBar(
 @Composable
 @Preview
 fun PreviewGIFitSearchBar() {
-    GIFitSearchBar(searchQuery = "Ask Me Anything", {})
+    GIFitSearchBar(searchQuery = "Ask Me Anything", onSearchQueryChanged = {})
 }

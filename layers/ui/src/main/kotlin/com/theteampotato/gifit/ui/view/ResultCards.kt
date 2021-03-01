@@ -17,16 +17,13 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.theteampotato.gifit.ui.NetworkImage
 
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun ResultCard(imageURL: String) {
-    Box(
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp)
-    ) {
+fun ResultCard(modifier: Modifier = Modifier, imageURL: String) {
+    Box(modifier.fillMaxWidth()) {
         Box(
             Modifier
                 .fillMaxWidth()
@@ -42,11 +39,12 @@ fun ResultCard(imageURL: String) {
 private fun FavoriteCardIcon(modifier: Modifier = Modifier) {
     val isFavorite = remember { mutableStateOf(false) }
 
-    val imageVector = if (isFavorite.value) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder
+    val imageVector =
+        if (isFavorite.value) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder
     val colorFilter = if (isFavorite.value) ColorFilter.tint(Color.Red) else null
 
     Button(
-        modifier = modifier.size(35.dp),
+        modifier = modifier.requiredSize(35.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.surface,
             contentColor = MaterialTheme.colors.onBackground
@@ -54,7 +52,12 @@ private fun FavoriteCardIcon(modifier: Modifier = Modifier) {
         onClick = { isFavorite.value = !isFavorite.value },
         shape = CircleShape
     ) {
-        Image(modifier = Modifier.size(25.dp), contentDescription = null, imageVector = imageVector, colorFilter = colorFilter)
+        Image(
+            modifier = Modifier.requiredSize(25.dp),
+            contentDescription = null,
+            imageVector = imageVector,
+            colorFilter = colorFilter
+        )
     }
 }
 
@@ -90,12 +93,12 @@ private fun ContentCard(modifier: Modifier = Modifier, imageURL: String) {
 
 @Composable
 private fun GIFitImage(modifier: Modifier = Modifier, imageURL: String) {
-    Card(modifier.fillMaxWidth().height(250.dp)) {
+    Card(modifier.fillMaxWidth().requiredHeight(220.dp)) {
         CoilImage(
             data = imageURL,
             contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize()
         )
     }
 }

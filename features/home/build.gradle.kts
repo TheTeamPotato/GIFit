@@ -1,5 +1,5 @@
 plugins {
-    id(ANDROID_APPLICATION)
+    id(ANDROID_LIBRARY)
     id(DAGGER_HILT_ANDROID_PLUGIN)
     id(COMMON_MODULE_PLUGIN)
 }
@@ -7,16 +7,14 @@ plugins {
 android.buildFeatures.compose = true
 
 dependencies {
-    TRANSLATE
-    FEATURE_HOME
-    FEATURE_SPLASH
-    LAYER_DATA
     LAYER_UI
 
+    ACCOMPANIST
     BASE
     COMPOSE
     DAGGER_HILT
     KOTLIN_STANDARD_LIBRARY
+    MATERIAL_DESIGN
 
     ANDROID_TEST
     COROUTINES_TEST

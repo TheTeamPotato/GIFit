@@ -17,9 +17,10 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun GIFitSplashCard() {
-    Card(modifier = Modifier
-        .width(180.dp)
-        .height(215.dp)
+    Card(
+        modifier = Modifier
+            .requiredWidth(180.dp)
+            .requiredHeight(215.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -29,7 +30,8 @@ fun GIFitSplashCard() {
             Divider(
                 Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 12.dp, horizontal = 28.dp))
+                    .padding(vertical = 12.dp, horizontal = 28.dp)
+            )
             InfoTip(origin = "Sentence", translated = "Cümle")
         }
     }
@@ -41,8 +43,18 @@ private fun GIFitLogoText() {
         val value = "GIFit"
 
         append(value)
-        addStyle(style = SpanStyle(color = MaterialTheme.colors.onSurface, fontSize = 48.sp, fontWeight = FontWeight.Bold), start = 0, end = 3)
-        addStyle(style = SpanStyle(fontSize = 48.sp, color = MaterialTheme.colors.onSurface), start = 3, end = value.length)
+        addStyle(
+            style = SpanStyle(
+                color = MaterialTheme.colors.onSurface,
+                fontSize = 48.sp,
+                fontWeight = FontWeight.Bold
+            ), start = 0, end = 3
+        )
+        addStyle(
+            style = SpanStyle(fontSize = 48.sp, color = MaterialTheme.colors.onSurface),
+            start = 3,
+            end = value.length
+        )
     }
 
     Text(text = string)

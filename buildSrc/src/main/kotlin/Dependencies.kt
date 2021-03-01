@@ -29,6 +29,7 @@ object Modules {
 
     object Features {
         const val SPLASH = ":features:splash"
+        const val HOME = ":features:home"
     }
 
     object Layers {
@@ -229,6 +230,9 @@ val DependencyHandler.TRANSLATE
 // Modules
 val DependencyHandler.FEATURE_SPLASH
     get() = implementation(project(Modules.Features.SPLASH))
+
+val DependencyHandler.FEATURE_HOME
+    get() = implementation(project(Modules.Features.HOME))
 
 // Layers
 val DependencyHandler.LAYER_DATA

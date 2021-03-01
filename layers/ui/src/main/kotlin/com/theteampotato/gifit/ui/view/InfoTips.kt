@@ -11,6 +11,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.VolumeUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -29,7 +31,7 @@ fun ListenableInfoTip(modifier: Modifier = Modifier, origin: String, translated:
     Column(modifier) {
         Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
             Button(
-                modifier = Modifier.size(sizeInDp),
+                modifier = Modifier.requiredSize(sizeInDp),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = MaterialTheme.colors.background,
                     contentColor = MaterialTheme.colors.onBackground
@@ -38,7 +40,7 @@ fun ListenableInfoTip(modifier: Modifier = Modifier, origin: String, translated:
                 shape = CircleShape
             ) {
                 Image(
-                    modifier = Modifier.size(sizeInDp).padding(5.dp),
+                    modifier = Modifier.requiredSize(sizeInDp).padding(5.dp),
                     contentDescription = null,
                     imageVector = Icons.Rounded.VolumeUp
                 )
