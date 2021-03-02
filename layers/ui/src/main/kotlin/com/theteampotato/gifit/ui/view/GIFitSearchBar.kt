@@ -47,16 +47,14 @@ fun GIFitSearchBar(
             keyboardActions = KeyboardActions {
 
             },
-            /*onImeActionPerformed = { action, softKeyboardController ->
-                if (action == ImeAction.Done) {
-                    softKeyboardController?.hideSoftwareKeyboard()
-                }
-            },*/
             placeholder = { Text(text = placeholderText) },
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Color.Black,
                 disabledTextColor = Color.Gray,
-                backgroundColor = Color.White
+                backgroundColor = Color.White,
+                focusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
             ),
             shape = RoundedCornerShape(20.dp)
         )
