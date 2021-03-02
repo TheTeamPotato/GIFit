@@ -1,24 +1,19 @@
 plugins {
-    id(ANDROID_APPLICATION)
+    id(ANDROID_LIBRARY)
     id(DAGGER_HILT_ANDROID_PLUGIN)
     id(COMMON_MODULE_PLUGIN)
 }
 
-android.buildFeatures.compose = true
-
 dependencies {
-    FEATURE_HOME
-    FEATURE_SPLASH
-    LAYER_UI
+    LAYER_DATA
+    TRANSLATE
 
     BASE
-    COMPOSE
     DAGGER_HILT
     KOTLIN_STANDARD_LIBRARY
 
     ANDROID_TEST
-    COROUTINES_TEST
-    LOCAL_TEST_JUNIT5
+    LOCAL_TEST
 }
 
 kapt {

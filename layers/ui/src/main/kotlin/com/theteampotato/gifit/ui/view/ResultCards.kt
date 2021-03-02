@@ -22,14 +22,13 @@ import com.theteampotato.gifit.ui.NetworkImage
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun ResultCard(modifier: Modifier = Modifier, imageURL: String) {
+fun ResultCard(modifier: Modifier = Modifier, imageURL: String, translatedText: String) {
     Box(modifier.fillMaxWidth()) {
-        Box(
-            Modifier
+        Box(Modifier
                 .fillMaxWidth()
                 .padding(top = 12.dp, start = 6.dp, end = 6.dp)
         ) {
-            ContentCard(imageURL = imageURL)
+            ContentCard(imageURL = imageURL, translatedText = translatedText)
         }
         FavoriteCardIcon(modifier = Modifier.align(Alignment.TopEnd))
     }
@@ -62,7 +61,7 @@ private fun FavoriteCardIcon(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun ContentCard(modifier: Modifier = Modifier, imageURL: String) {
+private fun ContentCard(modifier: Modifier = Modifier, imageURL: String, translatedText: String) {
     val horizontalPaddingInDp = 24.dp
 
     Card(modifier.fillMaxWidth()) {
@@ -84,7 +83,7 @@ private fun ContentCard(modifier: Modifier = Modifier, imageURL: String) {
                     .fillMaxWidth()
                     .padding(bottom = 24.dp)
                     .padding(horizontal = horizontalPaddingInDp),
-                origin = "Bana bir şey sor.",
+                origin = translatedText,
                 translated = "Cümle"
             )
         }
@@ -106,4 +105,4 @@ private fun GIFitImage(modifier: Modifier = Modifier, imageURL: String) {
 @Composable
 @Preview
 private fun PreviewResultCard() =
-    ResultCard(imageURL = "https://media3.giphy.com/media/XFuQ4InwtXBE4DDPHM/giphy.gif")
+    ResultCard(imageURL = "https://media3.giphy.com/media/XFuQ4InwtXBE4DDPHM/giphy.gif", translatedText = "Bana bir sey sor")

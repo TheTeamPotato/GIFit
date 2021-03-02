@@ -225,18 +225,21 @@ object Libraries {
 
 // Internal Libraries
 val DependencyHandler.TRANSLATE
-    get() = implementation(project(Modules.TRANSLATE))
+    get() = api(project(Modules.TRANSLATE))
 
 // Modules
 val DependencyHandler.FEATURE_SPLASH
     get() = implementation(project(Modules.Features.SPLASH))
 
 val DependencyHandler.FEATURE_HOME
-    get() = implementation(project(Modules.Features.HOME))
+    get() = api(project(Modules.Features.HOME))
 
 // Layers
 val DependencyHandler.LAYER_DATA
-    get() = implementation(project(Modules.Layers.DATA))
+    get() = api(project(Modules.Layers.DATA))
+
+val DependencyHandler.LAYER_DOMAIN
+    get() = api(project(Modules.Layers.DOMAIN))
 
 val DependencyHandler.LAYER_UI
     get() = implementation(project(Modules.Layers.UI))
@@ -431,6 +434,6 @@ private fun DependencyHandler.compileOnly(depName: String) {
     add("compileOnly", depName)
 }
 
-private fun DependencyHandler.api(depName: String) {
+private fun DependencyHandler.api(depName: Any) {
     add("api", depName)
 }

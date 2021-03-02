@@ -7,9 +7,9 @@ plugins {
 android.buildFeatures.compose = true
 
 dependencies {
+    LAYER_DOMAIN
     LAYER_UI
 
-    ACCOMPANIST
     BASE
     COMPOSE
     DAGGER_HILT
