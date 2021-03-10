@@ -1,5 +1,6 @@
 package com.theteampotato.gifit.domain.usecase
 
+import android.content.Context
 import com.theteampotato.gifit.data.remote.GiphyService
 import com.theteampotato.gifit.domain.model.SearchResult
 import com.theteampotato.gifit.translate.GoogleMLKitTranslator
@@ -15,12 +16,13 @@ import kotlinx.coroutines.async
 import timber.log.Timber
 
 class GetSearchResult @Inject constructor(
+    context: Context,
     private val translator: GoogleMLKitTranslator,
     private val giphyService: GiphyService
 ) : BaseUseCase() {
 
     init {
-        translator.initialize()
+        translator.initialize(context)
     }
 
     suspend operator fun invoke(keyword: String): SearchResult? {

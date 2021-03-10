@@ -1,5 +1,7 @@
 package com.theteampotato.gifit.translate
 
+import androidx.test.platform.app.InstrumentationRegistry
+
 import com.google.common.truth.Truth.assertThat
 
 import kotlin.coroutines.resume
@@ -19,7 +21,7 @@ class GoogleMLKitTranslatorTest {
     @Before
     fun setup() {
         translator = GoogleMLKitTranslator()
-        translator.initialize()
+        translator.initialize(InstrumentationRegistry.getInstrumentation().targetContext)
 
         Timber.plant(Timber.DebugTree())
     }

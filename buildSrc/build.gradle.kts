@@ -22,9 +22,9 @@ repositories {
 dependencies {
     //compileOnly(gradleApi())
     //implementation(kotlin("gradle-plugin"))
-    implementation("com.android.tools.build:gradle:7.0.0-alpha08")
+    implementation("com.android.tools.build:gradle:7.0.0-alpha09")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
-    implementation("com.google.dagger:hilt-android-gradle-plugin:2.31.2-alpha")
+    implementation("com.google.dagger:hilt-android-gradle-plugin:2.33-beta")
     implementation("org.jlleitschuh.gradle:ktlint-gradle:9.4.1")
     implementation("org.jetbrains.kotlin:kotlin-serialization:1.4.31")
     implementation("io.ktor:ktor-serialization:1.5.1")

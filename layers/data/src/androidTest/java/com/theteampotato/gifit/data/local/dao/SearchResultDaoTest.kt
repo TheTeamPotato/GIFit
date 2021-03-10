@@ -8,7 +8,7 @@ import com.google.common.truth.Truth.assertThat
 import com.theteampotato.gifit.TestUtil
 import com.theteampotato.gifit.data.local.db.GIFitRoomDatabaseTest
 import com.theteampotato.gifit.data.local.entity.SearchResult
-import com.theteampotato.gifit.getOrAwaitValue
+import com.theteampotato.gifit.testing.getOrAwaitValue
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking

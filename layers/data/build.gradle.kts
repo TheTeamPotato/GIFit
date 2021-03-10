@@ -21,6 +21,7 @@ dependencies {
 
     ANDROID_TEST
     LOCAL_TEST
+    TESTING
 }
 
 kapt {

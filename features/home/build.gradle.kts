@@ -4,7 +4,20 @@ plugins {
     id(COMMON_MODULE_PLUGIN)
 }
 
-android.buildFeatures.compose = true
+android {
+    buildFeatures.compose = true
+
+    defaultConfig {
+        testInstrumentationRunner =  "com.theteampotato.gifit.testing.HiltTestRunner"
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+    }
+}
 
 dependencies {
     LAYER_DOMAIN
@@ -17,8 +30,15 @@ dependencies {
     MATERIAL_DESIGN
 
     ANDROID_TEST
+    COMPOSE_UI_TEST
     COROUTINES_TEST
-    LOCAL_TEST_JUNIT5
+    DAGGER_HILT_TEST
+    DAGGER_HILT_ANDROID_TEST
+    LOCAL_TEST
+    TESTING
+
+    testImplementation(project(Modules.TESTING))
+    testImplementation(Libraries.Kotlin.Coroutines.Test.TEST)
 }
 
 kapt {
@@ -26,5 +46,6 @@ kapt {
 }
 
 moduleConfigurations {
-    useJUnitRunner5 = true
+    //useJUnitRunner5 = true
+    useRoboelectric = true
 }

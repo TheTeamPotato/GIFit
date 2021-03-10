@@ -6,12 +6,14 @@ import org.gradle.api.Action
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.internal.file.impl.DefaultFileMetadata.file
 import org.gradle.kotlin.dsl.*
 
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
+import java.io.File
 
 class CommonModulePlugin : Plugin<Project> {
 
@@ -54,27 +56,7 @@ class CommonModulePlugin : Plugin<Project> {
     }
 
     private fun printModuleASCIIArt(moduleName: String) {
-        println(
-            """
-              _
-             | |
-             | |===( )   //////
-             |_|   |||  | o o|
-                    ||| (  > )                  ____
-                     ||| \= /                  ||   \_
-                      ||||||                   ||     |
-                      ||||||                ...||__/|-"
-                      ||||||             __|________|__
-                        |||             |______________|
-                        |||             || ||      || ||
-                        |||             || ||      || ||
-------------------------|||-------------||-||------||-||-------
-                        |__>            || ||      || ||
-
-
-                    Building $moduleName module...
-            """
-        )
+        println("${ASCIIArt.A_GUY_SMASHING_COMPUTER}\n\n\n\t\t\t\t\tBuilding $moduleName module...\n")
     }
 
     private fun Project.applyKtLintConfigurations() {
@@ -113,7 +95,7 @@ class CommonModulePlugin : Plugin<Project> {
                     "no-blank-line-before-rbrace",
                     "no-wildcard-imports",
                     "import-ordering"
-                    )
+                )
             )
             filter {
                 exclude("**/generated/**")
@@ -129,15 +111,15 @@ class CommonModulePlugin : Plugin<Project> {
     }
 
     private fun Project.applyModuleConfigurations(androidExtension: BaseExtension) {
-        val modulePluginExtension = project.extensions.create(
+        modulePluginExtension = project.extensions.create(
             "moduleConfigurations",
             CommonModulePluginExtension::class
         )
 
         project.afterEvaluate {
-            println("useJUnitRunner5 is ${modulePluginExtension.useJUnitRunner5}")
+            println("useJUnitRunner5 is ${modulePluginExtension?.useJUnitRunner5}")
 
-            with(modulePluginExtension) {
+            with(modulePluginExtension!!) {
                 if (useJUnitRunner5) {
                     with(androidExtension) {
                         project.plugins.apply(BuildScript.JUNIT5_PLUGIN)
@@ -145,6 +127,21 @@ class CommonModulePlugin : Plugin<Project> {
                             "runnerBuilder",
                             "de.mannodermaus.junit5.AndroidJUnit5Builder"
                         )
+                    }
+                }
+
+                if (useRoboelectric) {
+                    dependencies.apply {
+                        androidInstrumentationTest(useJUnitRunner5, useRoboelectric)
+                        roboelectricTest()
+                    }
+
+                    tasks {
+                        val dependencies = getByName("dependencies")
+
+                        "preBuild" {
+                            dependsOn(dependencies)
+                        }
                     }
                 }
             }
@@ -175,6 +172,15 @@ class CommonModulePlugin : Plugin<Project> {
             productFlavors {
                 create("gms") { dimension("platform") }
                 create("hms") { dimension("platform") }
+            }
+        }
+
+        signingConfigs {
+            create("releaseConfig") {
+                keyAlias = "key0"
+                keyPassword = "123456"
+                storeFile = File("key.jks")
+                storePassword = "123456"
             }
         }
 
@@ -224,6 +230,10 @@ class CommonModulePlugin : Plugin<Project> {
 
         when (this) {
             is AppExtension -> buildTypes {
+                getByName("debug") {
+                    signingConfig = signingConfigs.getByName("releaseConfig")
+                    isDebuggable = true
+                }
                 getByName("release") {
                     isMinifyEnabled = true
                     isShrinkResources = true
@@ -231,6 +241,7 @@ class CommonModulePlugin : Plugin<Project> {
                         getDefaultProguardFile("proguard-android-optimize.txt"),
                         proguardFile
                     )
+                    signingConfig = signingConfigs.getByName("releaseConfig")
                 }
             }
             is LibraryExtension -> defaultConfig { consumerProguardFiles(proguardFile) }
@@ -271,5 +282,9 @@ class CommonModulePlugin : Plugin<Project> {
      */
     private fun Project.`ktlint`(configure: Action<KtlintExtension>): Unit =
         (this as org.gradle.api.plugins.ExtensionAware).extensions.configure("ktlint", configure)
+
+    companion object {
+        var modulePluginExtension: CommonModulePluginExtension? = null
+    }
 
 }

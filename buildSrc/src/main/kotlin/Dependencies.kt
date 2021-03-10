@@ -10,7 +10,7 @@ object BuildScript {
     private const val ANDROID_GRADLE_VERSION = "7.0.0-alpha05"
     private const val ANDROID_HILT_GRADLE_VERSION = "2.31.2-alpha"
     private const val APP_GALLERY_CONNECT_VERSION = "1.4.2.301"
-    private const val KOTLIN_VERSION = "1.4.31"
+    private const val KOTLIN_VERSION = "1.4.30"
 
     const val KTLINT_PLUGIN_VERSION = "9.4.1"
     const val VERSIONS_PLUGIN_VERSION = "0.36.0"
@@ -19,12 +19,14 @@ object BuildScript {
     const val VERSIONS_PLUGIN = "com.github.ben-manes.versions"
 
     const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:$ANDROID_GRADLE_VERSION"
-    const val ANDROID_HILT_GRADLE_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:$ANDROID_HILT_GRADLE_VERSION"
+    const val ANDROID_HILT_GRADLE_PLUGIN =
+        "com.google.dagger:hilt-android-gradle-plugin:$ANDROID_HILT_GRADLE_VERSION"
     const val APP_GALLERY_CONNECT_PLUGIN = "com.huawei.agconnect:agcp:$APP_GALLERY_CONNECT_VERSION"
     const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
 }
 
 object Modules {
+    const val TESTING = ":testing"
     const val TRANSLATE = ":translate"
 
     object Features {
@@ -95,19 +97,26 @@ object Libraries {
         private const val COMPOSE_VERSION = "1.0.0-beta01"
 
         const val ANIMATION = "androidx.compose.animation:animation:$COMPOSE_VERSION"
-        const val FOUNDATION = "androidx.compose.foundation:foundation:$COMPOSE_VERSION" // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-        const val FOUNDATION_LAYOUT = "androidx.compose.foundation:foundation-layout:$COMPOSE_VERSION"
-        const val MATERIAL = "androidx.compose.material:material:$COMPOSE_VERSION" // Material Design
-        const val MATERIAL_ICONS_CORE = "androidx.compose.material:material-icons-core:$COMPOSE_VERSION" // Material design icons
-        const val MATERIAL_ICONS_EXTENDED = "androidx.compose.material:material-icons-extended:$COMPOSE_VERSION"
+        const val FOUNDATION =
+            "androidx.compose.foundation:foundation:$COMPOSE_VERSION" // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+        const val FOUNDATION_LAYOUT =
+            "androidx.compose.foundation:foundation-layout:$COMPOSE_VERSION"
+        const val MATERIAL =
+            "androidx.compose.material:material:$COMPOSE_VERSION" // Material Design
+        const val MATERIAL_ICONS_CORE =
+            "androidx.compose.material:material-icons-core:$COMPOSE_VERSION" // Material design icons
+        const val MATERIAL_ICONS_EXTENDED =
+            "androidx.compose.material:material-icons-extended:$COMPOSE_VERSION"
         const val NAVIGATION = "androidx.navigation:navigation-compose:$COMPOSE_NAVIGATION_VERSION"
         const val RUNTIME = "androidx.compose.runtime:runtime:$COMPOSE_VERSION"
         const val RUNTIME_LIVEDATA = "androidx.compose.runtime:runtime-livedata:$COMPOSE_VERSION"
         const val UI = "androidx.compose.ui:ui:$COMPOSE_VERSION"
-        const val UI_TOOLING = "androidx.compose.ui:ui-tooling:$COMPOSE_UI_TOOLING_VERSION" // Tooling support (Previews, etc.)
+        const val UI_TOOLING =
+            "androidx.compose.ui:ui-tooling:$COMPOSE_UI_TOOLING_VERSION" // Tooling support (Previews, etc.)
 
-        //const val layout = "androidx.compose.foundation:foundation-layout:$version"
-        //const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
+        object Test {
+            const val UI_TEST = "androidx.compose.ui:ui-test-junit4:$COMPOSE_VERSION"
+        }
     }
 
     object Google {
@@ -133,7 +142,7 @@ object Libraries {
     }
 
     object Kotlin {
-        private const val VERSION = "1.4.31"
+        private const val VERSION = "1.4.30"
 
         const val STANDARD_LIB = "org.jetbrains.kotlin:kotlin-stdlib:$VERSION"
 
@@ -167,12 +176,12 @@ object Libraries {
     }
 
     object Hilt {
-        private const val HILT_VERSION = "2.31.2-alpha"
+        private const val HILT_VERSION = "2.33-beta"
         private const val HILT_LIFECYCLE_VIEWMODEL_VERSION = "1.0.0-alpha03"
         private const val HILT_COMPILER_VERSION = "1.0.0-alpha03"
 
         const val HILT_ANDROID = "com.google.dagger:hilt-android:$HILT_VERSION"
-        const val HILT_ANDROID_COMPILER = "com.google.dagger:hilt-android-compiler:$HILT_VERSION"
+        const val HILT_ANDROID_COMPILER = "com.google.dagger:hilt-compiler:$HILT_VERSION"
         const val HILT_LIFECYCLE_VIEWMODEL =
             "androidx.hilt:hilt-lifecycle-viewmodel:$HILT_LIFECYCLE_VIEWMODEL_VERSION"
         const val HILT_COMPILER = "androidx.hilt:hilt-compiler:$HILT_COMPILER_VERSION"
@@ -200,7 +209,8 @@ object Libraries {
             "com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_KOTLIN_VERSION"
         const val TRUTH = "com.google.truth:truth:$TRUTH_VERSION"
         const val MOCKITO_CORE = "org.mockito:mockito-core:$MOCKITO_CORE_VERSION"
-        const val KOTLINX_COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLINX_COROUTINES_VERSION"
+        const val KOTLINX_COROUTINES_TEST =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLINX_COROUTINES_VERSION"
         const val HAMCREST = "org.hamcrest:hamcrest-all:$HAMCREST_VERSION"
 
         object AndroidX {
@@ -210,6 +220,7 @@ object Libraries {
 
             const val ARCH = "androidx.arch.core:core-testing:$ARCH_VERSION"
             const val CORE = "androidx.test:core:$CORE_VERSION"
+            const val JUNIT_KTX = "androidx.test.ext:junit-ktx:$JUNIT_VERSION"
             const val JUNIT_RUNNER = "androidx.test:runner:$JUNIT_VERSION"
             const val JUNIT_RULES = "androidx.test:rules:$JUNIT_VERSION"
         }
@@ -224,6 +235,9 @@ object Libraries {
 }
 
 // Internal Libraries
+val DependencyHandler.TESTING
+    get() = androidTestImplementation(project(Modules.TESTING))
+
 val DependencyHandler.TRANSLATE
     get() = api(project(Modules.TRANSLATE))
 
@@ -285,6 +299,9 @@ val DependencyHandler.SHOWKASE
 val DependencyHandler.ANDROID_TEST
     get() = androidInstrumentationTest(useJUnit5 = true)
 
+val DependencyHandler.COMPOSE_UI_TEST
+    get() = uiTest()
+
 val DependencyHandler.COROUTINES_TEST
     get() = coroutinesTest()
 
@@ -294,8 +311,14 @@ val DependencyHandler.LOCAL_TEST
 val DependencyHandler.LOCAL_TEST_JUNIT5
     get() = test(useJUnit5 = true)
 
-val DependencyHandler.HILT_TEST
+val DependencyHandler.DAGGER_HILT_TEST
     get() = hiltTest()
+
+val DependencyHandler.DAGGER_HILT_ANDROID_TEST
+    get() = hiltAndroidTest()
+
+val DependencyHandler.ROBOELECTRIC_TEST
+    get() = roboelectricTest()
 
 private fun DependencyHandler.accompanist() {
     implementation(Libraries.ACCOMPANIST_COIL)
@@ -336,9 +359,9 @@ private fun DependencyHandler.coroutines() {
 
 private fun DependencyHandler.hilt() {
     implementation(Libraries.Hilt.HILT_ANDROID)
-    implementation(Libraries.Hilt.HILT_LIFECYCLE_VIEWMODEL)
+    //implementation(Libraries.Hilt.HILT_LIFECYCLE_VIEWMODEL)
     kapt(Libraries.Hilt.HILT_ANDROID_COMPILER)
-    kapt(Libraries.Hilt.HILT_COMPILER)
+    //kapt(Libraries.Hilt.HILT_COMPILER)
 }
 
 private fun DependencyHandler.ktor() {
@@ -366,29 +389,55 @@ private fun DependencyHandler.test(useJUnit5: Boolean) {
 
     testImplementation(Libraries.Test.MOCKK)
     testImplementation(Libraries.Test.TRUTH)
+    androidTestImplementation(Libraries.Test.TRUTH)
 }
 
-private fun DependencyHandler.androidInstrumentationTest(useJUnit5: Boolean) {
+fun DependencyHandler.androidInstrumentationTest(
+    useJUnit5: Boolean,
+    useRoboelectric: Boolean = false
+) {
     if (useJUnit5) {
         androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.4.1")
         androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.0.0")
         androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.0.0")
     }
 
-    androidTestImplementation(Libraries.Test.AndroidX.CORE)
-    androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
-    androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
-    androidTestImplementation(Libraries.Test.MOCKK_ANDROID)
-    androidTestImplementation(Libraries.Test.TRUTH)
+    if (!useRoboelectric) {
+        androidTestImplementation(Libraries.Test.AndroidX.ARCH)
+        androidTestImplementation(Libraries.Test.AndroidX.CORE)
+        androidTestImplementation(Libraries.Test.AndroidX.JUNIT_KTX)
+        androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
+        androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
+        androidTestImplementation(Libraries.Test.MOCKK_ANDROID)
+    } else {
+        testImplementation(Libraries.Test.AndroidX.ARCH)
+        testImplementation(Libraries.Test.AndroidX.CORE)
+        testImplementation(Libraries.Test.AndroidX.JUNIT_KTX)
+        testImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
+        testImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
+    }
 }
 
 private fun DependencyHandler.coroutinesTest() {
     androidTestImplementation(Libraries.Kotlin.Coroutines.Test.TEST)
 }
 
-private fun DependencyHandler.hiltTest() {
+fun DependencyHandler.hiltTest() {
+    testImplementation(Libraries.Hilt.Test.TESTING)
+    kaptTest(Libraries.Hilt.HILT_ANDROID_COMPILER)
+}
+
+fun DependencyHandler.hiltAndroidTest() {
     androidTestImplementation(Libraries.Hilt.Test.TESTING)
     kaptAndroidTest(Libraries.Hilt.HILT_ANDROID_COMPILER)
+}
+
+private fun DependencyHandler.uiTest() {
+    androidTestImplementation(Libraries.Compose.Test.UI_TEST)
+}
+
+fun DependencyHandler.roboelectricTest() {
+    testImplementation("org.robolectric:robolectric:4.5")
 }
 
 private fun DependencyHandler.room() {
@@ -422,8 +471,12 @@ private fun DependencyHandler.testRuntimeOnly(depName: Any) {
     add("testRuntimeOnly", depName)
 }
 
+private fun DependencyHandler.kaptTest(depName: Any) {
+    add("kaptTest", depName)
+}
+
 private fun DependencyHandler.kaptAndroidTest(depName: Any) {
-    add("kaptAndroidTest ", depName)
+    add("kaptAndroidTest", depName)
 }
 
 private fun DependencyHandler.kapt(depName: String) {

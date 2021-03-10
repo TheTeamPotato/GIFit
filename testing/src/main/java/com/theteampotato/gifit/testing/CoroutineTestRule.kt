@@ -1,4 +1,4 @@
-package com.theteampotato.gifit
+package com.theteampotato.gifit.testing
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,7 +15,7 @@ import org.junit.runner.Description
  */
 @ExperimentalCoroutinesApi
 class CoroutineTestRule(
-    private val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
+    val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
 ) : TestWatcher(), TestCoroutineScope by TestCoroutineScope(dispatcher) {
 
     override fun starting(description: Description?) {
