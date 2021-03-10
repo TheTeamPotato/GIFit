@@ -91,9 +91,9 @@ class HomeViewModelRoboTest {
         assertThat(actualResult).matches(expectedResult)
     }*/
 
-    @Test
+   /* @Test
     fun getSearchResult_is_not_null() {
         assertThat(getSearchResult).isNotNull()
-    }
+    }*/
 
 }

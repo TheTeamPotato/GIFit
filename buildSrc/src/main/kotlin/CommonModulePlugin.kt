@@ -176,12 +176,12 @@ class CommonModulePlugin : Plugin<Project> {
         }
 
         signingConfigs {
-            create("releaseConfig") {
+            /*create("releaseConfig") {
                 keyAlias = "key0"
                 keyPassword = "123456"
                 storeFile = File("key.jks")
                 storePassword = "123456"
-            }
+            }*/
         }
 
         sourceSets {
@@ -231,7 +231,7 @@ class CommonModulePlugin : Plugin<Project> {
         when (this) {
             is AppExtension -> buildTypes {
                 getByName("debug") {
-                    signingConfig = signingConfigs.getByName("releaseConfig")
+                    //signingConfig = signingConfigs.getByName("releaseConfig")
                     isDebuggable = true
                 }
                 getByName("release") {
@@ -241,7 +241,7 @@ class CommonModulePlugin : Plugin<Project> {
                         getDefaultProguardFile("proguard-android-optimize.txt"),
                         proguardFile
                     )
-                    signingConfig = signingConfigs.getByName("releaseConfig")
+                    //signingConfig = signingConfigs.getByName("releaseConfig")
                 }
             }
             is LibraryExtension -> defaultConfig { consumerProguardFiles(proguardFile) }
