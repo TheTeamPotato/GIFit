@@ -1,11 +1,14 @@
-package com.theteampotato.gifit
+package com.theteampotato.gifit.testing
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
+
+private const val TIMEOUT_IN_SECONDS = 10L
 
 /**
  * Gets the value of a [LiveData] or waits for it to have one, with a timeout.
@@ -18,7 +21,7 @@ import java.util.concurrent.TimeoutException
  */
 @VisibleForTesting(otherwise = VisibleForTesting.NONE)
 fun <T> LiveData<T>.getOrAwaitValue(
-    time: Long = 2,
+    time: Long = TIMEOUT_IN_SECONDS,
     timeUnit: TimeUnit = TimeUnit.SECONDS,
     afterObserve: () -> Unit = {}
 ): T {
@@ -48,4 +51,37 @@ fun <T> LiveData<T>.getOrAwaitValue(
 
     @Suppress("UNCHECKED_CAST")
     return data as T
+}
+
+/**
+ * Gets the value of a LiveData safely.
+ */
+@Throws(InterruptedException::class)
+fun <T> getValue(liveData: LiveData<T>): T? {
+    var data: T? = null
+    val latch = CountDownLatch(1)
+    val observer = object : Observer<T> {
+        override fun onChanged(o: T?) {
+            data = o
+            latch.countDown()
+            liveData.removeObserver(this)
+        }
+    }
+    liveData.observeForever(observer)
+    latch.await(TIMEOUT_IN_SECONDS, TimeUnit.SECONDS)
+
+    return data
+}
+
+/**
+ * Observes a [LiveData] until the `block` is done executing.
+ */
+fun <T> LiveData<T>.observeForTesting(block: () -> Unit) {
+    val observer = Observer<T> { }
+    try {
+        observeForever(observer)
+        block()
+    } finally {
+        removeObserver(observer)
+    }
 }

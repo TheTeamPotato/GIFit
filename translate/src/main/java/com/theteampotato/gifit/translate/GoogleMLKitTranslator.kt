@@ -1,5 +1,7 @@
 package com.theteampotato.gifit.translate
 
+import android.content.Context
+import com.google.mlkit.common.MlKit
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
@@ -14,7 +16,10 @@ class GoogleMLKitTranslator : ITranslator {
 
     private val conditions = DownloadConditions.Builder().build()
 
-    fun initialize() {
+    fun initialize(context: Context) {
+        try { MlKit.initialize(context) }
+        catch (exception: Exception) { Timber.e(exception) }
+
         options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.TURKISH)
             .setTargetLanguage(TranslateLanguage.ENGLISH)

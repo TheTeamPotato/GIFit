@@ -7,9 +7,8 @@ plugins {
 android.buildFeatures.compose = true
 
 dependencies {
-    TRANSLATE
+    FEATURE_HOME
     FEATURE_SPLASH
-    LAYER_DATA
     LAYER_UI
 
     BASE

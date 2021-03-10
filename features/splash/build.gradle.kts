@@ -17,8 +17,10 @@ dependencies {
     MATERIAL_DESIGN
 
     ANDROID_TEST
+    COMPOSE_UI_TEST
     COROUTINES_TEST
     LOCAL_TEST_JUNIT5
+    TESTING
 }
 
 kapt {

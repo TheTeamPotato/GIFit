@@ -3,36 +3,26 @@ package com.theteampotato.gifit
 import android.os.Bundle
 
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 
-import com.theteampotato.gifit.data.remote.GiphyService
-import com.theteampotato.gifit.splash.view.SplashScreen
-import com.theteampotato.gifit.translate.GoogleMLKitTranslator
+import com.theteampotato.gifit.home.view.HomeScreen
+import com.theteampotato.gifit.home.viewmodel.HomeViewModel
 import com.theteampotato.gifit.ui.GIFitTheme
 
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.components.SingletonComponent
-
-import kotlin.coroutines.CoroutineContext
-import kotlinx.coroutines.*
-
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), CoroutineScope {
+class MainActivity : AppCompatActivity() {
 
-    private var parentJob = Job()
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + parentJob
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             GIFitTheme {
-                SplashScreen()
+                //SplashScreen()
+                HomeScreen(viewModel = homeViewModel)
             }
         }
     }

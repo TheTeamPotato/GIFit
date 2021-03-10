@@ -17,22 +17,18 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.theteampotato.gifit.ui.NetworkImage
 
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun ResultCard(imageURL: String) {
-    Box(
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp)
-    ) {
-        Box(
-            Modifier
+fun ResultCard(modifier: Modifier = Modifier, imageURL: String, translatedText: String) {
+    Box(modifier.fillMaxWidth()) {
+        Box(Modifier
                 .fillMaxWidth()
                 .padding(top = 12.dp, start = 6.dp, end = 6.dp)
         ) {
-            ContentCard(imageURL = imageURL)
+            ContentCard(imageURL = imageURL, translatedText = translatedText)
         }
         FavoriteCardIcon(modifier = Modifier.align(Alignment.TopEnd))
     }
@@ -42,11 +38,12 @@ fun ResultCard(imageURL: String) {
 private fun FavoriteCardIcon(modifier: Modifier = Modifier) {
     val isFavorite = remember { mutableStateOf(false) }
 
-    val imageVector = if (isFavorite.value) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder
+    val imageVector =
+        if (isFavorite.value) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder
     val colorFilter = if (isFavorite.value) ColorFilter.tint(Color.Red) else null
 
     Button(
-        modifier = modifier.size(35.dp),
+        modifier = modifier.requiredSize(35.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.surface,
             contentColor = MaterialTheme.colors.onBackground
@@ -54,12 +51,17 @@ private fun FavoriteCardIcon(modifier: Modifier = Modifier) {
         onClick = { isFavorite.value = !isFavorite.value },
         shape = CircleShape
     ) {
-        Image(modifier = Modifier.size(25.dp), contentDescription = null, imageVector = imageVector, colorFilter = colorFilter)
+        Image(
+            modifier = Modifier.requiredSize(25.dp),
+            contentDescription = null,
+            imageVector = imageVector,
+            colorFilter = colorFilter
+        )
     }
 }
 
 @Composable
-private fun ContentCard(modifier: Modifier = Modifier, imageURL: String) {
+private fun ContentCard(modifier: Modifier = Modifier, imageURL: String, translatedText: String) {
     val horizontalPaddingInDp = 24.dp
 
     Card(modifier.fillMaxWidth()) {
@@ -81,7 +83,7 @@ private fun ContentCard(modifier: Modifier = Modifier, imageURL: String) {
                     .fillMaxWidth()
                     .padding(bottom = 24.dp)
                     .padding(horizontal = horizontalPaddingInDp),
-                origin = "Bana bir şey sor.",
+                origin = translatedText,
                 translated = "Cümle"
             )
         }
@@ -90,12 +92,12 @@ private fun ContentCard(modifier: Modifier = Modifier, imageURL: String) {
 
 @Composable
 private fun GIFitImage(modifier: Modifier = Modifier, imageURL: String) {
-    Card(modifier.fillMaxWidth().height(250.dp)) {
+    Card(modifier.fillMaxWidth().requiredHeight(220.dp)) {
         CoilImage(
             data = imageURL,
             contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize()
         )
     }
 }
@@ -103,4 +105,4 @@ private fun GIFitImage(modifier: Modifier = Modifier, imageURL: String) {
 @Composable
 @Preview
 private fun PreviewResultCard() =
-    ResultCard(imageURL = "https://media3.giphy.com/media/XFuQ4InwtXBE4DDPHM/giphy.gif")
+    ResultCard(imageURL = "https://media3.giphy.com/media/XFuQ4InwtXBE4DDPHM/giphy.gif", translatedText = "Bana bir sey sor")

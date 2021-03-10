@@ -1,0 +1,51 @@
+plugins {
+    id(ANDROID_LIBRARY)
+    id(DAGGER_HILT_ANDROID_PLUGIN)
+    id(COMMON_MODULE_PLUGIN)
+}
+
+android {
+    buildFeatures.compose = true
+
+    defaultConfig {
+        testInstrumentationRunner =  "com.theteampotato.gifit.testing.HiltTestRunner"
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+    }
+}
+
+dependencies {
+    LAYER_DOMAIN
+    LAYER_UI
+
+    BASE
+    COMPOSE
+    DAGGER_HILT
+    KOTLIN_STANDARD_LIBRARY
+    MATERIAL_DESIGN
+
+    ANDROID_TEST
+    COMPOSE_UI_TEST
+    COROUTINES_TEST
+    DAGGER_HILT_TEST
+    DAGGER_HILT_ANDROID_TEST
+    LOCAL_TEST
+    TESTING
+
+    testImplementation(project(Modules.TESTING))
+    testImplementation(Libraries.Kotlin.Coroutines.Test.TEST)
+}
+
+kapt {
+    correctErrorTypes = true
+}
+
+moduleConfigurations {
+    //useJUnitRunner5 = true
+    useRoboelectric = true
+}
