@@ -1,6 +1,9 @@
 package com.theteampotato.gifit.domain.di
 
+import com.theteampotato.gifit.data.local.datasource.LocalDataSource
+import com.theteampotato.gifit.data.local.repository.SearchResultRepository
 import com.theteampotato.gifit.translate.GoogleMLKitTranslator
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "SearchResult")
-data class SearchResult constructor(
+data class SearchResultEntity constructor(
     var searchString: String,
     var resultGiftUrl: String,
     var isFavorite: Boolean,

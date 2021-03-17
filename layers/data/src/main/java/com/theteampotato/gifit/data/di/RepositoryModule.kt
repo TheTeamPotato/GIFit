@@ -13,7 +13,6 @@ import dagger.hilt.components.SingletonComponent
 object RepositoryModule {
 
     @Provides
-    @ViewModelScoped
     fun provideHistoryRepository(historyDataSource: LocalDataSource): SearchResultRepository {
         return SearchResultRepository(historyDataSource)
     }

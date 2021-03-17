@@ -7,7 +7,7 @@ import com.google.common.truth.Truth.assertThat
 
 import com.theteampotato.gifit.TestUtil
 import com.theteampotato.gifit.data.local.db.GIFitRoomDatabaseTest
-import com.theteampotato.gifit.data.local.entity.SearchResult
+import com.theteampotato.gifit.data.local.entity.SearchResultEntity
 import com.theteampotato.gifit.getOrAwaitValue
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,8 +25,8 @@ class SearchResultDaoTest : GIFitRoomDatabaseTest() {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var searchResultDao: SearchResultDao
-    private lateinit var searchResult: SearchResult
-    private lateinit var listOfResults: List<SearchResult>
+    private lateinit var searchResult: SearchResultEntity
+    private lateinit var listOfResults: List<SearchResultEntity>
 
     @Before
     fun init() = runBlocking {

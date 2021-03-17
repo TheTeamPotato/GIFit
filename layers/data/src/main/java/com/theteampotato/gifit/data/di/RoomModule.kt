@@ -5,6 +5,7 @@ import com.theteampotato.gifit.data.local.database.GIFitRoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -14,7 +15,7 @@ object RoomModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(context: Context) = GIFitRoomDatabase.getDatabase(context)
+    fun provideDatabase(@ApplicationContext appContext: Context) = GIFitRoomDatabase.getDatabase(appContext)
 
     @Provides
     fun providesSearchResultDao(database: GIFitRoomDatabase) = database.searchResultDao()

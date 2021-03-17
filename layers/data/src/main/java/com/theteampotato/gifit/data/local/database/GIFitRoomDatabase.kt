@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.theteampotato.gifit.data.local.dao.SearchResultDao
-import com.theteampotato.gifit.data.local.entity.SearchResult
+import com.theteampotato.gifit.data.local.entity.SearchResultEntity
 
 @Database(
-    entities = [SearchResult::class],
+    entities = [SearchResultEntity::class],
     version = 1,
     exportSchema = false
 )

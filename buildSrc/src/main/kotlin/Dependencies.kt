@@ -29,6 +29,7 @@ object Modules {
 
     object Features {
         const val SPLASH = ":features:splash"
+        const val HISTORY = ":features:history"
         const val HOME = ":features:home"
     }
 
@@ -231,6 +232,9 @@ val DependencyHandler.TRANSLATE
 val DependencyHandler.FEATURE_SPLASH
     get() = implementation(project(Modules.Features.SPLASH))
 
+val DependencyHandler.FEATURE_HISTORY
+    get() = api(project(Modules.Features.HISTORY))
+
 val DependencyHandler.FEATURE_HOME
     get() = api(project(Modules.Features.HOME))
 
@@ -375,6 +379,7 @@ private fun DependencyHandler.androidInstrumentationTest(useJUnit5: Boolean) {
         androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.0.0")
     }
 
+    androidTestImplementation(Libraries.Test.AndroidX.ARCH)
     androidTestImplementation(Libraries.Test.AndroidX.CORE)
     androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
     androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
@@ -392,8 +397,8 @@ private fun DependencyHandler.hiltTest() {
 }
 
 private fun DependencyHandler.room() {
-    implementation(Libraries.AndroidX.ROOM)
-    implementation(Libraries.AndroidX.ROOM_KTX)
+    api(Libraries.AndroidX.ROOM)
+    api(Libraries.AndroidX.ROOM_KTX)
     kapt(Libraries.AndroidX.ROOM_COMPILER)
 }
 
