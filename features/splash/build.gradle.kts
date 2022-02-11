@@ -4,7 +4,13 @@ plugins {
     id(COMMON_MODULE_PLUGIN)
 }
 
-android.buildFeatures.compose = true
+android {
+    buildFeatures.compose = true
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Libraries.Compose.COMPOSE_VERSION
+    }
+}
 
 dependencies {
     LAYER_UI

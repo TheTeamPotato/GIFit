@@ -17,9 +17,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.theteampotato.gifit.ui.NetworkImage
-
-import dev.chrisbanes.accompanist.coil.CoilImage
+import coil.compose.rememberImagePainter
 
 @Composable
 fun ResultCard(modifier: Modifier = Modifier, imageURL: String, translatedText: String) {
@@ -93,8 +91,8 @@ private fun ContentCard(modifier: Modifier = Modifier, imageURL: String, transla
 @Composable
 private fun GIFitImage(modifier: Modifier = Modifier, imageURL: String) {
     Card(modifier.fillMaxWidth().requiredHeight(220.dp)) {
-        CoilImage(
-            data = imageURL,
+        Image(
+            painter = rememberImagePainter(imageURL),
             contentDescription = null,
             contentScale = ContentScale.FillBounds,
             modifier = Modifier.fillMaxSize()

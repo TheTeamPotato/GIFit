@@ -1,6 +1,7 @@
 package com.theteampotato.gifit.ui
 
 import android.os.Build.VERSION.SDK_INT
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,13 +15,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 
 import coil.ImageLoader
+import coil.compose.LocalImageLoader
+import coil.compose.rememberImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.transform.RoundedCornersTransformation
 import coil.transform.Transformation
-
-import dev.chrisbanes.accompanist.coil.CoilImage
-import dev.chrisbanes.accompanist.coil.LocalImageLoader
 
 @Composable
 fun NetworkImage(
@@ -30,25 +30,27 @@ fun NetworkImage(
     transformation: Transformation = RoundedCornersTransformation(0f),
     placeholderColor: Color? = MaterialTheme.colors.secondary
 ) {
-    CoilImage(
-        data = url,
+    val painter = rememberImagePainter(url)
+
+    Image(
+        painter = painter,
         contentDescription = null,
         modifier = modifier,
         contentScale = contentScale,
-        fadeIn = true,
-        requestBuilder = {
-            // transformations(RoundedCornersTransformation(30f))
-            transformations(transformation)
-        },
-        loading = {
-            if (placeholderColor != null) {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(placeholderColor)
-                )
-            }
-        }
+//        fadeIn = true,
+//        requestBuilder = {
+//            // transformations(RoundedCornersTransformation(30f))
+//            transformations(transformation)
+//        },
+//        loading = {
+//            if (placeholderColor != null) {
+//                Spacer(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .background(placeholderColor)
+//                )
+//            }
+//        }
     )
 }
 

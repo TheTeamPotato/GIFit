@@ -12,7 +12,7 @@ object BuildScript {
     private const val APP_GALLERY_CONNECT_VERSION = "1.4.2.301"
     private const val KOTLIN_VERSION = "1.4.30"
 
-    const val KTLINT_PLUGIN_VERSION = "9.4.1"
+    const val KTLINT_PLUGIN_VERSION = "10.2.1"
     const val VERSIONS_PLUGIN_VERSION = "0.36.0"
     const val JUNIT5_PLUGIN = "de.mannodermaus.android-junit5"
     const val KTLINT_PLUGIN = "org.jlleitschuh.gradle.ktlint"
@@ -42,14 +42,14 @@ object Modules {
 }
 
 object Libraries {
-    private const val ACCOMPANIST_VERSION = "0.6.1"
+    private const val COIL_VERSION = "1.4.0"
     private const val MATERIAL_DESIGN_VERSION = "1.3.0-rc01"
     private const val PERMISSION_DISPATCHER_VERSION = "4.8.0"
     private const val SHOWKASE_VERSION = "1.0.0-alpha03"
     private const val TIMBER_VERSION = "4.7.1"
 
-    const val ACCOMPANIST_COIL = "dev.chrisbanes.accompanist:accompanist-coil:$ACCOMPANIST_VERSION"
-    const val COIL_GIF = "io.coil-kt:coil-gif:1.1.1"
+    const val COIL_COMPOSE = "io.coil-kt:coil-compose:$COIL_VERSION"
+    const val COIL_GIF = "io.coil-kt:coil-gif:$COIL_VERSION"
     const val MATERIAL_DESIGN = "com.google.android.material:material:$MATERIAL_DESIGN_VERSION"
     const val PERMISSION_DISPATCHER =
         "org.permissionsdispatcher:permissionsdispatcher:$PERMISSION_DISPATCHER_VERSION"
@@ -66,9 +66,9 @@ object Libraries {
         private const val MULTIDEX_VERSION = "2.0.1"
         private const val NAVIGATION_COMPONENT_VERSION = "2.3.1"
         private const val LIFECYCLE_VERSION = "2.2.0"
-        private const val ROOM_VERSION = "2.3.0-beta01"
+        private const val ROOM_VERSION = "2.4.1"
 
-        const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:1.3.0-alpha03"
+        const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:1.4.0"
         const val APPCOMPAT = "androidx.appcompat:appcompat:$APPCOMPAT_VERSION"
         const val CORE = "androidx.core:core:$CORE_VERSION"
         const val CORE_KTX = "androidx.core:core-ktx:$CORE_VERSION"
@@ -92,11 +92,12 @@ object Libraries {
     }
 
     object Compose {
-        private const val COMPOSE_NAVIGATION_VERSION = "1.0.0-alpha03"
-        private const val COMPOSE_UI_TOOLING_VERSION = "1.0.0-beta01"
-        private const val COMPOSE_VERSION = "1.0.0-beta01"
+        private const val COMPOSE_NAVIGATION_VERSION = "2.4.1"
+        private const val COMPOSE_UI_TOOLING_VERSION = "1.0.5"
+        const val COMPOSE_VERSION = "1.1.0"
 
         const val ANIMATION = "androidx.compose.animation:animation:$COMPOSE_VERSION"
+        const val COMPILER = "androidx.compose.compiler:compiler:$COMPOSE_VERSION"
         const val FOUNDATION =
             "androidx.compose.foundation:foundation:$COMPOSE_VERSION" // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
         const val FOUNDATION_LAYOUT =
@@ -142,12 +143,12 @@ object Libraries {
     }
 
     object Kotlin {
-        private const val VERSION = "1.4.30"
+        private const val VERSION = "1.6.10"
 
         const val STANDARD_LIB = "org.jetbrains.kotlin:kotlin-stdlib:$VERSION"
 
         object Coroutines {
-            private const val COROUTINES_ANDROID_VERSION = "1.4.2"
+            private const val COROUTINES_ANDROID_VERSION = "1.6.0"
 
             const val COROUTINES_ANDROID =
                 "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_ANDROID_VERSION"
@@ -176,7 +177,7 @@ object Libraries {
     }
 
     object Hilt {
-        private const val HILT_VERSION = "2.33-beta"
+        private const val HILT_VERSION = "2.40.5"
         private const val HILT_LIFECYCLE_VIEWMODEL_VERSION = "1.0.0-alpha03"
         private const val HILT_COMPILER_VERSION = "1.0.0-alpha03"
 
@@ -321,7 +322,7 @@ val DependencyHandler.ROBOELECTRIC_TEST
     get() = roboelectricTest()
 
 private fun DependencyHandler.accompanist() {
-    implementation(Libraries.ACCOMPANIST_COIL)
+    implementation(Libraries.COIL_COMPOSE)
     implementation(Libraries.COIL_GIF)
 }
 
@@ -342,6 +343,7 @@ private fun DependencyHandler.base() {
 
 private fun DependencyHandler.compose() {
     implementation(Libraries.Compose.ANIMATION)
+    implementation(Libraries.Compose.COMPILER)
     implementation(Libraries.Compose.FOUNDATION)
     implementation(Libraries.Compose.FOUNDATION_LAYOUT)
     implementation(Libraries.Compose.MATERIAL)
@@ -397,9 +399,9 @@ fun DependencyHandler.androidInstrumentationTest(
     useRoboelectric: Boolean = false
 ) {
     if (useJUnit5) {
-        androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.4.1")
-        androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.0.0")
-        androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.0.0")
+        androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+        androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.3.0")
+        androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.3.0")
     }
 
     if (!useRoboelectric) {

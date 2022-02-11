@@ -14,7 +14,6 @@ gradlePlugin {
 
 repositories {
     google()
-    jcenter()
     mavenCentral()
     maven("https://plugins.gradle.org/m2/")
 }
@@ -22,11 +21,11 @@ repositories {
 dependencies {
     //compileOnly(gradleApi())
     //implementation(kotlin("gradle-plugin"))
-    implementation("com.android.tools.build:gradle:7.0.0-alpha09")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
-    implementation("com.google.dagger:hilt-android-gradle-plugin:2.33-beta")
-    implementation("org.jlleitschuh.gradle:ktlint-gradle:9.4.1")
+    implementation("com.android.tools.build:gradle:7.1.0")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
+    implementation("com.google.dagger:hilt-android-gradle-plugin:2.40.5")
+    implementation("org.jlleitschuh.gradle:ktlint-gradle:10.2.1")
     implementation("org.jetbrains.kotlin:kotlin-serialization:1.4.31")
     implementation("io.ktor:ktor-serialization:1.5.1")
-    implementation("de.mannodermaus.gradle.plugins:android-junit5:1.7.0.0")
+    implementation("de.mannodermaus.gradle.plugins:android-junit5:1.8.2.0")
 }

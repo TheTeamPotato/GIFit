@@ -7,8 +7,12 @@ plugins {
 android {
     buildFeatures.compose = true
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = Libraries.Compose.COMPOSE_VERSION
+    }
+
     defaultConfig {
-        testInstrumentationRunner =  "com.theteampotato.gifit.testing.HiltTestRunner"
+        testInstrumentationRunner = "com.theteampotato.gifit.testing.HiltTestRunner"
     }
 
     testOptions {

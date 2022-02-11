@@ -39,7 +39,7 @@ class CommonModulePlugin : Plugin<Project> {
                 apply("kotlinx-serialization")
         }
 
-        project.applyKtLintConfigurations()
+        //project.applyKtLintConfigurations()
 
         val androidExtension = project.extensions.getByName("android") as? BaseExtension ?: return
 
@@ -122,11 +122,11 @@ class CommonModulePlugin : Plugin<Project> {
             with(modulePluginExtension!!) {
                 if (useJUnitRunner5) {
                     with(androidExtension) {
-                        project.plugins.apply(BuildScript.JUNIT5_PLUGIN)
-                        defaultConfig.testInstrumentationRunnerArgument(
-                            "runnerBuilder",
-                            "de.mannodermaus.junit5.AndroidJUnit5Builder"
-                        )
+                        //project.plugins.apply(BuildScript.JUNIT5_PLUGIN)
+//                        defaultConfig.testInstrumentationRunnerArgument(
+//                            "runnerBuilder",
+//                            "de.mannodermaus.junit5.AndroidJUnit5Builder"
+//                        )
                     }
                 }
 
@@ -258,7 +258,7 @@ class CommonModulePlugin : Plugin<Project> {
             kotlinOptions {
                 //freeCompilerArgs = listOf("-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check")
                 jvmTarget = "1.8"
-                useIR = true
+                //useIR = true
             }
         }
     }
@@ -272,7 +272,7 @@ class CommonModulePlugin : Plugin<Project> {
         project.tasks.withType<KotlinCompile>().configureEach {
             kotlinOptions {
                 jvmTarget = "11"
-                useIR = true
+                //useIR = true
             }
         }
     }
