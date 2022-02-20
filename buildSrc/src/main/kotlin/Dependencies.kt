@@ -43,10 +43,10 @@ object Modules {
 
 object Libraries {
     private const val COIL_VERSION = "1.4.0"
-    private const val MATERIAL_DESIGN_VERSION = "1.3.0-rc01"
+    private const val MATERIAL_DESIGN_VERSION = "1.5.0"
     private const val PERMISSION_DISPATCHER_VERSION = "4.8.0"
-    private const val SHOWKASE_VERSION = "1.0.0-alpha03"
-    private const val TIMBER_VERSION = "4.7.1"
+    private const val SHOWKASE_VERSION = "1.0.0-beta12"
+    private const val TIMBER_VERSION = "5.0.1"
 
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:$COIL_VERSION"
     const val COIL_GIF = "io.coil-kt:coil-gif:$COIL_VERSION"
@@ -60,11 +60,11 @@ object Libraries {
     const val TIMBER = "com.jakewharton.timber:timber:$TIMBER_VERSION"
 
     object AndroidX {
-        private const val APPCOMPAT_VERSION = "1.3.0-beta01"
-        private const val CORE_VERSION = "1.5.0-beta01"
-        private const val FRAGMENT_KTX_VERSION = "1.2.5"
+        private const val APPCOMPAT_VERSION = "1.4.1"
+        private const val CORE_VERSION = "1.7.0"
+        private const val FRAGMENT_KTX_VERSION = "1.4.1"
         private const val MULTIDEX_VERSION = "2.0.1"
-        private const val NAVIGATION_COMPONENT_VERSION = "2.3.1"
+        private const val NAVIGATION_COMPONENT_VERSION = "2.4.1"
         private const val LIFECYCLE_VERSION = "2.2.0"
         private const val ROOM_VERSION = "2.4.1"
 
@@ -161,7 +161,7 @@ object Libraries {
     }
 
     object Ktor {
-        private const val KTOR_VERSION = "1.5.1"
+        private const val KTOR_VERSION = "1.6.7"
 
         const val KTOR_ANDROID_CLIENT = "io.ktor:ktor-client-android:$KTOR_VERSION"
         const val KTOR_CIO_CLIENT = "io.ktor:ktor-client-cio:$KTOR_VERSION"
@@ -170,7 +170,7 @@ object Libraries {
     }
 
     object KotlinxSerialization {
-        private const val KOTLINX_SERIALIZATION_JSON_VERSION = "1.0.1"
+        private const val KOTLINX_SERIALIZATION_JSON_VERSION = "1.3.2"
 
         const val KOTLINX_SERIALIZATION_JSON =
             "org.jetbrains.kotlinx:kotlinx-serialization-json:$KOTLINX_SERIALIZATION_JSON_VERSION"
@@ -194,7 +194,7 @@ object Libraries {
 
     object Test {
         private const val HAMCREST_VERSION = "1.3"
-        private const val JUNIT_VERSION = "4.13.1"
+        private const val JUNIT_VERSION = "4.13.2"
         private const val KOTLINX_COROUTINES_VERSION = "1.4.2"
         private const val MOCKITO_CORE_VERSION = "2.21.0"
         private const val MOCKITO_INLINE_VERSION = "3.3.3"

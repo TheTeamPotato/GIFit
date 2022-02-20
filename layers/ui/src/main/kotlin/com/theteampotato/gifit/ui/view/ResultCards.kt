@@ -102,5 +102,5 @@ private fun GIFitImage(modifier: Modifier = Modifier, imageURL: String) {
 
 @Composable
 @Preview
-private fun PreviewResultCard() =
+fun PreviewResultCard() =
     ResultCard(imageURL = "https://media3.giphy.com/media/XFuQ4InwtXBE4DDPHM/giphy.gif", translatedText = "Bana bir sey sor")
