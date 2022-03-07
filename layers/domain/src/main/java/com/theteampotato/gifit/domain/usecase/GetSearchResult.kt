@@ -1,7 +1,8 @@
 package com.theteampotato.gifit.domain.usecase
 
 import android.content.Context
-import com.theteampotato.gifit.data.remote.GiphyService
+import com.theteampotato.gifit.data.remote.repository.GIFitRemoteRepository
+import com.theteampotato.gifit.domain.mapper.toSearchResult
 import com.theteampotato.gifit.domain.model.SearchResult
 import com.theteampotato.gifit.translate.GoogleMLKitTranslator
 
@@ -11,14 +12,14 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 
 import timber.log.Timber
 
 class GetSearchResult @Inject constructor(
     context: Context,
     private val translator: GoogleMLKitTranslator,
-    private val giphyService: GiphyService
+    private val remoteRepository: GIFitRemoteRepository
 ) : BaseUseCase() {
 
     init {
@@ -27,8 +28,7 @@ class GetSearchResult @Inject constructor(
 
     suspend operator fun invoke(keyword: String): SearchResult? {
         val translatedText = getTranslatedText(keyword) ?: return null
-        val giphyURL = getGiphyURL(translatedText)
-        return SearchResult(translatedText, giphyURL)
+        return getGiphyResult(translatedText).toSearchResult(translatedText)
     }
 
     private suspend fun getTranslatedText(keyword: String) = suspendCoroutine<String?> { continuation ->
@@ -43,8 +43,6 @@ class GetSearchResult @Inject constructor(
             )
         }
 
-    private suspend fun getGiphyURL(text: String) = async(Dispatchers.IO) {
-        return@async giphyService.search(text)
-    }.await()
+    private suspend fun getGiphyResult(text: String) = withContext(Dispatchers.IO) { remoteRepository.search(text) }
 
 }

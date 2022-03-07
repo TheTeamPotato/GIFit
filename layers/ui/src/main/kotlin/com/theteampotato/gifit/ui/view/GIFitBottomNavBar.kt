@@ -8,20 +8,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
+import com.theteampotato.gifit.ui.BottomNavScreen
+import com.theteampotato.gifit.ui.getBottomNavigationScreenList
 import timber.log.Timber
 
 @Composable
 fun GIFitBottomNavBar(
-    currentRoute: String,
+    currentDestination: NavDestination?,
     navigateTo: (String) -> Unit,
-    items: List<BottomNavScreens>
+    items: List<BottomNavScreen> = getBottomNavigationScreenList()
 ) {
     BottomNavigation(backgroundColor = Color.White) {
         items.forEach { screen ->
             BottomNavigationItem(
                 icon = { Icon(screen.icon, contentDescription = null) },
                 label = { Text(stringResource(id = screen.resourceId)) },
-                selected = currentRoute == screen.route,
+                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 alwaysShowLabel = true,
                 selectedContentColor = Color.Black,
                 unselectedContentColor = Color.Gray,
@@ -36,5 +40,5 @@ fun GIFitBottomNavBar(
 @Preview
 @Composable
 fun PreviewGIFitBottomNavBar() {
-    GIFitBottomNavBar("Search", { Timber.d("Navigating to $it") }, getScreens())
+    GIFitBottomNavBar(null, { Timber.d("Navigating to $it") }, getBottomNavigationScreenList())
 }

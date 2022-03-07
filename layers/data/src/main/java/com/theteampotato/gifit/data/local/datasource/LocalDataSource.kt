@@ -3,44 +3,52 @@ package com.theteampotato.gifit.data.local.datasource
 import androidx.lifecycle.LiveData
 
 import com.theteampotato.gifit.data.local.dao.SearchResultDao
-import com.theteampotato.gifit.data.local.entity.SearchResult
+import com.theteampotato.gifit.data.local.entity.SearchResultEntity
 
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
     private val searchResultDao: SearchResultDao
-) : ILocalDataSource<SearchResult> {
+) : ILocalDataSource<SearchResultEntity> {
 
-    override suspend fun insert(searchResult: SearchResult) {
-        searchResultDao.insert(searchResult)
+    override suspend fun insert(SearchResultEntity: SearchResultEntity) = searchResultDao.insert(SearchResultEntity)
+
+    override suspend fun insertAll(resultListEntity: List<SearchResultEntity>) {
+        searchResultDao.insertAll(resultListEntity)
     }
 
-    override suspend fun insertAll(resultList: List<SearchResult>) {
-        searchResultDao.insertAll(resultList)
+    override suspend fun update(SearchResultEntity: SearchResultEntity) {
+        searchResultDao.update(SearchResultEntity)
     }
 
-    override suspend fun update(searchResult: SearchResult) {
-        searchResultDao.update(searchResult)
+    override suspend fun delete(SearchResultEntity: SearchResultEntity) {
+        searchResultDao.delete(SearchResultEntity)
     }
 
-    override suspend fun delete(searchResult: SearchResult) {
-        searchResultDao.delete(searchResult)
-    }
-
-    override suspend fun get(id: Int): LiveData<SearchResult> {
+    override suspend fun get(id: Int): LiveData<SearchResultEntity> {
         return searchResultDao.getResultById(id)
     }
 
-    override suspend fun getAll(): LiveData<List<SearchResult>> {
+    override suspend fun getAll(): LiveData<List<SearchResultEntity>> {
         return searchResultDao.getAll()
     }
 
-    suspend fun getFavoritesResultById(id: Int): LiveData<SearchResult> {
+    fun getFavoritesResultById(id: Int): LiveData<SearchResultEntity> {
         return searchResultDao.getFavoritesResultById(id)
     }
 
-    suspend fun getAllFavoritesResults(): LiveData<List<SearchResult>> {
+    fun getAllFavoritesResults(): LiveData<List<SearchResultEntity>> {
         return searchResultDao.getAllFavoritesResults()
     }
+
+    fun favoriteLastSearchResult(id: Long) {
+        searchResultDao.favoriteLastSearchResult(id)
+    }
+
+    fun removeSearchResultFromFavorites(id: Long) {
+        searchResultDao.removeSearchResultFromFavorites(id)
+    }
+
+    fun getSearchResultEntry(searchText: String) = searchResultDao.getSearchResultEntry(searchText)
 
 }

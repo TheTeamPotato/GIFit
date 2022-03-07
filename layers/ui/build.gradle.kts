@@ -12,6 +12,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.navigation:navigation-common-ktx:2.4.1")
     ACCOMPANIST
     BASE
     COMPOSE

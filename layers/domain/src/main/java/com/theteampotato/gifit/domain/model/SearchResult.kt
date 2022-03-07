@@ -1,8 +1,10 @@
 package com.theteampotato.gifit.domain.model
 
-import com.theteampotato.gifit.data.remote.model.GiphyResult
-
 data class SearchResult(
+    var id: Long? = null,
+    var searchText: String? = null,
     var translatedText: String,
-    var giphyResult: GiphyResult
+    var gifURL: String,
+    var isFavorite: Boolean = false,
+    var showInHistory: Boolean = false
 )

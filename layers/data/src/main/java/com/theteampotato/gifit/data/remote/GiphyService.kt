@@ -1,6 +1,6 @@
 package com.theteampotato.gifit.data.remote
 
-import com.theteampotato.gifit.data.remote.model.GiphyResult
+import com.theteampotato.gifit.data.remote.model.GiphyResponse
 import javax.inject.Inject
 
 private const val BASE_URL = "https://api.giphy.com/v1/gifs"
@@ -9,6 +9,6 @@ private const val LIMIT = "5"
 
 class GiphyService @Inject constructor() : Service(BASE_URL) {
 
-    suspend fun search(keyword: String) : GiphyResult =
+    suspend fun search(keyword: String) : GiphyResponse =
         "/search?api_key=$API_KEY&q=$keyword&limit=$LIMIT&offset=5&rating=g&lang=en".execute()
 }

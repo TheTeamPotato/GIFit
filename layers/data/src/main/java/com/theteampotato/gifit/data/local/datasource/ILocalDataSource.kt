@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 
 interface ILocalDataSource<T> {
 
-    suspend fun insert(entity: T)
+    suspend fun insert(entity: T) : Long
 
     suspend fun insertAll(entities: List<T>)
 
