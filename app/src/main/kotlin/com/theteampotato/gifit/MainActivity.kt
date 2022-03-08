@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun HomeScaffold(navController: NavController, navigateTo: (String) -> Unit, content: @Composable () -> Unit) {
+fun HomeScaffold(navController: NavController, navigateTo: (String) -> Unit, content: @Composable (Modifier) -> Unit) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
     Scaffold(
@@ -56,6 +56,6 @@ fun HomeScaffold(navController: NavController, navigateTo: (String) -> Unit, con
             })
         }
     ) {
-        content()
+        content(Modifier.padding(it))
     }
 }

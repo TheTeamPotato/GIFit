@@ -19,7 +19,7 @@ interface SearchResultDao : BaseDao<SearchResultEntity> {
     fun getFavoritesResultById(id: Int): LiveData<SearchResultEntity>
 
     @Query("SELECT * FROM SearchResult WHERE isFavorite = 1")
-    fun getAllFavoritesResults(): LiveData<List<SearchResultEntity>>
+    fun getAllFavoritesResults(): Flow<List<SearchResultEntity>>
 
     @Query("UPDATE SearchResult SET isFavorite = 1 WHERE id = :id")
     fun favoriteLastSearchResult(id: Long)

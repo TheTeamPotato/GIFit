@@ -1,31 +1,27 @@
 package com.theteampotato.gifit.home.viewmodel
 
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.*
-import com.theteampotato.gifit.data.local.entity.SearchResultEntity
-import com.theteampotato.gifit.domain.mapper.toSearchResult
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 
+import com.theteampotato.gifit.domain.mapper.toSearchResult
 import com.theteampotato.gifit.domain.mapper.toSearchResultEntity
 import com.theteampotato.gifit.domain.model.SearchResult
-import com.theteampotato.gifit.domain.usecase.AddSearchResultEntry
-import com.theteampotato.gifit.domain.usecase.GetSearchResult
-import com.theteampotato.gifit.domain.usecase.AddSearchResultToFavorites
-import com.theteampotato.gifit.domain.usecase.IsSearchResultExist
+import com.theteampotato.gifit.domain.usecase.*
 import com.theteampotato.gifit.testing.DispatcherProvider
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.flow.Flow
 
 import javax.inject.Inject
 
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import kotlin.coroutines.EmptyCoroutineContext
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
+
+import timber.log.Timber
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -33,19 +29,32 @@ class SearchViewModel @Inject constructor(
     private val addSearchResultEntry: AddSearchResultEntry,
     private val addSearchResultToFavorites: AddSearchResultToFavorites,
     private val getSearchResult: GetSearchResult,
-    private val isSearchResultExist: IsSearchResultExist
+    private val isSearchResultExist: IsSearchResultExist,
+    private val removeSearchResultFromFavorites: RemoveSearchResultFromFavorites
 ) : ViewModel() {
 
-    private val mSearchResultLiveData = mutableStateOf<SearchResult?>(null)
-    val searchResultState = mSearchResultLiveData
+    private val mSearchResultState = mutableStateOf<SearchResult?>(null)
+    val searchResultState = mSearchResultState
 
-    private var lastID = -1L
+    private var currentSearchResultID = -1L
 
     fun addToFavorites() {
+        Timber.d("addFavorites(lastID = $currentSearchResultID)")
+
         val dispatcher = dispatcherProvider?.io ?: EmptyCoroutineContext
 
         viewModelScope.launch(dispatcher) {
-            addSearchResultToFavorites(lastID)
+            addSearchResultToFavorites(currentSearchResultID)
+        }
+    }
+
+    fun removeFromFavorites() {
+        Timber.d("removeFromFavorites(lastID = $currentSearchResultID)")
+
+        val dispatcher = dispatcherProvider?.io ?: EmptyCoroutineContext
+
+        viewModelScope.launch(dispatcher) {
+            removeSearchResultFromFavorites.invoke(currentSearchResultID)
         }
     }
 
@@ -53,19 +62,15 @@ class SearchViewModel @Inject constructor(
         val dispatcher = dispatcherProvider?.io ?: EmptyCoroutineContext
 
         viewModelScope.launch(dispatcher) {
-            /*val x = isSearchResultExist(text).toList().forEach {
-                Timber.d("it is $it")
-            }
-*/
-            //isSearchResultExist(text).collect { searchResultEntity ->
-            isSearchResultExist(text).collectLatest { searchResultEntity ->
+            isSearchResultExist(text).distinctUntilChanged().collectLatest { searchResultEntity ->
                 if (searchResultEntity != null) {
-                    mSearchResultLiveData.value = searchResultEntity.toSearchResult()
+                    currentSearchResultID = searchResultEntity.id
+                    mSearchResultState.value = searchResultEntity.toSearchResult()
                     Timber.d("${searchResultEntity.searchText} exists in DB!!")
                 } else {
                     getSearchResult(text)?.let { searchResult ->
-                        lastID = addSearchResultEntry(searchResult.toSearchResultEntity(text, searchResult.gifURL, false))
-                        mSearchResultLiveData.value = searchResult
+                        currentSearchResultID = addSearchResultEntry(searchResult.toSearchResultEntity(text, searchResult.gifURL, false))
+                        mSearchResultState.value = searchResult
                         Timber.d("${searchResult.searchText} - remote service call!!")
                     }
                 }

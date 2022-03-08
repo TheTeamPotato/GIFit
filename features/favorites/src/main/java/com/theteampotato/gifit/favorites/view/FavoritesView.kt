@@ -1,15 +1,16 @@
 package com.theteampotato.gifit.favorites.view
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 
-import com.theteampotato.gifit.domain.model.SearchResult
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
 import com.theteampotato.gifit.ui.view.GIFitCard
 
@@ -18,25 +19,24 @@ import timber.log.Timber
 var removedFromFavoritesList = mutableStateListOf<Long>()
 
 @Composable
-fun FavoritesScreen(viewModel: FavoritesViewModel = hiltViewModel()) {
+fun FavoritesScreen(modifier: Modifier = Modifier, viewModel: FavoritesViewModel = hiltViewModel()) {
 
     LaunchedEffect(key1 = Unit) {
         viewModel.retrieveFavoriteSearchResults()
     }
 
-    val searchResult: List<SearchResult>? = viewModel.favoriteSearchResultLiveData.observeAsState().value
+    val searchResultList by viewModel.favoriteSearchResultListState
 
-    Timber.d("searchResult is $searchResult")
+    Timber.d("searchResult is $searchResultList")
 
-    searchResult?.let {
-        Column {
-            it.forEach {
-                GIFitCard(id = it.id ?: -1L, text = it.searchText!!, iconImageVector = Icons.Outlined.Favorite) { id ->
+    searchResultList?.let {
+        LazyColumn(modifier) {
+            items(it) { searchResult ->
+                GIFitCard(id = searchResult.id ?: -1L, text = searchResult.searchText!!, iconImageVector = Icons.Outlined.Favorite) { id ->
                     if (id != -1L) {
                         viewModel.removeFavoriteSearchResult(id)
                         removedFromFavoritesList.add(id)
-                    }
-                    else
+                    } else
                         Timber.e("id is -1")
                 }
             }

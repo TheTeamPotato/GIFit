@@ -28,7 +28,7 @@ fun GIFitCard(id: Long, text: String, iconImageVector: ImageVector, onClick: (Lo
 
     Box(
         Modifier
-            .padding(top = 20.dp, start = horizontalPadding, end = horizontalPadding)
+            .padding(top = 10.dp, bottom = 10.dp, start = horizontalPadding, end = horizontalPadding)
             .fillMaxWidth()) {
         Box(
             Modifier

@@ -422,7 +422,7 @@ private fun DependencyHandler.test(useJUnit5: Boolean) {
         testImplementation(Libraries.Test.JUNIT)
     }
 
-    testImplementation(Libraries.Test.MOCKK)
+    //testImplementation(Libraries.Test.MOCKK)
     testImplementation(Libraries.Test.TRUTH)
     androidTestImplementation(Libraries.Test.TRUTH)
 }
@@ -443,7 +443,7 @@ fun DependencyHandler.androidInstrumentationTest(
         androidTestImplementation(Libraries.Test.AndroidX.JUNIT_KTX)
         androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
         androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
-        androidTestImplementation(Libraries.Test.MOCKK_ANDROID)
+        //androidTestImplementation(Libraries.Test.MOCKK_ANDROID)
     } else {
         testImplementation(Libraries.Test.AndroidX.ARCH)
         testImplementation(Libraries.Test.AndroidX.CORE)

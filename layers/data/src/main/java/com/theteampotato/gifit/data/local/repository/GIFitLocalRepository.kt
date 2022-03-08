@@ -3,6 +3,8 @@ package com.theteampotato.gifit.data.local.repository
 import androidx.lifecycle.LiveData
 import com.theteampotato.gifit.data.local.datasource.LocalDataSource
 import com.theteampotato.gifit.data.local.entity.SearchResultEntity
+import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 import javax.inject.Inject
 
 class GIFitLocalRepository @Inject constructor(
@@ -35,9 +37,7 @@ class GIFitLocalRepository @Inject constructor(
         return localDataSource.getFavoritesResultById(id)
     }
 
-    fun getAllFavoritesResults(): LiveData<List<SearchResultEntity>> {
-        return localDataSource.getAllFavoritesResults()
-    }
+    fun getAllFavoritesResults() = localDataSource.getAllFavoritesResults()
 
     fun favoriteLastSearchResult(id: Long) {
         localDataSource.favoriteLastSearchResult(id)
@@ -47,6 +47,6 @@ class GIFitLocalRepository @Inject constructor(
         localDataSource.removeSearchResultFromFavorites(id)
     }
 
-    fun getSearchResultEntry(searchText: String) = localDataSource.getSearchResultEntry(searchText)
+    fun getSearchResultEntry(searchText: String): Flow<SearchResultEntity?> = localDataSource.getSearchResultEntry(searchText)
 
 }

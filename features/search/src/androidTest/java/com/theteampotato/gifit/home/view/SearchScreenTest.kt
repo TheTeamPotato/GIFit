@@ -1,6 +1,7 @@
 package com.theteampotato.gifit.home.view
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -20,7 +21,7 @@ import org.junit.Test
 import javax.inject.Inject
 
 @HiltAndroidTest
-class HomeViewTest {
+class SearchScreenTest {
 
     @get:Rule val composeTestRule = createComposeRule()
     @get:Rule var hiltRule = HiltAndroidRule(this)
@@ -35,11 +36,11 @@ class HomeViewTest {
     fun setup() {
         hiltRule.inject()
 
-        searchViewModel = SearchViewModel(getSearchResult = getSearchResult)
+        //searchViewModel = SearchViewModel(getSearchResult = getSearchResult)
 
         composeTestRule.setContent {
             GIFitTheme {
-                SearchScreen(searchViewModel = searchViewModel) {}
+                //SearchScreen(searchViewModel = searchViewModel) {}
             }
         }
     }
@@ -56,7 +57,7 @@ class HomeViewTest {
         val expectedValue = "Office"
 
         searchViewModel.searchKeyword(givenValue)
-        searchViewModel.mSearchResultLiveData.getOrAwaitValue()
+        //searchViewModel.mSearchResultLiveData.getOrAwaitValue()
 
         composeTestRule.onNodeWithText(expectedValue).assertIsDisplayed()
     }

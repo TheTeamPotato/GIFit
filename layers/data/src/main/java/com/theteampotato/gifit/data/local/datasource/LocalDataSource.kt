@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 
 import com.theteampotato.gifit.data.local.dao.SearchResultDao
 import com.theteampotato.gifit.data.local.entity.SearchResultEntity
+import kotlinx.coroutines.flow.Flow
+import timber.log.Timber
 
 import javax.inject.Inject
 
@@ -37,9 +39,7 @@ class LocalDataSource @Inject constructor(
         return searchResultDao.getFavoritesResultById(id)
     }
 
-    fun getAllFavoritesResults(): LiveData<List<SearchResultEntity>> {
-        return searchResultDao.getAllFavoritesResults()
-    }
+    fun getAllFavoritesResults() = searchResultDao.getAllFavoritesResults()
 
     fun favoriteLastSearchResult(id: Long) {
         searchResultDao.favoriteLastSearchResult(id)
@@ -49,6 +49,6 @@ class LocalDataSource @Inject constructor(
         searchResultDao.removeSearchResultFromFavorites(id)
     }
 
-    fun getSearchResultEntry(searchText: String) = searchResultDao.getSearchResultEntry(searchText)
+    fun getSearchResultEntry(searchText: String): Flow<SearchResultEntity?> = searchResultDao.getSearchResultEntry(searchText)
 
 }

@@ -16,17 +16,17 @@ import com.theteampotato.gifit.ui.BottomNavScreen
 fun NavigationGraph(navController: NavHostController, startDestination: String = BottomNavScreen.SearchNavScreen.route) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(BottomNavScreen.FavoritesNavScreen.route) {
-            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }){
-                FavoritesScreen()
+            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
+                FavoritesScreen(it)
             }
         }
         composable(BottomNavScreen.HistoryNavScreen.route) {
-            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }){
-                FavoritesScreen()
+            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
+                FavoritesScreen(it)
             }
         }
         composable(BottomNavScreen.SearchNavScreen.route) {
-            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }){
+            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
                 SearchScreen()
             }
         }
