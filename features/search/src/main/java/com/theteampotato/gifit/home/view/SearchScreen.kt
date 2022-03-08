@@ -14,18 +14,19 @@ import com.theteampotato.gifit.ui.view.*
 import timber.log.Timber
 
 @Composable
-fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
+fun SearchScreen(searchQueryArgument: String? = null, viewModel: SearchViewModel = hiltViewModel()) {
     val horizontalPadding = 25.dp
     val searchedQuery = rememberSaveable { mutableStateOf("") }
-    val searchResult by viewModel.searchResultState
+    val finalSearchedQuery = rememberSaveable { mutableStateOf("") }
 
     val isFavoriteState = rememberSaveable() { mutableStateOf(false) }
+
+    val searchResult = viewModel.searchKeyword(text = searchQueryArgument ?: finalSearchedQuery.value.ifBlank { null })?.collectAsState(null)
 
     LaunchedEffect(key1 = isFavoriteState.value) {
         Timber.d("Composition")
 
         if (searchedQuery.value.isNotEmpty()) {
-            viewModel.searchKeyword(text = searchedQuery.value)
             Timber.d("searchedQuery is not empty")
         }
     }
@@ -35,13 +36,15 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
             modifier = Modifier.padding(top = 35.dp, start = horizontalPadding, end = horizontalPadding),
             searchQuery = searchedQuery.value,
             onSearchQueryChanged = { searchedQuery.value = it },
-            onSearchQueryEntered = { viewModel.searchKeyword(text = searchedQuery.value) }
+            onSearchQueryEntered = { finalSearchedQuery.value = searchedQuery.value }
         )
 
-        searchResult?.let {
+        searchResult?.value?.let {
+            Timber.d("searchResult.value?.let is $it")
+
             ResultCard(
                 modifier = Modifier.padding(top = 15.dp, start = horizontalPadding, end = horizontalPadding),
-                imageURL = it.gifURL,
+                imageURL = it.gifURL ?: "",
                 translatedText = it.translatedText,
                 isFavorite = it.isFavorite,
                 onFavoriteClicked = {

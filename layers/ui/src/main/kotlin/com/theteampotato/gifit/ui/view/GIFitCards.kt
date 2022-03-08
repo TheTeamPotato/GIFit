@@ -1,6 +1,7 @@
 package com.theteampotato.gifit.ui.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -23,11 +24,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun GIFitCard(id: Long, text: String, iconImageVector: ImageVector, onClick: (Long) -> Unit) {
+fun GIFitCard(id: Long, text: String, iconImageVector: ImageVector, onClicked: () -> Unit = {}, onFavoriteClicked: (Long) -> Unit = {}) {
     val horizontalPadding = 25.dp
 
     Box(
         Modifier
+            .clickable { onClicked() }
             .padding(top = 10.dp, bottom = 10.dp, start = horizontalPadding, end = horizontalPadding)
             .fillMaxWidth()) {
         Box(
@@ -39,7 +41,7 @@ fun GIFitCard(id: Long, text: String, iconImageVector: ImageVector, onClick: (Lo
                 Text(modifier = Modifier.padding(vertical = 20.dp, horizontal = 10.dp), textAlign = TextAlign.Center, text = text)
             }
         }
-        CardIcon(id = id, modifier = Modifier.align(Alignment.TopEnd), iconImageVector = iconImageVector, onClick = onClick)
+        CardIcon(id = id, modifier = Modifier.align(Alignment.TopEnd), iconImageVector = iconImageVector, onClick = onFavoriteClicked)
     }
 }
 

@@ -5,14 +5,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import com.theteampotato.gifit.domain.usecase.*
 
-import com.theteampotato.gifit.domain.usecase.GetSearchResult
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
+import com.theteampotato.gifit.testing.DispatcherProvider
 import com.theteampotato.gifit.testing.getOrAwaitValue
 import com.theteampotato.gifit.ui.GIFitTheme
 
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.setMain
 
 import org.junit.Before
 import org.junit.Rule
@@ -25,10 +29,12 @@ class SearchScreenTest {
 
     @get:Rule val composeTestRule = createComposeRule()
     @get:Rule var hiltRule = HiltAndroidRule(this)
-    @get:Rule var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @Inject
-    lateinit var getSearchResult: GetSearchResult
+    @Inject lateinit var addSearchResultEntry: AddSearchResultEntry
+    @Inject lateinit var addSearchResultToFavorites: AddSearchResultToFavorites
+    @Inject lateinit var isSearchResultExist: IsSearchResultExist
+    @Inject lateinit var removeSearchResultFromFavorites: RemoveSearchResultFromFavorites
+    @Inject lateinit var getSearchResult: GetSearchResult
 
     private lateinit var searchViewModel: SearchViewModel
 
@@ -36,11 +42,22 @@ class SearchScreenTest {
     fun setup() {
         hiltRule.inject()
 
-        //searchViewModel = SearchViewModel(getSearchResult = getSearchResult)
+        searchViewModel = SearchViewModel(
+            dispatcherProvider = DispatcherProvider(
+                io = Dispatchers.Main,
+                ui = Dispatchers.Main,
+                default = Dispatchers.Main
+            ),
+            addSearchResultEntry = addSearchResultEntry,
+            addSearchResultToFavorites = addSearchResultToFavorites,
+            getSearchResult = getSearchResult,
+            isSearchResultExist = isSearchResultExist,
+            removeSearchResultFromFavorites = removeSearchResultFromFavorites
+        )
 
         composeTestRule.setContent {
             GIFitTheme {
-                //SearchScreen(searchViewModel = searchViewModel) {}
+                SearchScreen(viewModel = searchViewModel)
             }
         }
     }
@@ -55,6 +72,8 @@ class SearchScreenTest {
     fun translatedText_of_ResultCard_should_be_displayed_true() {
         val givenValue = "Ofis"
         val expectedValue = "Office"
+
+        //composeTestRule.o
 
         searchViewModel.searchKeyword(givenValue)
         //searchViewModel.mSearchResultLiveData.getOrAwaitValue()

@@ -4,7 +4,7 @@ data class SearchResult(
     var id: Long? = null,
     var searchText: String? = null,
     var translatedText: String,
-    var gifURL: String,
+    var gifURL: String? = null,
     var isFavorite: Boolean = false,
     var showInHistory: Boolean = false
 )

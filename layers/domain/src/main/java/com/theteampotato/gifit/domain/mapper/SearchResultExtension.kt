@@ -6,7 +6,7 @@ import com.theteampotato.gifit.domain.model.SearchResult
 
 fun GiphyResponse.toSearchResult(translatedText: String) = SearchResult(
     translatedText = translatedText,
-    gifURL = data.first().images.original.url
+    gifURL = data.firstOrNull()?.images?.original?.url
 )
 
 fun SearchResult.toSearchResultEntity(searchString: String, resultGifUrl: String, isFavorite: Boolean) = SearchResultEntity(

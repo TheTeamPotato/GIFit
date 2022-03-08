@@ -1,10 +1,7 @@
 package com.theteampotato.gifit
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph
-import androidx.navigation.NavHostController
+import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
@@ -17,17 +14,30 @@ fun NavigationGraph(navController: NavHostController, startDestination: String =
     NavHost(navController = navController, startDestination = startDestination) {
         composable(BottomNavScreen.FavoritesNavScreen.route) {
             HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
-                FavoritesScreen(it)
+                FavoritesScreen(
+                    modifier = it,
+                    navigateToSearch = { searchQueryArgument ->
+                        navController.navigate("${BottomNavScreen.SearchNavScreen.route}/$searchQueryArgument")
+                    }
+                )
             }
         }
         composable(BottomNavScreen.HistoryNavScreen.route) {
             HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
-                FavoritesScreen(it)
+                FavoritesScreen(it, navigateToSearch = { navController.navigate(BottomNavScreen.SearchNavScreen.route) })
             }
         }
         composable(BottomNavScreen.SearchNavScreen.route) {
             HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
                 SearchScreen()
+            }
+        }
+        composable(
+            route = "${BottomNavScreen.SearchNavScreen.route}/{${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
+            arguments = listOf(navArgument("${BottomNavScreen.SearchNavScreen.arguments?.first()}") { type = NavType.StringType })
+        ) { backStackEntry ->
+            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
+                SearchScreen(searchQueryArgument = backStackEntry.arguments?.getString(BottomNavScreen.SearchNavScreen.arguments?.first().toString()))
             }
         }
     }
@@ -54,7 +64,7 @@ private val NavGraph.startDestination: NavDestination?
  *
  * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:navigation/navigation-ui/src/main/java/androidx/navigation/ui/NavigationUI.kt
  */
-private tailrec fun findStartDestination(graph: NavDestination) : NavDestination {
+private tailrec fun findStartDestination(graph: NavDestination): NavDestination {
     return if (graph is NavGraph && graph.startDestination != null)
         findStartDestination(graph.startDestination!!)
     else

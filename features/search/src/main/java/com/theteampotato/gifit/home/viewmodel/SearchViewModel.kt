@@ -11,13 +11,10 @@ import com.theteampotato.gifit.domain.usecase.*
 import com.theteampotato.gifit.testing.DispatcherProvider
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.*
 
 import javax.inject.Inject
 
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -32,9 +29,6 @@ class SearchViewModel @Inject constructor(
     private val isSearchResultExist: IsSearchResultExist,
     private val removeSearchResultFromFavorites: RemoveSearchResultFromFavorites
 ) : ViewModel() {
-
-    private val mSearchResultState = mutableStateOf<SearchResult?>(null)
-    val searchResultState = mSearchResultState
 
     private var currentSearchResultID = -1L
 
@@ -58,24 +52,31 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun searchKeyword(text: String) {
-        val dispatcher = dispatcherProvider?.io ?: EmptyCoroutineContext
+    fun searchKeyword(text: String?): Flow<SearchResult?>? {
+        text?.let {
+            return@searchKeyword isSearchResultExist(text)
+                .distinctUntilChanged()
+                .map { searchResultEntity ->
+                    val outputSearchResult: SearchResult?
 
-        viewModelScope.launch(dispatcher) {
-            isSearchResultExist(text).distinctUntilChanged().collectLatest { searchResultEntity ->
-                if (searchResultEntity != null) {
-                    currentSearchResultID = searchResultEntity.id
-                    mSearchResultState.value = searchResultEntity.toSearchResult()
-                    Timber.d("${searchResultEntity.searchText} exists in DB!!")
-                } else {
-                    getSearchResult(text)?.let { searchResult ->
-                        currentSearchResultID = addSearchResultEntry(searchResult.toSearchResultEntity(text, searchResult.gifURL, false))
-                        mSearchResultState.value = searchResult
-                        Timber.d("${searchResult.searchText} - remote service call!!")
+                    if (searchResultEntity != null) {
+                        currentSearchResultID = searchResultEntity.id
+                        outputSearchResult = searchResultEntity.toSearchResult()
+                        Timber.d("${searchResultEntity.searchText} exists in DB!!")
+                    } else {
+                        outputSearchResult = searchGifOnService(text)
                     }
+
+                    return@map outputSearchResult
                 }
-            }
         }
+        return null
+    }
+
+    private suspend fun searchGifOnService(text: String) = getSearchResult(text)?.let { searchResult ->
+        currentSearchResultID = addSearchResultEntry(searchResult.toSearchResultEntity(text, searchResult.gifURL ?: "", false))
+        Timber.d("${searchResult.searchText} - remote service call!!")
+        return@let searchResult
     }
 
 }
