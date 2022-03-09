@@ -33,6 +33,7 @@ object Modules {
         const val FAVORITES = ":features:favorites"
         const val SEARCH = ":features:search"
         const val SPLASH = ":features:splash"
+        const val HISTORY = ":features:history"
     }
 
     object Layers {
@@ -269,6 +270,9 @@ val DependencyHandler.FEATURE_SEARCH
 
 val DependencyHandler.FEATURE_FAVORITES
     get() = api(project(Modules.Features.FAVORITES))
+
+val DependencyHandler.FEATURE_HISTORY
+    get() = api(project(Modules.Features.HISTORY))
 
 // Layers
 val DependencyHandler.LAYER_DATA

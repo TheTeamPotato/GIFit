@@ -31,7 +31,6 @@ dependencies {
     COMPOSE
     COMPOSE_NAVIGATION
     COMPOSE_HILT_NAVIGATION
-    COMPOSE_VIEWMODEL
     DAGGER_HILT
     KOTLIN_STANDARD_LIBRARY
     MATERIAL_DESIGN
@@ -46,9 +45,6 @@ dependencies {
 
     testImplementation(project(Modules.TESTING))
     testImplementation(Libraries.Kotlin.Coroutines.Test.TEST)
-
-    androidTestImplementation("app.cash.turbine:turbine:0.7.0")
-    testImplementation("app.cash.turbine:turbine:0.7.0")
 }
 
 kapt {
