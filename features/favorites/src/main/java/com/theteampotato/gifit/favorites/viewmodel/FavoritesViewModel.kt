@@ -7,20 +7,22 @@ import com.theteampotato.gifit.domain.mapper.toSearchResult
 import com.theteampotato.gifit.domain.model.SearchResult
 import com.theteampotato.gifit.domain.usecase.GetFavoriteSearchResults
 import com.theteampotato.gifit.domain.usecase.RemoveSearchResultFromFavorites
+import com.theteampotato.gifit.domain.usecase.RemoveSearchResultsFromLocalDb
 import com.theteampotato.gifit.testing.DispatcherProvider
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import timber.log.Timber
-import kotlin.coroutines.EmptyCoroutineContext
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
+import kotlin.coroutines.EmptyCoroutineContext
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider? = null,
     private val getFavoriteSearchResults: GetFavoriteSearchResults,
-    private val removeSearchResultFromFavorites: RemoveSearchResultFromFavorites
+    private val removeSearchResultFromFavorites: RemoveSearchResultFromFavorites,
+    private val removeSearchResultsFromLocalDb: RemoveSearchResultsFromLocalDb
 ) : ViewModel() {
 
     private val mFavoriteSearchResultListState = mutableStateOf<List<SearchResult>?>(null)
@@ -29,13 +31,19 @@ class FavoritesViewModel @Inject constructor(
     suspend fun retrieveFavoriteSearchResults() {
         getFavoriteSearchResults().collectLatest { searchResultEntityList ->
             Timber.d("Search Result is $searchResultEntityList")
-            mFavoriteSearchResultListState.value = searchResultEntityList.map { it.toSearchResult() }.toList()
+            mFavoriteSearchResultListState.value =
+                searchResultEntityList.map { it.toSearchResult() }.toList()
         }
     }
 
     fun removeFavoriteSearchResult(id: Long) {
         val dispatcher = dispatcherProvider?.io ?: EmptyCoroutineContext
         viewModelScope.launch(dispatcher) { removeSearchResultFromFavorites.invoke(id) }
+    }
+
+    fun removeSearchResultsFromLocalDb() {
+        val dispatcher = dispatcherProvider?.io ?: EmptyCoroutineContext
+        viewModelScope.launch(dispatcher) { removeSearchResultsFromLocalDb.invoke() }
     }
 
 }
