@@ -6,14 +6,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 import com.theteampotato.gifit.favorites.view.FavoritesScreen
+import com.theteampotato.gifit.history.view.HistoryScreen
 import com.theteampotato.gifit.home.view.SearchScreen
 import com.theteampotato.gifit.ui.BottomNavScreen
 
 @Composable
-fun NavigationGraph(navController: NavHostController, startDestination: String = BottomNavScreen.SearchNavScreen.route) {
+fun NavigationGraph(
+    navController: NavHostController,
+    startDestination: String = BottomNavScreen.SearchNavScreen.route
+) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(BottomNavScreen.FavoritesNavScreen.route) {
-            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
+            HomeScaffold(
+                navController = navController,
+                navigateTo = { navigate(navController, it) }) {
                 FavoritesScreen(
                     modifier = it,
                     navigateToSearch = { searchQueryArgument ->
@@ -23,21 +29,38 @@ fun NavigationGraph(navController: NavHostController, startDestination: String =
             }
         }
         composable(BottomNavScreen.HistoryNavScreen.route) {
-            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
-                FavoritesScreen(it, navigateToSearch = { navController.navigate(BottomNavScreen.SearchNavScreen.route) })
+            HomeScaffold(
+                navController = navController,
+                navigateTo = { navigate(navController, it) }) {
+                HistoryScreen(
+                    modifier = it,
+                    navigateToSearch = { searchQueryArgument ->
+                        navController.navigate("${BottomNavScreen.SearchNavScreen.route}/$searchQueryArgument")
+                    }
+                )
             }
         }
         composable(BottomNavScreen.SearchNavScreen.route) {
-            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
+            HomeScaffold(
+                navController = navController,
+                navigateTo = { navigate(navController, it) }) {
                 SearchScreen()
             }
         }
         composable(
             route = "${BottomNavScreen.SearchNavScreen.route}/{${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
-            arguments = listOf(navArgument("${BottomNavScreen.SearchNavScreen.arguments?.first()}") { type = NavType.StringType })
+            arguments = listOf(navArgument("${BottomNavScreen.SearchNavScreen.arguments?.first()}") {
+                type = NavType.StringType
+            })
         ) { backStackEntry ->
-            HomeScaffold(navController = navController, navigateTo = { navigate(navController, it) }) {
-                SearchScreen(searchQueryArgument = backStackEntry.arguments?.getString(BottomNavScreen.SearchNavScreen.arguments?.first().toString()))
+            HomeScaffold(
+                navController = navController,
+                navigateTo = { navigate(navController, it) }) {
+                SearchScreen(
+                    searchQueryArgument = backStackEntry.arguments?.getString(
+                        BottomNavScreen.SearchNavScreen.arguments?.first().toString()
+                    )
+                )
             }
         }
     }
