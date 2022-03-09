@@ -3,6 +3,7 @@ package com.theteampotato.gifit.domain.di
 import android.content.Context
 
 import com.theteampotato.gifit.data.remote.GiphyService
+import com.theteampotato.gifit.data.remote.repository.GIFitRemoteRepository
 import com.theteampotato.gifit.domain.usecase.GetSearchResult
 import com.theteampotato.gifit.translate.GoogleMLKitTranslator
 
@@ -23,7 +24,7 @@ object UseCaseModule {
     fun providesGetSearchResult(
         @ApplicationContext context: Context,
         translator: GoogleMLKitTranslator,
-        giphyService: GiphyService
-    ) = GetSearchResult(context, translator, giphyService)
+        remoteRepository: GIFitRemoteRepository
+    ) = GetSearchResult(context, translator, remoteRepository)
 
 }

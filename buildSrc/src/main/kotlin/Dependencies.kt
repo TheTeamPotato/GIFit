@@ -30,8 +30,9 @@ object Modules {
     const val TRANSLATE = ":translate"
 
     object Features {
+        const val FAVORITES = ":features:favorites"
+        const val SEARCH = ":features:search"
         const val SPLASH = ":features:splash"
-        const val HOME = ":features:home"
     }
 
     object Layers {
@@ -94,6 +95,8 @@ object Libraries {
     object Compose {
         private const val COMPOSE_NAVIGATION_VERSION = "2.4.1"
         private const val COMPOSE_UI_TOOLING_VERSION = "1.0.5"
+        private const val COMPOSE_VIEWMODEL_VERSION = "2.4.1"
+        private const val COMPOSE_HILT_VIEWMODEL_VERSION = "1.0.0"
         const val COMPOSE_VERSION = "1.1.0"
 
         const val ANIMATION = "androidx.compose.animation:animation:$COMPOSE_VERSION"
@@ -114,6 +117,8 @@ object Libraries {
         const val UI = "androidx.compose.ui:ui:$COMPOSE_VERSION"
         const val UI_TOOLING =
             "androidx.compose.ui:ui-tooling:$COMPOSE_UI_TOOLING_VERSION" // Tooling support (Previews, etc.)
+        const val VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-compose:$COMPOSE_VIEWMODEL_VERSION"
+        const val HILT_NAVIGATION = "androidx.hilt:hilt-navigation-compose:${COMPOSE_HILT_VIEWMODEL_VERSION}"
 
         object Test {
             const val UI_TEST = "androidx.compose.ui:ui-test-junit4:$COMPOSE_VERSION"
@@ -122,7 +127,7 @@ object Libraries {
 
     object Google {
         object MLKit {
-            private const val TRANSLATE_VERSION = "16.1.1"
+            private const val TRANSLATE_VERSION = "17.0.0"
 
             const val TRANSLATE = "com.google.mlkit:translate:$TRANSLATE_VERSION"
         }
@@ -162,11 +167,15 @@ object Libraries {
 
     object Ktor {
         private const val KTOR_VERSION = "1.6.7"
+        private const val LOGBACK_VERSION = "1.2.10"
 
         const val KTOR_ANDROID_CLIENT = "io.ktor:ktor-client-android:$KTOR_VERSION"
-        const val KTOR_CIO_CLIENT = "io.ktor:ktor-client-cio:$KTOR_VERSION"
+        const val KTOR_CLIENT_CIO = "io.ktor:ktor-client-cio:$KTOR_VERSION"
+        const val KTOR_CLIENT_LOGGING = "io.ktor:ktor-client-logging:$KTOR_VERSION"
         const val KTOR_KOTLINX_SERIALIZATION = "io.ktor:ktor-client-serialization:$KTOR_VERSION"
         const val KTOR_SERIALIZATION_JVM = "io.ktor:ktor-client-serialization-jvm:$KTOR_VERSION"
+
+        const val LOGBACK_CLASSIC = "ch.qos.logback:logback-classic:$LOGBACK_VERSION"
     }
 
     object KotlinxSerialization {
@@ -237,7 +246,16 @@ object Libraries {
 
 // Internal Libraries
 val DependencyHandler.TESTING
-    get() = androidTestImplementation(project(Modules.TESTING))
+    //get() = androidTestImplementation(project(Modules.TESTING))
+    get() = implementation(project(Modules.TESTING))
+
+val DependencyHandler.TESTING_IMPL
+    get() = implementation(project(Modules.TESTING))
+
+fun DependencyHandler.testing() {
+    implementation(project(Modules.TESTING))
+    androidTestImplementation(project(Modules.TESTING))
+}
 
 val DependencyHandler.TRANSLATE
     get() = api(project(Modules.TRANSLATE))
@@ -246,8 +264,11 @@ val DependencyHandler.TRANSLATE
 val DependencyHandler.FEATURE_SPLASH
     get() = implementation(project(Modules.Features.SPLASH))
 
-val DependencyHandler.FEATURE_HOME
-    get() = api(project(Modules.Features.HOME))
+val DependencyHandler.FEATURE_SEARCH
+    get() = api(project(Modules.Features.SEARCH))
+
+val DependencyHandler.FEATURE_FAVORITES
+    get() = api(project(Modules.Features.FAVORITES))
 
 // Layers
 val DependencyHandler.LAYER_DATA
@@ -268,6 +289,15 @@ val DependencyHandler.BASE
 
 val DependencyHandler.COMPOSE
     get() = compose()
+
+val DependencyHandler.COMPOSE_NAVIGATION
+    get() = implementation(Libraries.Compose.NAVIGATION)
+
+val DependencyHandler.COMPOSE_VIEWMODEL
+    get() = implementation(Libraries.Compose.VIEWMODEL)
+
+val DependencyHandler.COMPOSE_HILT_NAVIGATION
+    get() = implementation(Libraries.Compose.HILT_NAVIGATION)
 
 val DependencyHandler.COROUTINES
     get() = coroutines()
@@ -367,8 +397,11 @@ private fun DependencyHandler.hilt() {
 }
 
 private fun DependencyHandler.ktor() {
+    implementation(Libraries.Ktor.LOGBACK_CLASSIC)
+
     api(Libraries.Ktor.KTOR_ANDROID_CLIENT)
-    implementation(Libraries.Ktor.KTOR_CIO_CLIENT)
+    implementation(Libraries.Ktor.KTOR_CLIENT_CIO)
+    implementation(Libraries.Ktor.KTOR_CLIENT_LOGGING)
     //implementation(Libraries.Ktor.KTOR_KOTLINX_SERIALIZATION)
     implementation(Libraries.Ktor.KTOR_SERIALIZATION_JVM)
 
@@ -389,7 +422,7 @@ private fun DependencyHandler.test(useJUnit5: Boolean) {
         testImplementation(Libraries.Test.JUNIT)
     }
 
-    testImplementation(Libraries.Test.MOCKK)
+    //testImplementation(Libraries.Test.MOCKK)
     testImplementation(Libraries.Test.TRUTH)
     androidTestImplementation(Libraries.Test.TRUTH)
 }
@@ -410,7 +443,7 @@ fun DependencyHandler.androidInstrumentationTest(
         androidTestImplementation(Libraries.Test.AndroidX.JUNIT_KTX)
         androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
         androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
-        androidTestImplementation(Libraries.Test.MOCKK_ANDROID)
+        //androidTestImplementation(Libraries.Test.MOCKK_ANDROID)
     } else {
         testImplementation(Libraries.Test.AndroidX.ARCH)
         testImplementation(Libraries.Test.AndroidX.CORE)

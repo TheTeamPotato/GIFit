@@ -50,6 +50,7 @@ fun GIFitSearchBar(
             placeholder = { Text(text = placeholderText) },
             colors = TextFieldDefaults.textFieldColors(
                 textColor = Color.Black,
+                cursorColor = Color.Black,
                 disabledTextColor = Color.Gray,
                 backgroundColor = Color.White,
                 focusedIndicatorColor = Color.Transparent,
