@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun GIFitCard(id: Long, text: String, iconImageVector: ImageVector, onClicked: () -> Unit = {}, onFavoriteClicked: (Long) -> Unit = {}) {
+fun GIFitCard(id: Long, text: String, iconImageVector: ImageVector, colorFilter: ColorFilter, onClicked: () -> Unit = {}, onFavoriteClicked: (Long) -> Unit = {}) {
     val horizontalPadding = 25.dp
 
     Box(
@@ -41,12 +41,12 @@ fun GIFitCard(id: Long, text: String, iconImageVector: ImageVector, onClicked: (
                 Text(modifier = Modifier.padding(vertical = 20.dp, horizontal = 10.dp), textAlign = TextAlign.Center, text = text)
             }
         }
-        CardIcon(id = id, modifier = Modifier.align(Alignment.TopEnd), iconImageVector = iconImageVector, onClick = onFavoriteClicked)
+        CardIcon(id = id, modifier = Modifier.align(Alignment.TopEnd), iconImageVector = iconImageVector, colorFilter, onClick = onFavoriteClicked)
     }
 }
 
 @Composable
-private fun CardIcon(id: Long, modifier: Modifier = Modifier, iconImageVector: ImageVector, onClick: (Long) -> Unit) {
+private fun CardIcon(id: Long, modifier: Modifier = Modifier, iconImageVector: ImageVector, colorFilter: ColorFilter, onClick: (Long) -> Unit) {
     val isFavorite = remember { mutableStateOf(false) }
 
     Button(
@@ -65,7 +65,7 @@ private fun CardIcon(id: Long, modifier: Modifier = Modifier, iconImageVector: I
             modifier = Modifier.requiredSize(25.dp),
             contentDescription = null,
             imageVector = iconImageVector,
-            colorFilter = ColorFilter.tint(Color.Red)
+            colorFilter = colorFilter
         )
     }
 }
@@ -121,4 +121,4 @@ fun PreviewGIFitSplashCard() = GIFitSplashCard()
 
 @Composable
 @Preview
-fun PreviewGifitCard() = GIFitCard(0L,"Example", iconImageVector = Icons.Outlined.Favorite) {}
+fun PreviewGifitCard() = GIFitCard(0L,"Example", iconImageVector = Icons.Outlined.Favorite, colorFilter = ColorFilter.tint(Color.Red)) {}
