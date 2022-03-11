@@ -61,13 +61,9 @@ fun HomeScaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             val currentRoute = remember { mutableStateOf(BottomNavScreen.SearchNavScreen.route) }
+
             GIFitBottomNavBar(
                 currentDestination = navBackStackEntry?.destination,
-                backAndNavigateTo = {
-                    currentRoute.value = it
-                    navController.popBackStack()
-                    navController.navigate(currentRoute.value)
-                },
                 navigateTo = {
                     currentRoute.value = it
                     navigateTo(currentRoute.value)
