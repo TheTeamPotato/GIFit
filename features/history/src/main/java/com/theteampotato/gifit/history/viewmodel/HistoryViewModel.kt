@@ -1,13 +1,14 @@
-package com.theteampotato.gifit.favorites.viewmodel
+package com.theteampotato.gifit.history.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 
 import com.theteampotato.gifit.domain.mapper.toSearchResult
 import com.theteampotato.gifit.domain.model.SearchResult
-import com.theteampotato.gifit.domain.usecase.GetFavoriteSearchResults
-import com.theteampotato.gifit.domain.usecase.RemoveSearchResultFromFavorites
 import com.theteampotato.gifit.domain.usecase.DeleteSearchResultsFromLocalDb
+import com.theteampotato.gifit.domain.usecase.GetHistoryResults
+import com.theteampotato.gifit.domain.usecase.RemoveSearchResultFromHistory
 import com.theteampotato.gifit.testing.DispatcherProvider
 
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,32 +19,31 @@ import javax.inject.Inject
 import kotlin.coroutines.EmptyCoroutineContext
 
 @HiltViewModel
-class FavoritesViewModel @Inject constructor(
+class HistoryViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider? = null,
-    private val getFavoriteSearchResults: GetFavoriteSearchResults,
-    private val removeSearchResultFromFavorites: RemoveSearchResultFromFavorites,
+    private val getHistoryResults: GetHistoryResults,
+    private val removeSearchResultFromHistory: RemoveSearchResultFromHistory,
     private val deleteSearchResultsFromLocalDb: DeleteSearchResultsFromLocalDb
 ) : ViewModel() {
 
-    private val mFavoriteSearchResultListState = mutableStateOf<List<SearchResult>?>(null)
-    val favoriteSearchResultListState = mFavoriteSearchResultListState
+    private val mHistoryResultListState = mutableStateOf<List<SearchResult>?>(null)
+    val historyResultListState = mHistoryResultListState
 
-    suspend fun retrieveFavoriteSearchResults() {
-        getFavoriteSearchResults().collectLatest { searchResultEntityList ->
+    suspend fun retrieveHistoryResults() {
+        getHistoryResults().collectLatest { searchResultEntityList ->
             Timber.d("Search Result is $searchResultEntityList")
-            mFavoriteSearchResultListState.value =
+            historyResultListState.value =
                 searchResultEntityList.map { it.toSearchResult() }.toList()
         }
     }
 
-    fun removeFavoriteSearchResult(id: Long) {
+    fun removeHistorySearchResult(id: Long) {
         val dispatcher = dispatcherProvider?.io ?: EmptyCoroutineContext
-        viewModelScope.launch(dispatcher) { removeSearchResultFromFavorites.invoke(id) }
+        viewModelScope.launch(dispatcher) { removeSearchResultFromHistory.invoke(id) }
     }
 
     fun deleteSearchResultsFromLocalDb() {
         val dispatcher = dispatcherProvider?.io ?: EmptyCoroutineContext
         viewModelScope.launch(dispatcher) { deleteSearchResultsFromLocalDb.invoke() }
     }
-
 }

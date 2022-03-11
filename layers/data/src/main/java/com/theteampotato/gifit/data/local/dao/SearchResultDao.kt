@@ -28,6 +28,15 @@ interface SearchResultDao : BaseDao<SearchResultEntity> {
     fun removeSearchResultFromFavorites(id: Long)
 
     @Query("SELECT * FROM SearchResult WHERE searchText LIKE :searchText")
-    fun getSearchResultEntry(searchText: String) : Flow<SearchResultEntity?>
+    fun getSearchResultEntry(searchText: String): Flow<SearchResultEntity?>
+
+    @Query("SELECT * FROM SearchResult WHERE showInHistory = 1")
+    fun getHistoryResults(): Flow<List<SearchResultEntity>>
+
+    @Query("UPDATE SearchResult SET showInHistory = 0 WHERE id = :id")
+    fun removeSearchResultFromHistory(id: Long)
+
+    @Query("DELETE FROM SearchResult WHERE showInHistory = 0 AND isFavorite = 0")
+    fun deleteSearchResultsFromLocalDb()
 
 }

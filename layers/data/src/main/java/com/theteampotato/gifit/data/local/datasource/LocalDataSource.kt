@@ -1,19 +1,17 @@
 package com.theteampotato.gifit.data.local.datasource
 
 import androidx.lifecycle.LiveData
-
 import com.theteampotato.gifit.data.local.dao.SearchResultDao
 import com.theteampotato.gifit.data.local.entity.SearchResultEntity
 import kotlinx.coroutines.flow.Flow
-import timber.log.Timber
-
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
     private val searchResultDao: SearchResultDao
 ) : ILocalDataSource<SearchResultEntity> {
 
-    override suspend fun insert(SearchResultEntity: SearchResultEntity) = searchResultDao.insert(SearchResultEntity)
+    override suspend fun insert(SearchResultEntity: SearchResultEntity) =
+        searchResultDao.insert(SearchResultEntity)
 
     override suspend fun insertAll(resultListEntity: List<SearchResultEntity>) {
         searchResultDao.insertAll(resultListEntity)
@@ -49,6 +47,15 @@ class LocalDataSource @Inject constructor(
         searchResultDao.removeSearchResultFromFavorites(id)
     }
 
-    fun getSearchResultEntry(searchText: String): Flow<SearchResultEntity?> = searchResultDao.getSearchResultEntry(searchText)
+    fun getSearchResultEntry(searchText: String): Flow<SearchResultEntity?> =
+        searchResultDao.getSearchResultEntry(searchText)
+
+    fun getHistoryResults() = searchResultDao.getHistoryResults()
+
+    fun removeSearchResultFromHistory(id: Long) =
+        searchResultDao.removeSearchResultFromHistory(id)
+
+    fun deleteSearchResultsFromLocalDb() =
+        searchResultDao.deleteSearchResultsFromLocalDb()
 
 }
