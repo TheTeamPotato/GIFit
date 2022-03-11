@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import com.theteampotato.gifit.data.local.datasource.LocalDataSource
 import com.theteampotato.gifit.data.local.entity.SearchResultEntity
 import kotlinx.coroutines.flow.Flow
-import timber.log.Timber
 import javax.inject.Inject
 
 class GIFitLocalRepository @Inject constructor(
     private val localDataSource: LocalDataSource
 ) : BaseLocalRepository<SearchResultEntity> {
 
-    override suspend fun insert(SearchResultEntity: SearchResultEntity) = localDataSource.insert(SearchResultEntity)
+    override suspend fun insert(SearchResultEntity: SearchResultEntity) =
+        localDataSource.insert(SearchResultEntity)
 
     override suspend fun insertAll(SearchResultEntityList: List<SearchResultEntity>) {
         localDataSource.insertAll(SearchResultEntityList)
@@ -47,6 +47,15 @@ class GIFitLocalRepository @Inject constructor(
         localDataSource.removeSearchResultFromFavorites(id)
     }
 
-    fun getSearchResultEntry(searchText: String): Flow<SearchResultEntity?> = localDataSource.getSearchResultEntry(searchText)
+    fun getSearchResultEntry(searchText: String): Flow<SearchResultEntity?> =
+        localDataSource.getSearchResultEntry(searchText)
+
+    fun getHistoryResults() = localDataSource.getHistoryResults()
+
+    fun removeSearchResultFromHistory(id: Long) =
+        localDataSource.removeSearchResultFromHistory(id)
+
+    fun deleteSearchResultsFromLocalDb() =
+        localDataSource.deleteSearchResultsFromLocalDb()
 
 }

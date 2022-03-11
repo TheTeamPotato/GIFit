@@ -1,15 +1,11 @@
 package com.theteampotato.gifit
 
 import android.os.Bundle
-
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-
-import com.theteampotato.gifit.ui.GIFitTheme
-
-import dagger.hilt.android.AndroidEntryPoint
-
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,14 +15,21 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-
+import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
+import com.theteampotato.gifit.history.viewmodel.HistoryViewModel
+import com.theteampotato.gifit.home.viewmodel.SearchViewModel
 import com.theteampotato.gifit.ui.BottomNavScreen
-import com.theteampotato.gifit.ui.view.*
+import com.theteampotato.gifit.ui.GIFitTheme
+import com.theteampotato.gifit.ui.view.GIFitBottomNavBar
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    //private val searchViewModel: SearchViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by viewModels()
+    private val historyViewModel: HistoryViewModel by viewModels()
+    private val favoritesViewModel: FavoritesViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,12 @@ class MainActivity : AppCompatActivity() {
             val navController = rememberNavController()
 
             GIFitTheme {
-                NavigationGraph(navController)
+                NavigationGraph(
+                    navController = navController,
+                    searchViewModel = searchViewModel,
+                    historyViewModel = historyViewModel,
+                    favoritesViewModel = favoritesViewModel
+                )
             }
         }
     }
@@ -42,7 +50,11 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun HomeScaffold(navController: NavController, navigateTo: (String) -> Unit, content: @Composable (Modifier) -> Unit) {
+fun HomeScaffold(
+    navController: NavController,
+    navigateTo: (String) -> Unit,
+    content: @Composable (Modifier) -> Unit
+) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
     Scaffold(

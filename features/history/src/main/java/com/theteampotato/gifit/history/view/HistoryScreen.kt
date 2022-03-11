@@ -1,9 +1,9 @@
-package com.theteampotato.gifit.favorites.view
+package com.theteampotato.gifit.history.view
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -11,24 +11,24 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+
+import com.theteampotato.gifit.history.viewmodel.HistoryViewModel
 import com.theteampotato.gifit.ui.view.GIFitCard
+
 import timber.log.Timber
 
-var removedFromFavoritesList = mutableStateListOf<Long>()
-
 @Composable
-fun FavoritesScreen(
+fun HistoryScreen(
     modifier: Modifier = Modifier,
     navigateToSearch: (String) -> Unit,
-    viewModel: FavoritesViewModel
+    viewModel: HistoryViewModel
 ) {
-
     LaunchedEffect(key1 = Unit) {
-        viewModel.retrieveFavoriteSearchResults()
+        viewModel.retrieveHistoryResults()
     }
 
-    val searchResultList by viewModel.favoriteSearchResultListState
+    val searchResultList by viewModel.historyResultListState
 
     Timber.d("searchResult is $searchResultList")
 
@@ -38,14 +38,13 @@ fun FavoritesScreen(
                 GIFitCard(
                     id = searchResult.id ?: -1L,
                     text = searchResult.searchText!!,
-                    iconImageVector = Icons.Outlined.Favorite,
-                    colorFilter = ColorFilter.tint(Color.Red),
+                    iconImageVector = Icons.Filled.Delete,
+                    colorFilter = ColorFilter.tint(Color.Black),
                     onClicked = { navigateToSearch(searchResult.searchText!!) },
                     onFavoriteClicked = { id ->
                         if (id != -1L) {
-                            viewModel.removeFavoriteSearchResult(id)
+                            viewModel.removeHistorySearchResult(id)
                             viewModel.deleteSearchResultsFromLocalDb()
-                            removedFromFavoritesList.add(id)
                         } else
                             Timber.e("id is -1")
                     }
@@ -53,5 +52,4 @@ fun FavoritesScreen(
             }
         }
     }
-
 }
