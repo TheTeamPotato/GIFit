@@ -1,6 +1,7 @@
 package com.theteampotato.gifit.ui.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
@@ -25,7 +26,7 @@ fun InfoTip(modifier: Modifier = Modifier, origin: String, translated: String) {
 }
 
 @Composable
-fun ListenableInfoTip(modifier: Modifier = Modifier, origin: String, translated: String) {
+fun ListenableInfoTip(modifier: Modifier = Modifier, origin: String, translated: String, onListenClicked: () -> Unit) {
     val sizeInDp = 35.dp
 
     Column(modifier) {
@@ -40,7 +41,10 @@ fun ListenableInfoTip(modifier: Modifier = Modifier, origin: String, translated:
                 shape = CircleShape
             ) {
                 Image(
-                    modifier = Modifier.requiredSize(sizeInDp).padding(5.dp),
+                    modifier = Modifier
+                        .requiredSize(sizeInDp)
+                        .padding(5.dp)
+                        .clickable { onListenClicked() },
                     contentDescription = null,
                     imageVector = Icons.Rounded.VolumeUp
                 )

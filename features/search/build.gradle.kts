@@ -1,5 +1,3 @@
-import Libraries.Compose.HILT_NAVIGATION
-
 plugins {
     id(ANDROID_LIBRARY)
     id(DAGGER_HILT_ANDROID_PLUGIN)

@@ -2,9 +2,8 @@ package com.theteampotato.gifit.domain.di
 
 import android.content.Context
 
-import com.theteampotato.gifit.data.remote.GiphyService
-import com.theteampotato.gifit.data.remote.repository.GIFitRemoteRepository
-import com.theteampotato.gifit.domain.usecase.GetSearchResult
+import com.theteampotato.gifit.domain.usecase.ReadText
+import com.theteampotato.gifit.domain.usecase.TranslateText
 import com.theteampotato.gifit.translate.GoogleMLKitTranslator
 
 import dagger.Module
@@ -18,13 +17,15 @@ import dagger.hilt.components.SingletonComponent
 object UseCaseModule {
 
     @Provides
-    fun providesGoogleMLKitTranslator() : GoogleMLKitTranslator = GoogleMLKitTranslator()
+    fun providesGoogleMLKitTranslator() = GoogleMLKitTranslator()
 
     @Provides
-    fun providesGetSearchResult(
+    fun providesTranslateText(
         @ApplicationContext context: Context,
-        translator: GoogleMLKitTranslator,
-        remoteRepository: GIFitRemoteRepository
-    ) = GetSearchResult(context, translator, remoteRepository)
+        translator: GoogleMLKitTranslator
+    ) = TranslateText(context, translator)
+
+    @Provides
+    fun providesReadText(@ApplicationContext context: Context) = ReadText(context)
 
 }

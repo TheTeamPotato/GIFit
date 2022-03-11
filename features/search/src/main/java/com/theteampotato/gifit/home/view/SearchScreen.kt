@@ -4,9 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
 import com.theteampotato.gifit.ui.view.*
@@ -14,20 +18,37 @@ import com.theteampotato.gifit.ui.view.*
 import timber.log.Timber
 
 @Composable
-fun SearchScreen(searchQueryArgument: String? = null, viewModel: SearchViewModel = hiltViewModel()) {
+fun SearchScreen(lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current, searchQueryArgument: String? = null, viewModel: SearchViewModel = hiltViewModel()) {
     val horizontalPadding = 25.dp
     val searchedQuery = rememberSaveable { mutableStateOf("") }
     val finalSearchedQuery = rememberSaveable { mutableStateOf("") }
 
     val isFavoriteState = rememberSaveable() { mutableStateOf(false) }
 
-    val searchResult = viewModel.searchKeyword(text = searchQueryArgument ?: finalSearchedQuery.value.ifBlank { null })?.collectAsState(null)
+    val searchResult = viewModel.searchKeyword(text = finalSearchedQuery.value.ifBlank { null })?.collectAsState(null)
 
-    LaunchedEffect(key1 = isFavoriteState.value) {
+    DisposableEffect(lifecycleOwner) {
+        Timber.d("DisposableEffect")
+
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY)
+                viewModel.releaseResources()
+        }
+
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            Timber.d("onDispose")
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
+    LaunchedEffect(key1 = searchQueryArgument) {
         Timber.d("Composition")
 
-        if (searchedQuery.value.isNotEmpty()) {
-            Timber.d("searchedQuery is not empty")
+        searchQueryArgument?.let {
+            Timber.d("searchQueryArgument is not null")
+            finalSearchedQuery.value = it
         }
     }
 
@@ -54,6 +75,9 @@ fun SearchScreen(searchQueryArgument: String? = null, viewModel: SearchViewModel
                         viewModel.addToFavorites()
                     else
                         viewModel.removeFromFavorites()
+                },
+                onListenClicked = {
+                    viewModel.readKeyword()
                 }
             )
         }

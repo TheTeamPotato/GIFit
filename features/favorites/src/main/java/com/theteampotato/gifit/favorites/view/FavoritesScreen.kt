@@ -7,17 +7,13 @@ import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.theteampotato.gifit.domain.model.SearchResult
 
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
 import com.theteampotato.gifit.ui.view.GIFitCard
 
 import timber.log.Timber
-
-var removedFromFavoritesList = mutableStateListOf<Long>()
 
 @Composable
 fun FavoritesScreen(modifier: Modifier = Modifier, navigateToSearch: (String) -> Unit, viewModel: FavoritesViewModel = hiltViewModel()) {
@@ -39,10 +35,9 @@ fun FavoritesScreen(modifier: Modifier = Modifier, navigateToSearch: (String) ->
                     iconImageVector = Icons.Outlined.Favorite,
                     onClicked = { navigateToSearch(searchResult.searchText!!) },
                     onFavoriteClicked = { id ->
-                        if (id != -1L) {
+                        if (id != -1L)
                             viewModel.removeFavoriteSearchResult(id)
-                            removedFromFavoritesList.add(id)
-                        } else
+                        else
                             Timber.e("id is -1")
                     }
                 )

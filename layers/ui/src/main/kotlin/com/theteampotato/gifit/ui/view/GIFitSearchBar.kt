@@ -57,6 +57,7 @@ fun GIFitSearchBar(
                 disabledIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
+            singleLine = true,
             shape = RoundedCornerShape(20.dp)
         )
     }

@@ -1,15 +1,17 @@
 package com.theteampotato.gifit.translate
 
 import android.content.Context
+
 import com.google.mlkit.common.MlKit
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.Translator
 import com.google.mlkit.nl.translate.TranslatorOptions
+
 import timber.log.Timber
 
-class GoogleMLKitTranslator : ITranslator {
+class GoogleMLKitTranslator: ITranslator {
 
     private lateinit var translator: Translator
     private lateinit var options: TranslatorOptions
@@ -17,8 +19,11 @@ class GoogleMLKitTranslator : ITranslator {
     private val conditions = DownloadConditions.Builder().build()
 
     fun initialize(context: Context) {
-        try { MlKit.initialize(context) }
-        catch (exception: Exception) { Timber.e(exception) }
+        try {
+            MlKit.initialize(context)
+        } catch (exception: Exception) {
+            Timber.e(exception)
+        }
 
         options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.TURKISH)
@@ -49,9 +54,7 @@ class GoogleMLKitTranslator : ITranslator {
         }
     }
 
-    fun destroy() {
-        translator.close()
-    }
+    fun destroy() = translator.close()
 
     /**
      * // TODO: Warn users about this issue in the app
@@ -65,9 +68,10 @@ class GoogleMLKitTranslator : ITranslator {
                 .addOnCompleteListener {
                     if (it.isSuccessful)
                         onSuccess()
-                    else
-                    //onFailure(it.exception!!)
+                    else {
+                        onFailure(it.exception!!)
                         throw it.exception!!
+                    }
                 }
         } catch (e: Exception) {
             throw e
