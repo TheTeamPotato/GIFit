@@ -7,7 +7,7 @@ import com.theteampotato.gifit.domain.mapper.toSearchResult
 import com.theteampotato.gifit.domain.model.SearchResult
 import com.theteampotato.gifit.domain.usecase.GetFavoriteSearchResults
 import com.theteampotato.gifit.domain.usecase.RemoveSearchResultFromFavorites
-import com.theteampotato.gifit.domain.usecase.RemoveSearchResultsFromLocalDb
+import com.theteampotato.gifit.domain.usecase.DeleteSearchResultsFromLocalDb
 import com.theteampotato.gifit.testing.DispatcherProvider
 
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +22,7 @@ class FavoritesViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider? = null,
     private val getFavoriteSearchResults: GetFavoriteSearchResults,
     private val removeSearchResultFromFavorites: RemoveSearchResultFromFavorites,
-    private val removeSearchResultsFromLocalDb: RemoveSearchResultsFromLocalDb
+    private val deleteSearchResultsFromLocalDb: DeleteSearchResultsFromLocalDb
 ) : ViewModel() {
 
     private val mFavoriteSearchResultListState = mutableStateOf<List<SearchResult>?>(null)
@@ -41,9 +41,9 @@ class FavoritesViewModel @Inject constructor(
         viewModelScope.launch(dispatcher) { removeSearchResultFromFavorites.invoke(id) }
     }
 
-    fun removeSearchResultsFromLocalDb() {
+    fun deleteSearchResultsFromLocalDb() {
         val dispatcher = dispatcherProvider?.io ?: EmptyCoroutineContext
-        viewModelScope.launch(dispatcher) { removeSearchResultsFromLocalDb.invoke() }
+        viewModelScope.launch(dispatcher) { deleteSearchResultsFromLocalDb.invoke() }
     }
 
 }

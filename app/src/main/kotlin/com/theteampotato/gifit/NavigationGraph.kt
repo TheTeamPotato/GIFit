@@ -4,16 +4,21 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-
 import com.theteampotato.gifit.favorites.view.FavoritesScreen
+import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
 import com.theteampotato.gifit.history.view.HistoryScreen
+import com.theteampotato.gifit.history.viewmodel.HistoryViewModel
 import com.theteampotato.gifit.home.view.SearchScreen
+import com.theteampotato.gifit.home.viewmodel.SearchViewModel
 import com.theteampotato.gifit.ui.BottomNavScreen
 
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
-    startDestination: String = BottomNavScreen.SearchNavScreen.route
+    startDestination: String = BottomNavScreen.SearchNavScreen.route,
+    searchViewModel: SearchViewModel,
+    historyViewModel: HistoryViewModel,
+    favoritesViewModel: FavoritesViewModel,
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(BottomNavScreen.FavoritesNavScreen.route) {
@@ -24,7 +29,8 @@ fun NavigationGraph(
                     modifier = it,
                     navigateToSearch = { searchQueryArgument ->
                         navController.navigate("${BottomNavScreen.SearchNavScreen.route}/$searchQueryArgument")
-                    }
+                    },
+                    viewModel = favoritesViewModel
                 )
             }
         }
@@ -36,15 +42,9 @@ fun NavigationGraph(
                     modifier = it,
                     navigateToSearch = { searchQueryArgument ->
                         navController.navigate("${BottomNavScreen.SearchNavScreen.route}/$searchQueryArgument")
-                    }
+                    },
+                    viewModel = historyViewModel
                 )
-            }
-        }
-        composable(BottomNavScreen.SearchNavScreen.route) {
-            HomeScaffold(
-                navController = navController,
-                navigateTo = { navigate(navController, it) }) {
-                SearchScreen()
             }
         }
         composable(
@@ -59,8 +59,16 @@ fun NavigationGraph(
                 SearchScreen(
                     searchQueryArgument = backStackEntry.arguments?.getString(
                         BottomNavScreen.SearchNavScreen.arguments?.first().toString()
-                    )
+                    ),
+                    viewModel = searchViewModel
                 )
+            }
+        }
+        composable(BottomNavScreen.SearchNavScreen.route) {
+            HomeScaffold(
+                navController = navController,
+                navigateTo = { navigate(navController, it) }) {
+                SearchScreen()
             }
         }
     }

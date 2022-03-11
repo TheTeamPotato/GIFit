@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 
 import com.theteampotato.gifit.domain.mapper.toSearchResult
 import com.theteampotato.gifit.domain.model.SearchResult
+import com.theteampotato.gifit.domain.usecase.DeleteSearchResultsFromLocalDb
 import com.theteampotato.gifit.domain.usecase.GetHistoryResults
 import com.theteampotato.gifit.domain.usecase.RemoveSearchResultFromHistory
-import com.theteampotato.gifit.domain.usecase.RemoveSearchResultsFromLocalDb
 import com.theteampotato.gifit.testing.DispatcherProvider
 
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +23,7 @@ class HistoryViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider? = null,
     private val getHistoryResults: GetHistoryResults,
     private val removeSearchResultFromHistory: RemoveSearchResultFromHistory,
-    private val removeSearchResultsFromLocalDb: RemoveSearchResultsFromLocalDb,
+    private val deleteSearchResultsFromLocalDb: DeleteSearchResultsFromLocalDb
 ) : ViewModel() {
 
     private val mHistoryResultListState = mutableStateOf<List<SearchResult>?>(null)
@@ -42,8 +42,8 @@ class HistoryViewModel @Inject constructor(
         viewModelScope.launch(dispatcher) { removeSearchResultFromHistory.invoke(id) }
     }
 
-    fun removeSearchResultsFromLocalDb() {
+    fun deleteSearchResultsFromLocalDb() {
         val dispatcher = dispatcherProvider?.io ?: EmptyCoroutineContext
-        viewModelScope.launch(dispatcher) { removeSearchResultsFromLocalDb.invoke() }
+        viewModelScope.launch(dispatcher) { deleteSearchResultsFromLocalDb.invoke() }
     }
 }

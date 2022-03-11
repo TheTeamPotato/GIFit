@@ -37,6 +37,6 @@ interface SearchResultDao : BaseDao<SearchResultEntity> {
     fun removeSearchResultFromHistory(id: Long)
 
     @Query("DELETE FROM SearchResult WHERE showInHistory = 0 AND isFavorite = 0")
-    fun removeSearchResultsFromLocalDb()
+    fun deleteSearchResultsFromLocalDb()
 
 }

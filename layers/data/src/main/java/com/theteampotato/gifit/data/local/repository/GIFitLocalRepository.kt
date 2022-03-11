@@ -55,7 +55,7 @@ class GIFitLocalRepository @Inject constructor(
     fun removeSearchResultFromHistory(id: Long) =
         localDataSource.removeSearchResultFromHistory(id)
 
-    fun removeSearchResultsFromLocalDb() =
-        localDataSource.removeSearchResultsFromLocalDb()
+    fun deleteSearchResultsFromLocalDb() =
+        localDataSource.deleteSearchResultsFromLocalDb()
 
 }

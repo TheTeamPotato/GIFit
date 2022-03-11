@@ -18,13 +18,11 @@ import com.theteampotato.gifit.ui.view.GIFitCard
 
 import timber.log.Timber
 
-var removedFromHistoryList = mutableStateListOf<Long>()
-
 @Composable
 fun HistoryScreen(
     modifier: Modifier = Modifier,
     navigateToSearch: (String) -> Unit,
-    viewModel: HistoryViewModel = hiltViewModel()
+    viewModel: HistoryViewModel
 ) {
     LaunchedEffect(key1 = Unit) {
         viewModel.retrieveHistoryResults()
@@ -46,8 +44,7 @@ fun HistoryScreen(
                     onFavoriteClicked = { id ->
                         if (id != -1L) {
                             viewModel.removeHistorySearchResult(id)
-                            viewModel.removeSearchResultsFromLocalDb()
-                            removedFromHistoryList.add(id)
+                            viewModel.deleteSearchResultsFromLocalDb()
                         } else
                             Timber.e("id is -1")
                     }

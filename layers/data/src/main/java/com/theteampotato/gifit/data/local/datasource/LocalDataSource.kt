@@ -55,7 +55,7 @@ class LocalDataSource @Inject constructor(
     fun removeSearchResultFromHistory(id: Long) =
         searchResultDao.removeSearchResultFromHistory(id)
 
-    fun removeSearchResultsFromLocalDb() =
-        searchResultDao.removeSearchResultsFromLocalDb()
+    fun deleteSearchResultsFromLocalDb() =
+        searchResultDao.deleteSearchResultsFromLocalDb()
 
 }
