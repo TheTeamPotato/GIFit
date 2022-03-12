@@ -1,6 +1,7 @@
 package com.theteampotato.gifit.ui.view
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -20,14 +21,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 
 @Composable
-fun ResultCard(modifier: Modifier = Modifier, imageURL: String, translatedText: String, isFavorite: Boolean, onFavoriteClicked: () -> Unit) {
+fun ResultCard(modifier: Modifier = Modifier, imageURL: String, translatedText: String, isFavorite: Boolean, onFavoriteClicked: () -> Unit, onListenClicked: () -> Unit) {
     Box(modifier.fillMaxWidth()) {
         Box(
             Modifier
                 .fillMaxWidth()
                 .padding(top = 12.dp, start = 6.dp, end = 6.dp)
         ) {
-            ContentCard(imageURL = imageURL, translatedText = translatedText)
+            ContentCard(imageURL = imageURL, translatedText = translatedText, onListenClicked = onListenClicked)
         }
         FavoriteCardIcon(modifier = Modifier.align(Alignment.TopEnd), isFavorite = isFavorite, onClick = onFavoriteClicked)
     }
@@ -62,7 +63,7 @@ private fun FavoriteCardIcon(modifier: Modifier = Modifier, isFavorite: Boolean,
 }
 
 @Composable
-private fun ContentCard(modifier: Modifier = Modifier, imageURL: String, translatedText: String) {
+private fun ContentCard(modifier: Modifier = Modifier, imageURL: String, translatedText: String, onListenClicked: () -> Unit) {
     val horizontalPaddingInDp = 24.dp
 
     Card(modifier.fillMaxWidth()) {
@@ -85,7 +86,8 @@ private fun ContentCard(modifier: Modifier = Modifier, imageURL: String, transla
                     .padding(bottom = 24.dp)
                     .padding(horizontal = horizontalPaddingInDp),
                 origin = translatedText,
-                translated = "Cümle"
+                translated = "Cümle",
+                onListenClicked = onListenClicked
             )
         }
     }
@@ -109,4 +111,4 @@ private fun GIFitImage(modifier: Modifier = Modifier, imageURL: String) {
 @Composable
 @Preview
 fun PreviewResultCard() =
-    ResultCard(isFavorite = false, imageURL = "https://media3.giphy.com/media/XFuQ4InwtXBE4DDPHM/giphy.gif", translatedText = "Bana bir sey sor", onFavoriteClicked = {})
+    ResultCard(isFavorite = false, imageURL = "https://media3.giphy.com/media/XFuQ4InwtXBE4DDPHM/giphy.gif", translatedText = "Bana bir sey sor", onFavoriteClicked = {}, onListenClicked = {})

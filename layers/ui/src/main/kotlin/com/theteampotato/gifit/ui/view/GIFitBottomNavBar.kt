@@ -18,7 +18,6 @@ import timber.log.Timber
 fun GIFitBottomNavBar(
     currentDestination: NavDestination?,
     navigateTo: (String) -> Unit = {},
-    backAndNavigateTo: (String) -> Unit = {},
     items: List<BottomNavScreen> = getBottomNavigationScreenList()
 ) {
     BottomNavigation(backgroundColor = Color.White) {
@@ -26,18 +25,14 @@ fun GIFitBottomNavBar(
             BottomNavigationItem(
                 icon = { Icon(screen.icon, contentDescription = null) },
                 label = { Text(stringResource(id = screen.resourceId)) },
-                selected = currentDestination?.hierarchy?.any { it.route?.split('/')?.first() == screen.route } == true,
+                selected = currentDestination?.hierarchy?.any { it.route?.split('?')?.first() == screen.route } == true,
                 alwaysShowLabel = true,
                 selectedContentColor = Color.Black,
                 unselectedContentColor = Color.Gray,
                 onClick = {
                     Timber.d("screen.route is ${screen.route}")
                     Timber.d("currentDestination is $currentDestination")
-
-                    if (currentDestination?.route?.split('/')?.size!! > 1)
-                        backAndNavigateTo(screen.route)
-                    else
-                        navigateTo(screen.route)
+                    navigateTo(screen.route)
                 }
             )
         }

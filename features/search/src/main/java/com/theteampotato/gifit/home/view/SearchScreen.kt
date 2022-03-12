@@ -14,29 +14,30 @@ import com.theteampotato.gifit.ui.view.*
 import timber.log.Timber
 
 @Composable
-fun SearchScreen(searchQueryArgument: String? = null, viewModel: SearchViewModel = hiltViewModel()) {
+fun SearchScreen(searchTextArgument: String? = null, viewModel: SearchViewModel = hiltViewModel()) {
     val horizontalPadding = 25.dp
-    val searchedQuery = rememberSaveable { mutableStateOf("") }
-    val finalSearchedQuery = rememberSaveable { mutableStateOf("") }
+    val searchBarText = rememberSaveable { mutableStateOf(searchTextArgument ?: "") }
+    val searchText = rememberSaveable { mutableStateOf("") }
 
     val isFavoriteState = rememberSaveable() { mutableStateOf(false) }
 
-    val searchResult = viewModel.searchKeyword(text = searchQueryArgument ?: finalSearchedQuery.value.ifBlank { null })?.collectAsState(null)
+    val searchResult = viewModel.searchKeyword(text = searchText.value.ifBlank { null })?.collectAsState(null)
 
-    LaunchedEffect(key1 = isFavoriteState.value) {
+    LaunchedEffect(key1 = searchTextArgument) {
         Timber.d("Composition")
 
-        if (searchedQuery.value.isNotEmpty()) {
-            Timber.d("searchedQuery is not empty")
+        searchTextArgument?.let {
+            Timber.d("searchQueryArgument is not null")
+            searchText.value = it
         }
     }
 
     Column {
         GIFitSearchBar(
             modifier = Modifier.padding(top = 35.dp, start = horizontalPadding, end = horizontalPadding),
-            searchQuery = searchedQuery.value,
-            onSearchQueryChanged = { searchedQuery.value = it },
-            onSearchQueryEntered = { finalSearchedQuery.value = searchedQuery.value }
+            text = searchBarText.value,
+            onSearchQueryChanged = { searchBarText.value = it },
+            onSearchQueryEntered = { searchText.value = searchBarText.value }
         )
 
         searchResult?.value?.let {
@@ -54,6 +55,9 @@ fun SearchScreen(searchQueryArgument: String? = null, viewModel: SearchViewModel
                         viewModel.addToFavorites()
                     else
                         viewModel.removeFromFavorites()
+                },
+                onListenClicked = {
+                    viewModel.readKeyword()
                 }
             )
         }
@@ -63,5 +67,5 @@ fun SearchScreen(searchQueryArgument: String? = null, viewModel: SearchViewModel
 @Preview
 @Composable
 fun PreviewSearchScreen() {
-    //SearchScreen()
+    SearchScreen()
 }

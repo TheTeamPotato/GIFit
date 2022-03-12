@@ -1,6 +1,5 @@
 package com.theteampotato.gifit.home.viewmodel
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
@@ -11,12 +10,14 @@ import com.theteampotato.gifit.domain.usecase.*
 import com.theteampotato.gifit.testing.DispatcherProvider
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
 
 import javax.inject.Inject
 
-import kotlinx.coroutines.launch
 import kotlin.coroutines.EmptyCoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 import timber.log.Timber
 
@@ -27,9 +28,12 @@ class SearchViewModel @Inject constructor(
     private val addSearchResultToFavorites: AddSearchResultToFavorites,
     private val getSearchResult: GetSearchResult,
     private val isSearchResultExist: IsSearchResultExist,
-    private val removeSearchResultFromFavorites: RemoveSearchResultFromFavorites
+    private val removeSearchResultFromFavorites: RemoveSearchResultFromFavorites,
+    private val readText: ReadText,
+    private val translateText: TranslateText
 ) : ViewModel() {
 
+    private var currentText: String? = null
     private var currentSearchResultID = -1L
 
     fun addToFavorites() {
@@ -67,16 +71,29 @@ class SearchViewModel @Inject constructor(
                         outputSearchResult = searchGifOnService(text)
                     }
 
+                    currentText = outputSearchResult?.translatedText
+
                     return@map outputSearchResult
                 }
         }
         return null
     }
 
-    private suspend fun searchGifOnService(text: String) = getSearchResult(text)?.let { searchResult ->
-        currentSearchResultID = addSearchResultEntry(searchResult.toSearchResultEntity(text, searchResult.gifURL ?: "", false))
-        Timber.d("${searchResult.searchText} - remote service call!!")
-        return@let searchResult
+    fun readKeyword() = currentText?.let { readText(it) }
+
+    fun releaseResources() {
+        Timber.d("releaseResources()")
+        readText.releaseResource()
+        translateText.releaseResource()
+    }
+
+    private suspend fun searchGifOnService(text: String) = withContext(Dispatchers.IO) {
+        translateText(text)?.let {
+            val searchResult = getSearchResult(it)
+            currentSearchResultID = addSearchResultEntry(searchResult.toSearchResultEntity(text, searchResult.gifURL ?: "", false))
+            Timber.d("${searchResult.searchText} - remote service call!!")
+            return@let searchResult
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+
 import com.theteampotato.gifit.favorites.view.FavoritesScreen
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
 import com.theteampotato.gifit.history.view.HistoryScreen
@@ -15,7 +16,7 @@ import com.theteampotato.gifit.ui.BottomNavScreen
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
-    startDestination: String = BottomNavScreen.SearchNavScreen.route,
+    startDestination: String = "${BottomNavScreen.SearchNavScreen.route}?searchQuery={${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
     searchViewModel: SearchViewModel,
     historyViewModel: HistoryViewModel,
     favoritesViewModel: FavoritesViewModel,
@@ -24,11 +25,11 @@ fun NavigationGraph(
         composable(BottomNavScreen.FavoritesNavScreen.route) {
             HomeScaffold(
                 navController = navController,
-                navigateTo = { navigate(navController, it) }) {
+                navigateTo = { navController.navigateSingleTask(it) }) {
                 FavoritesScreen(
                     modifier = it,
                     navigateToSearch = { searchQueryArgument ->
-                        navController.navigate("${BottomNavScreen.SearchNavScreen.route}/$searchQueryArgument")
+                        navController.navigate("${BottomNavScreen.SearchNavScreen.route}?searchQuery=$searchQueryArgument")
                     },
                     viewModel = favoritesViewModel
                 )
@@ -37,51 +38,45 @@ fun NavigationGraph(
         composable(BottomNavScreen.HistoryNavScreen.route) {
             HomeScaffold(
                 navController = navController,
-                navigateTo = { navigate(navController, it) }) {
+                navigateTo = { navController.navigateSingleTask(it) }) {
                 HistoryScreen(
                     modifier = it,
                     navigateToSearch = { searchQueryArgument ->
-                        navController.navigate("${BottomNavScreen.SearchNavScreen.route}/$searchQueryArgument")
+                        navController.navigate("${BottomNavScreen.SearchNavScreen.route}?searchQuery=$searchQueryArgument")
                     },
                     viewModel = historyViewModel
                 )
             }
         }
         composable(
-            route = "${BottomNavScreen.SearchNavScreen.route}/{${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
+            route = "${BottomNavScreen.SearchNavScreen.route}?searchQuery={${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
             arguments = listOf(navArgument("${BottomNavScreen.SearchNavScreen.arguments?.first()}") {
                 type = NavType.StringType
+                nullable = true
             })
         ) { backStackEntry ->
             HomeScaffold(
                 navController = navController,
-                navigateTo = { navigate(navController, it) }) {
+                navigateTo = { navController.navigateSingleTask(it) }) {
                 SearchScreen(
-                    searchQueryArgument = backStackEntry.arguments?.getString(
+                    searchTextArgument = backStackEntry.arguments?.getString(
                         BottomNavScreen.SearchNavScreen.arguments?.first().toString()
                     ),
                     viewModel = searchViewModel
                 )
             }
         }
-        composable(BottomNavScreen.SearchNavScreen.route) {
-            HomeScaffold(
-                navController = navController,
-                navigateTo = { navigate(navController, it) }) {
-                SearchScreen()
-            }
-        }
     }
 }
 
-private fun navigate(navController: NavController, route: String) {
-    navController.navigate(route) {
+fun NavController.navigateSingleTask(route: String) {
+    navigate(route) {
         launchSingleTop = true
         restoreState = true
 
         // Pop up backstack to the first destination and save state. This makes going back
         // to the start destination when pressing back in any other bottom tab.
-        popUpTo(findStartDestination(navController.graph).id) {
+        popUpTo(findStartDestination(graph).id) {
             saveState = true
         }
     }

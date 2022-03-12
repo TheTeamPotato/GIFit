@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.theteampotato.gifit">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.theteampotato.gifit">
 
     <application
         android:allowBackup="true"
@@ -19,5 +18,11 @@
 
     <!--TODO: Move this permission to `data` module-->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
 
 </manifest>
