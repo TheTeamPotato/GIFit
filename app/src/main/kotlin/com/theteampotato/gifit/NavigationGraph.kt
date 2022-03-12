@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+
 import com.theteampotato.gifit.favorites.view.FavoritesScreen
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
 import com.theteampotato.gifit.history.view.HistoryScreen
@@ -11,7 +12,6 @@ import com.theteampotato.gifit.history.viewmodel.HistoryViewModel
 import com.theteampotato.gifit.home.view.SearchScreen
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
 import com.theteampotato.gifit.ui.BottomNavScreen
-import timber.log.Timber
 
 @Composable
 fun NavigationGraph(
@@ -25,16 +25,7 @@ fun NavigationGraph(
         composable(BottomNavScreen.FavoritesNavScreen.route) {
             HomeScaffold(
                 navController = navController,
-                navigateTo = {
-                    Timber.d("navigateTo($it)")
-
-                    if (it == BottomNavScreen.SearchNavScreen.route)
-                        navController.navigate(it) {
-                            popUpTo(navController.currentDestination?.route!!) { inclusive = true }
-                        }
-                    else
-                        navController.navigateSingleTask(it)
-                }) {
+                navigateTo = { navController.navigateSingleTask(it) }) {
                 FavoritesScreen(
                     modifier = it,
                     navigateToSearch = { searchQueryArgument ->
@@ -47,16 +38,7 @@ fun NavigationGraph(
         composable(BottomNavScreen.HistoryNavScreen.route) {
             HomeScaffold(
                 navController = navController,
-                navigateTo = {
-                    Timber.d("navigateTo($it)")
-
-                    if (it == BottomNavScreen.SearchNavScreen.route)
-                        navController.navigate(it) {
-                            popUpTo(navController.currentDestination?.route!!) { inclusive = true }
-                        }
-                    else
-                        navController.navigateSingleTask(it)
-                }) {
+                navigateTo = { navController.navigateSingleTask(it) }) {
                 HistoryScreen(
                     modifier = it,
                     navigateToSearch = { searchQueryArgument ->
@@ -70,7 +52,6 @@ fun NavigationGraph(
             route = "${BottomNavScreen.SearchNavScreen.route}?searchQuery={${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
             arguments = listOf(navArgument("${BottomNavScreen.SearchNavScreen.arguments?.first()}") {
                 type = NavType.StringType
-                //defaultValue = null
                 nullable = true
             })
         ) { backStackEntry ->
@@ -78,7 +59,7 @@ fun NavigationGraph(
                 navController = navController,
                 navigateTo = { navController.navigateSingleTask(it) }) {
                 SearchScreen(
-                    searchQueryArgument = backStackEntry.arguments?.getString(
+                    searchTextArgument = backStackEntry.arguments?.getString(
                         BottomNavScreen.SearchNavScreen.arguments?.first().toString()
                     ),
                     viewModel = searchViewModel

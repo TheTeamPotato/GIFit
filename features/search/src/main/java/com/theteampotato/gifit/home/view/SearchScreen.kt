@@ -4,13 +4,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
 
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
 import com.theteampotato.gifit.ui.view.*
@@ -18,46 +14,30 @@ import com.theteampotato.gifit.ui.view.*
 import timber.log.Timber
 
 @Composable
-fun SearchScreen(lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current, searchQueryArgument: String? = null, viewModel: SearchViewModel = hiltViewModel()) {
+fun SearchScreen(searchTextArgument: String? = null, viewModel: SearchViewModel = hiltViewModel()) {
     val horizontalPadding = 25.dp
-    val searchedQuery = rememberSaveable { mutableStateOf("") }
-    val finalSearchedQuery = rememberSaveable { mutableStateOf("") }
+    val searchBarText = rememberSaveable { mutableStateOf(searchTextArgument ?: "") }
+    val searchText = rememberSaveable { mutableStateOf("") }
 
     val isFavoriteState = rememberSaveable() { mutableStateOf(false) }
 
-    val searchResult = viewModel.searchKeyword(text = finalSearchedQuery.value.ifBlank { null })?.collectAsState(null)
+    val searchResult = viewModel.searchKeyword(text = searchText.value.ifBlank { null })?.collectAsState(null)
 
-    DisposableEffect(lifecycleOwner) {
-        Timber.d("DisposableEffect")
-
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_DESTROY)
-                viewModel.releaseResources()
-        }
-
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        onDispose {
-            Timber.d("onDispose")
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
-
-    LaunchedEffect(key1 = searchQueryArgument) {
+    LaunchedEffect(key1 = searchTextArgument) {
         Timber.d("Composition")
 
-        searchQueryArgument?.let {
+        searchTextArgument?.let {
             Timber.d("searchQueryArgument is not null")
-            finalSearchedQuery.value = it
+            searchText.value = it
         }
     }
 
     Column {
         GIFitSearchBar(
             modifier = Modifier.padding(top = 35.dp, start = horizontalPadding, end = horizontalPadding),
-            searchQuery = searchedQuery.value,
-            onSearchQueryChanged = { searchedQuery.value = it },
-            onSearchQueryEntered = { finalSearchedQuery.value = searchedQuery.value }
+            text = searchBarText.value,
+            onSearchQueryChanged = { searchBarText.value = it },
+            onSearchQueryEntered = { searchText.value = searchBarText.value }
         )
 
         searchResult?.value?.let {
@@ -87,5 +67,5 @@ fun SearchScreen(lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current, s
 @Preview
 @Composable
 fun PreviewSearchScreen() {
-    //SearchScreen()
+    SearchScreen()
 }

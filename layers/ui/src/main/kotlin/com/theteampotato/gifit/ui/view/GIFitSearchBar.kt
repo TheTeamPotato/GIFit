@@ -22,7 +22,7 @@ import com.theteampotato.gifit.ui.hideKeyboard
 @Composable
 fun GIFitSearchBar(
     modifier: Modifier = Modifier,
-    searchQuery: String,
+    text: String,
     onSearchQueryChanged: (String) -> Unit = {},
     onSearchQueryEntered: () -> Unit = {},
     placeholderText: String = "Search..."
@@ -32,7 +32,7 @@ fun GIFitSearchBar(
     Row(modifier = modifier) {
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            value = searchQuery,
+            value = text,
             onValueChange = {
                 onSearchQueryChanged(it)
             },
@@ -66,5 +66,5 @@ fun GIFitSearchBar(
 @Composable
 @Preview
 fun PreviewGIFitSearchBar() {
-    GIFitSearchBar(searchQuery = "Ask Me Anything", onSearchQueryChanged = {})
+    GIFitSearchBar(text = "Ask Me Anything", onSearchQueryChanged = {})
 }

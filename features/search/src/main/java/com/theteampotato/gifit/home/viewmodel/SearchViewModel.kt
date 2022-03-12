@@ -10,12 +10,11 @@ import com.theteampotato.gifit.domain.usecase.*
 import com.theteampotato.gifit.testing.DispatcherProvider
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 
 import javax.inject.Inject
 
 import kotlin.coroutines.EmptyCoroutineContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

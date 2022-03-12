@@ -49,8 +49,7 @@ class GoogleMLKitTranslator: ITranslator {
                 }
             }, onFailure = onFailure)
         } catch (e: Exception) {
-            Timber.e("Fukking Exception is $e")
-            //throw e
+            Timber.e("Exception is $e")
         }
     }
 
