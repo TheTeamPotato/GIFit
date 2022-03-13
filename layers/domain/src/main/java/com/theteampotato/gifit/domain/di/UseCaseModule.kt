@@ -1,6 +1,7 @@
 package com.theteampotato.gifit.domain.di
 
 import android.content.Context
+import com.theteampotato.gifit.domain.usecase.DownloadTranslationModel
 
 import com.theteampotato.gifit.domain.usecase.ReadText
 import com.theteampotato.gifit.domain.usecase.TranslateText
@@ -18,6 +19,12 @@ object UseCaseModule {
 
     @Provides
     fun providesGoogleMLKitTranslator() = GoogleMLKitTranslator()
+
+    @Provides
+    fun providesDownloadTranslationModel(
+        @ApplicationContext context: Context,
+        translator: GoogleMLKitTranslator
+    ) = DownloadTranslationModel(context, translator)
 
     @Provides
     fun providesTranslateText(

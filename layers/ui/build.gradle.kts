@@ -20,6 +20,8 @@ dependencies {
     MATERIAL_DESIGN
     SHOWKASE
 
+    api("com.airbnb.android:lottie-compose:5.0.3")
+
     ANDROID_TEST
     COROUTINES_TEST
     LOCAL_TEST_JUNIT5

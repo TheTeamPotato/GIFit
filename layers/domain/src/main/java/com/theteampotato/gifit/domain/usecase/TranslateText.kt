@@ -12,9 +12,9 @@ class TranslateText @Inject constructor(
     private val translator: GoogleMLKitTranslator
 ) : BaseUseCase() {
 
-    init {
-        translator.initialize(context)
-    }
+//    init {
+//        translator.initialize(context)
+//    }
 
     suspend operator fun invoke(text: String) = suspendCoroutine<String?> { continuation ->
         translator.translate(value = text, { response ->

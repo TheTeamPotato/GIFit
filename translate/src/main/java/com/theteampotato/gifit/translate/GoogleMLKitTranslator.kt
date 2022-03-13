@@ -18,7 +18,7 @@ class GoogleMLKitTranslator: ITranslator {
 
     private val conditions = DownloadConditions.Builder().build()
 
-    fun initialize(context: Context) {
+    fun initialize(context: Context, sourceLanguageCode: String) {
         try {
             MlKit.initialize(context)
         } catch (exception: Exception) {
@@ -26,7 +26,7 @@ class GoogleMLKitTranslator: ITranslator {
         }
 
         options = TranslatorOptions.Builder()
-            .setSourceLanguage(TranslateLanguage.TURKISH)
+            .setSourceLanguage(sourceLanguageCode)
             .setTargetLanguage(TranslateLanguage.ENGLISH)
             .build()
 
@@ -38,8 +38,8 @@ class GoogleMLKitTranslator: ITranslator {
         onSuccess: (String) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
-        try {
-            downloadModels(onSuccess = {
+        //try {
+            //downloadModels(onSuccess = {
                 try {
                     translator.translate(value)
                         .addOnSuccessListener(onSuccess)
@@ -47,10 +47,10 @@ class GoogleMLKitTranslator: ITranslator {
                 } catch (e: Exception) {
                     onFailure(e)
                 }
-            }, onFailure = onFailure)
-        } catch (e: Exception) {
+//            }, onFailure = onFailure)
+/*        } catch (e: Exception) {
             Timber.e("Exception is $e")
-        }
+        }*/
     }
 
     fun destroy() = translator.close()
@@ -61,7 +61,7 @@ class GoogleMLKitTranslator: ITranslator {
      * only download them using Wi-Fi unless the user has specified otherwise. You
      * should also delete unneeded models.
      */
-    private fun downloadModels(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+    fun downloadModels(onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
         try {
             translator.downloadModelIfNeeded(conditions)
                 .addOnCompleteListener {

@@ -31,9 +31,11 @@ object Modules {
 
     object Features {
         const val FAVORITES = ":features:favorites"
+        const val HISTORY = ":features:history"
+        const val LANGUAGE_SELECTION = ":features:language-selection"
         const val SEARCH = ":features:search"
         const val SPLASH = ":features:splash"
-        const val HISTORY = ":features:history"
+
     }
 
     object Layers {
@@ -102,6 +104,7 @@ object Libraries {
 
         const val ANIMATION = "androidx.compose.animation:animation:$COMPOSE_VERSION"
         const val COMPILER = "androidx.compose.compiler:compiler:$COMPOSE_VERSION"
+        const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout-compose:1.0.0"
         const val FOUNDATION =
             "androidx.compose.foundation:foundation:$COMPOSE_VERSION" // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
         const val FOUNDATION_LAYOUT =
@@ -262,17 +265,20 @@ val DependencyHandler.TRANSLATE
     get() = api(project(Modules.TRANSLATE))
 
 // Modules
-val DependencyHandler.FEATURE_SPLASH
-    get() = implementation(project(Modules.Features.SPLASH))
-
-val DependencyHandler.FEATURE_SEARCH
-    get() = api(project(Modules.Features.SEARCH))
-
 val DependencyHandler.FEATURE_FAVORITES
     get() = api(project(Modules.Features.FAVORITES))
 
 val DependencyHandler.FEATURE_HISTORY
     get() = api(project(Modules.Features.HISTORY))
+
+val DependencyHandler.FEATURE_LANGUAGE_SELECTION
+    get() = api(project(Modules.Features.LANGUAGE_SELECTION))
+
+val DependencyHandler.FEATURE_SEARCH
+    get() = api(project(Modules.Features.SEARCH))
+
+val DependencyHandler.FEATURE_SPLASH
+    get() = implementation(project(Modules.Features.SPLASH))
 
 // Layers
 val DependencyHandler.LAYER_DATA
@@ -378,6 +384,7 @@ private fun DependencyHandler.base() {
 private fun DependencyHandler.compose() {
     implementation(Libraries.Compose.ANIMATION)
     implementation(Libraries.Compose.COMPILER)
+    implementation(Libraries.Compose.CONSTRAINT_LAYOUT)
     implementation(Libraries.Compose.FOUNDATION)
     implementation(Libraries.Compose.FOUNDATION_LAYOUT)
     implementation(Libraries.Compose.MATERIAL)

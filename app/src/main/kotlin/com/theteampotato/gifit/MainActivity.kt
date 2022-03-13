@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
 import com.theteampotato.gifit.history.viewmodel.HistoryViewModel
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
+import com.theteampotato.gifit.language_selection.viewmodel.LanguageSelectionViewModel
 import com.theteampotato.gifit.ui.BottomNavScreen
 import com.theteampotato.gifit.ui.GIFitTheme
 import com.theteampotato.gifit.ui.view.GIFitBottomNavBar
@@ -27,10 +28,10 @@ import timber.log.Timber
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private val languageSelectionViewModel: LanguageSelectionViewModel by viewModels()
     private val searchViewModel: SearchViewModel by viewModels()
     private val historyViewModel: HistoryViewModel by viewModels()
     private val favoritesViewModel: FavoritesViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             GIFitTheme {
                 NavigationGraph(
                     navController = navController,
+                    languageSelectionViewModel = languageSelectionViewModel,
                     searchViewModel = searchViewModel,
                     historyViewModel = historyViewModel,
                     favoritesViewModel = favoritesViewModel

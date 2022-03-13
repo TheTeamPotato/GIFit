@@ -11,17 +11,31 @@ import com.theteampotato.gifit.history.view.HistoryScreen
 import com.theteampotato.gifit.history.viewmodel.HistoryViewModel
 import com.theteampotato.gifit.home.view.SearchScreen
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
+import com.theteampotato.gifit.language_selection.view.LanguageSelectionScreen
+import com.theteampotato.gifit.language_selection.viewmodel.LanguageSelectionViewModel
 import com.theteampotato.gifit.ui.BottomNavScreen
 
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
-    startDestination: String = "${BottomNavScreen.SearchNavScreen.route}?searchQuery={${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
+    //startDestination: String = "${BottomNavScreen.SearchNavScreen.route}?searchQuery={${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
+    startDestination: String = "language_selection",
+    languageSelectionViewModel: LanguageSelectionViewModel,
     searchViewModel: SearchViewModel,
     historyViewModel: HistoryViewModel,
     favoritesViewModel: FavoritesViewModel,
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
+        composable("language_selection") {
+            LanguageSelectionScreen(
+                navigateToSearch = {
+                    navController.navigate(BottomNavScreen.SearchNavScreen.route) {
+                        popUpTo(navController.currentDestination?.route!!) { inclusive = true }
+                    }
+                },
+                viewModel = languageSelectionViewModel
+            )
+        }
         composable(BottomNavScreen.FavoritesNavScreen.route) {
             HomeScaffold(
                 navController = navController,

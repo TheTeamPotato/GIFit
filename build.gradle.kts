@@ -21,6 +21,7 @@ allprojects {
         mavenCentral()
         maven(url = "https://jitpack.io")
         maven(url = "https://developer.huawei.com/repo/")
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
 }
 
