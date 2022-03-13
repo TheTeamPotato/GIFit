@@ -1,9 +1,10 @@
-package com.theteampotato.gifit
+package com.theteampotato.gifit.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.theteampotato.gifit.domain.usecase.GetIsSelectedLanguage
 
 import com.theteampotato.gifit.favorites.view.FavoritesScreen
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
@@ -12,11 +13,13 @@ import com.theteampotato.gifit.history.viewmodel.HistoryViewModel
 import com.theteampotato.gifit.home.view.SearchScreen
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
 import com.theteampotato.gifit.ui.BottomNavScreen
+import com.theteampotato.gifit.view.HomeScaffold
 
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
     startDestination: String = "${BottomNavScreen.SearchNavScreen.route}?searchQuery={${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
+    isSelectedLanguage: Boolean?,
     searchViewModel: SearchViewModel,
     historyViewModel: HistoryViewModel,
     favoritesViewModel: FavoritesViewModel,
