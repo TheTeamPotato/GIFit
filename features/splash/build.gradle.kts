@@ -13,6 +13,7 @@ android {
 }
 
 dependencies {
+    LAYER_DOMAIN
     LAYER_UI
 
     ACCOMPANIST

@@ -66,16 +66,19 @@ object Libraries {
     object AndroidX {
         private const val APPCOMPAT_VERSION = "1.4.1"
         private const val CORE_VERSION = "1.7.0"
+        private const val DATASTORE_VERSION = "1.0.0"
         private const val FRAGMENT_KTX_VERSION = "1.4.1"
         private const val MULTIDEX_VERSION = "2.0.1"
         private const val NAVIGATION_COMPONENT_VERSION = "2.4.1"
         private const val LIFECYCLE_VERSION = "2.2.0"
         private const val ROOM_VERSION = "2.4.1"
+        private const val SPLASH_API_VERSION = "1.0.0-beta01"
 
         const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:1.4.0"
         const val APPCOMPAT = "androidx.appcompat:appcompat:$APPCOMPAT_VERSION"
         const val CORE = "androidx.core:core:$CORE_VERSION"
         const val CORE_KTX = "androidx.core:core-ktx:$CORE_VERSION"
+        const val DATASTORE = "androidx.datastore:datastore-preferences:$DATASTORE_VERSION"
         const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:$FRAGMENT_KTX_VERSION"
         const val MULTIDEX = "androidx.multidex:multidex:$MULTIDEX_VERSION"
         const val NAVIGATION_COMPONENT =
@@ -93,6 +96,7 @@ object Libraries {
         const val ROOM = "androidx.room:room-runtime:$ROOM_VERSION"
         const val ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
         const val ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"
+        const val SPLASH_API = "androidx.core:core-splashscreen:$SPLASH_API_VERSION"
     }
 
     object Compose {
@@ -121,8 +125,10 @@ object Libraries {
         const val UI = "androidx.compose.ui:ui:$COMPOSE_VERSION"
         const val UI_TOOLING =
             "androidx.compose.ui:ui-tooling:$COMPOSE_UI_TOOLING_VERSION" // Tooling support (Previews, etc.)
-        const val VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-compose:$COMPOSE_VIEWMODEL_VERSION"
-        const val HILT_NAVIGATION = "androidx.hilt:hilt-navigation-compose:${COMPOSE_HILT_VIEWMODEL_VERSION}"
+        const val VIEWMODEL =
+            "androidx.lifecycle:lifecycle-viewmodel-compose:$COMPOSE_VIEWMODEL_VERSION"
+        const val HILT_NAVIGATION =
+            "androidx.hilt:hilt-navigation-compose:${COMPOSE_HILT_VIEWMODEL_VERSION}"
 
         object Test {
             const val UI_TEST = "androidx.compose.ui:ui-test-junit4:$COMPOSE_VERSION"
@@ -371,12 +377,14 @@ private fun DependencyHandler.base() {
     implementation(Libraries.AndroidX.APPCOMPAT)
     implementation(Libraries.AndroidX.CORE)
     implementation(Libraries.AndroidX.CORE_KTX)
+    implementation(Libraries.AndroidX.DATASTORE)
     implementation(Libraries.AndroidX.FRAGMENT_KTX)
     implementation(Libraries.AndroidX.MULTIDEX)
     implementation(Libraries.AndroidX.LIFECYCLE_EXTENSIONS)
     implementation(Libraries.AndroidX.LIFECYCLE_EXTENSIONS_LIVEDATA)
     implementation(Libraries.AndroidX.LIFECYCLE_RUNTIME_KTX)
     implementation(Libraries.AndroidX.LIFECYCLE_VIEWMODEL_KTX)
+    implementation(Libraries.AndroidX.SPLASH_API)
 
     implementation(Libraries.TIMBER)
 }
