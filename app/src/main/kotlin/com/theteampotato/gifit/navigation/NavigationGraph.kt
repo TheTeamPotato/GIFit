@@ -1,10 +1,9 @@
-package com.theteampotato.gifit
+package com.theteampotato.gifit.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.theteampotato.gifit.domain.usecase.GetIsSelectedLanguage
 
 import com.theteampotato.gifit.favorites.view.FavoritesScreen
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
@@ -17,18 +16,20 @@ import com.theteampotato.gifit.language_selection.viewmodel.LanguageSelectionVie
 import com.theteampotato.gifit.ui.BottomNavScreen
 import com.theteampotato.gifit.view.HomeScaffold
 
+const val LANGUAGE_SELECTION = "language_selection"
+
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
     startDestination: String = "${BottomNavScreen.SearchNavScreen.route}?searchQuery={${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
-    isSelectedLanguage: Boolean?,
+    //startDestination: String = "language_selection",
     languageSelectionViewModel: LanguageSelectionViewModel,
     searchViewModel: SearchViewModel,
     historyViewModel: HistoryViewModel,
     favoritesViewModel: FavoritesViewModel,
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
-        composable("language_selection") {
+        composable(LANGUAGE_SELECTION) {
             LanguageSelectionScreen(
                 navigateToSearch = {
                     navController.navigate(BottomNavScreen.SearchNavScreen.route) {
@@ -84,6 +85,12 @@ fun NavigationGraph(
         }
     }
 }
+
+fun getStartDestination(isSelectedLanguage: Boolean) =
+    if (isSelectedLanguage)
+        "${BottomNavScreen.SearchNavScreen.route}?searchQuery={${BottomNavScreen.SearchNavScreen.arguments?.first()}}"
+    else
+        LANGUAGE_SELECTION
 
 fun NavController.navigateSingleTask(route: String) {
     navigate(route) {

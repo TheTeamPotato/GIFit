@@ -18,19 +18,24 @@ class GoogleMLKitTranslator: ITranslator {
 
     private val conditions = DownloadConditions.Builder().build()
 
+    private var isInitialized = false
+
     fun initialize(context: Context, sourceLanguageCode: String) {
-        try {
-            MlKit.initialize(context)
-        } catch (exception: Exception) {
-            Timber.e(exception)
+        if (!isInitialized) {
+            try {
+                MlKit.initialize(context)
+                isInitialized = true
+            } catch (exception: Exception) {
+                Timber.e(exception)
+            }
+
+            options = TranslatorOptions.Builder()
+                .setSourceLanguage(sourceLanguageCode)
+                .setTargetLanguage(TranslateLanguage.ENGLISH)
+                .build()
+
+            translator = Translation.getClient(options)
         }
-
-        options = TranslatorOptions.Builder()
-            .setSourceLanguage(sourceLanguageCode)
-            .setTargetLanguage(TranslateLanguage.ENGLISH)
-            .build()
-
-        translator = Translation.getClient(options)
     }
 
     fun translate(

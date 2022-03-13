@@ -1,7 +1,6 @@
-package com.theteampotato.gifit
+package com.theteampotato.gifit.view
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -23,43 +22,49 @@ import com.theteampotato.gifit.history.viewmodel.HistoryViewModel
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
 import com.theteampotato.gifit.language_selection.viewmodel.LanguageSelectionViewModel
 import com.theteampotato.gifit.navigation.NavigationGraph
+import com.theteampotato.gifit.navigation.getStartDestination
 import com.theteampotato.gifit.splash.viewmodel.SplashViewModel
 import com.theteampotato.gifit.ui.BottomNavScreen
 import com.theteampotato.gifit.ui.GIFitTheme
 import com.theteampotato.gifit.ui.view.GIFitBottomNavBar
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private val favoritesViewModel: FavoritesViewModel by viewModels()
+    private val historyViewModel: HistoryViewModel by viewModels()
     private val languageSelectionViewModel: LanguageSelectionViewModel by viewModels()
     private val searchViewModel: SearchViewModel by viewModels()
-    private val historyViewModel: HistoryViewModel by viewModels()
-    private val favoritesViewModel: FavoritesViewModel by viewModels()
-    private val mainViewModel: SplashViewModel by viewModels()
-    private var isSelectedLanguage: Boolean? = null
+    private val splashViewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen()
 
-        val content = findViewById<View>(android.R.id.content)
+        var keepSplashScreen = true
+        var selectedLanguage: String?
+
+        installSplashScreen().apply {
+            setKeepOnScreenCondition {
+                keepSplashScreen
+            }
+        }
 
         lifecycleScope.launchWhenCreated {
-            isSelectedLanguage = mainViewModel.getIsSelectedLanguage()
-            Timber.d("start 0 - isSelectedLanguage : ${isSelectedLanguage}")
-            content.viewTreeObserver.addOnPreDrawListener {
-                Timber.d("start 1 - isSelectedLanguage : ${isSelectedLanguage}")
-                (isSelectedLanguage!!)
-            }
+            //splashViewModel.setIsSelectedLanguage(true)
+
+            selectedLanguage = splashViewModel.getIsSelectedLanguage()
+
+            delay(2000)
+            keepSplashScreen = false
 
             setContent {
                 val navController = rememberNavController()
                 GIFitTheme {
                     NavigationGraph(
                         navController = navController,
-                        isSelectedLanguage = isSelectedLanguage,
+                        startDestination =  getStartDestination(selectedLanguage != null),
                         languageSelectionViewModel = languageSelectionViewModel,
                         searchViewModel = searchViewModel,
                         historyViewModel = historyViewModel,
@@ -68,7 +73,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     override fun onDestroy() {

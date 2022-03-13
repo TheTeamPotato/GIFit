@@ -5,11 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -21,12 +17,11 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 
-import com.airbnb.lottie.compose.*
-
 import com.theteampotato.gifit.language_selection.R
 import com.theteampotato.gifit.language_selection.viewmodel.LanguageSelectionViewModel
 import com.theteampotato.gifit.ui.babyBlue
 import com.theteampotato.gifit.ui.view.GIFitLanguageCard
+import com.theteampotato.gifit.ui.view.GIFitTranslateModelLoader
 
 import timber.log.Timber
 
@@ -36,6 +31,14 @@ fun LanguageSelectionScreen(modifier: Modifier = Modifier, navigateToSearch: () 
 
     val selectedIndex = remember { mutableStateOf(-1) }
     val isContinueSelected = remember { mutableStateOf(false) }
+    val selectedSourceLanguage: MutableState<String?> = remember { mutableStateOf(null) }
+
+    LaunchedEffect(key1 = selectedSourceLanguage.value) {
+        selectedSourceLanguage.value?.let {
+            viewModel.setSelectedLanguage(it)
+            navigateToSearch()
+        }
+    }
 
     ConstraintLayout(
         modifier = modifier
@@ -43,7 +46,7 @@ fun LanguageSelectionScreen(modifier: Modifier = Modifier, navigateToSearch: () 
             .background(MaterialTheme.colors.background)
     ) {
 
-        val (title, container, button, snackbar) = createRefs()
+        val (title, container, button) = createRefs()
         val bottomHorizontalAnchor = createGuidelineFromBottom(0.10f)
 
         Text(
@@ -101,7 +104,7 @@ fun LanguageSelectionScreen(modifier: Modifier = Modifier, navigateToSearch: () 
                             onSuccess = {
                                 Timber.d("onSuccess()")
                                 isContinueSelected.value = false
-                                navigateToSearch()
+                                selectedSourceLanguage.value = supportedLanguageList.value[selectedIndex.value].languageCode
                             },
                             onFailure = {
                                 Timber.d("onFailure()")
@@ -115,22 +118,13 @@ fun LanguageSelectionScreen(modifier: Modifier = Modifier, navigateToSearch: () 
         }
     }
 
-    val composition by rememberLottieComposition(LottieCompositionSpec.Asset("spinner.json"))
-
-    if (isContinueSelected.value) {
-        Surface(modifier = Modifier.fillMaxSize(), color = Color.Gray.copy(alpha = 0.5f)) {
-            LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever, alignment = Alignment.Center)
-            Snackbar(modifier = Modifier
-                .wrapContentSize(align = Alignment.BottomCenter)
-                .padding(start = 8.dp, end = 8.dp, bottom = 20.dp)
-            ) { Text(text = "Please wait while downloading translation model!") }
-        }
-    }
+    if (isContinueSelected.value) GIFitTranslateModelLoader()
 }
 
 data class SupportedLanguage(val name: String, val iconResourceId: Int, val languageCode: String)
 
 enum class Language(val languageCode: String) {
+    FINNISH("fi"),
     CHINESE("zh"),
     DANISH("da"),
     FRENCH("fr"),
@@ -146,6 +140,7 @@ enum class Language(val languageCode: String) {
 }
 
 private fun getSupportedLanguages() = listOf(
+    SupportedLanguage(name = "Finnish", iconResourceId = R.drawable.ic_finland, languageCode = Language.FINNISH.languageCode),
     SupportedLanguage(name = "Chinese", iconResourceId = R.drawable.ic_china, languageCode = Language.CHINESE.languageCode),
     SupportedLanguage(name = "Danish", iconResourceId = R.drawable.ic_denmark, languageCode = Language.DANISH.languageCode),
     SupportedLanguage(name = "French", iconResourceId = R.drawable.ic_france, languageCode = Language.FRENCH.languageCode),

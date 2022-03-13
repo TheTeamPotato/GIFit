@@ -18,6 +18,7 @@ fun SearchScreen(searchTextArgument: String? = null, viewModel: SearchViewModel 
     val horizontalPadding = 25.dp
     val searchBarText = rememberSaveable { mutableStateOf(searchTextArgument ?: "") }
     val searchText = rememberSaveable { mutableStateOf("") }
+    val isSearched = remember { mutableStateOf(false) }
 
     val isFavoriteState = rememberSaveable() { mutableStateOf(false) }
 
@@ -37,11 +38,16 @@ fun SearchScreen(searchTextArgument: String? = null, viewModel: SearchViewModel 
             modifier = Modifier.padding(top = 35.dp, start = horizontalPadding, end = horizontalPadding),
             text = searchBarText.value,
             onSearchQueryChanged = { searchBarText.value = it },
-            onSearchQueryEntered = { searchText.value = searchBarText.value }
+            onSearchQueryEntered = {
+                searchText.value = searchBarText.value
+                isSearched.value = true
+            }
         )
 
         searchResult?.value?.let {
             Timber.d("searchResult.value?.let is $it")
+
+            isSearched.value = false
 
             ResultCard(
                 modifier = Modifier.padding(top = 15.dp, start = horizontalPadding, end = horizontalPadding),
@@ -62,6 +68,8 @@ fun SearchScreen(searchTextArgument: String? = null, viewModel: SearchViewModel 
             )
         }
     }
+
+    if (isSearched.value) GIFitLoader()
 }
 
 @Preview
