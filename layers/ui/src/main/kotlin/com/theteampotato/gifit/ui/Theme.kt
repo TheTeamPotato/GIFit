@@ -10,6 +10,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.dp
 
+val babyBlue = Color(0xff4287f5)
+
 @Composable
 fun GIFitTheme(content: @Composable () -> Unit) {
     ProvideImageLoader {
