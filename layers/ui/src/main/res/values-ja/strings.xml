@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GIFit</string>
+    <string name="search_route">検索</string>
+    <string name="history_route">歴史</string>
+    <string name="favorites_route">お気に入り</string>
+    <string name="search">検索</string>
+</resources>
