@@ -25,7 +25,7 @@ fun GIFitSearchBar(
     text: String,
     onSearchQueryChanged: (String) -> Unit = {},
     onSearchQueryEntered: () -> Unit = {},
-    placeholderText: String = "Search..."
+    placeholderText: String
 ) {
     val context = LocalContext.current
 
@@ -66,5 +66,5 @@ fun GIFitSearchBar(
 @Composable
 @Preview
 fun PreviewGIFitSearchBar() {
-    GIFitSearchBar(text = "Ask Me Anything", onSearchQueryChanged = {})
+    GIFitSearchBar(text = "Ask Me Anything", onSearchQueryChanged = {}, placeholderText = "Search...")
 }

@@ -9,3 +9,4 @@ import androidx.datastore.preferences.preferencesDataStore
 val Context.preferencesDataStore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
 
 val SELECTED_LANGUAGE = stringPreferencesKey("selected_language")
+val APP_LANGUAGE = stringPreferencesKey("app_language")

@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-
 import com.theteampotato.gifit.favorites.view.FavoritesScreen
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
 import com.theteampotato.gifit.history.view.HistoryScreen
@@ -15,6 +14,7 @@ import com.theteampotato.gifit.language_selection.view.LanguageSelectionScreen
 import com.theteampotato.gifit.language_selection.viewmodel.LanguageSelectionViewModel
 import com.theteampotato.gifit.ui.BottomNavScreen
 import com.theteampotato.gifit.view.HomeScaffold
+import com.theteampotato.gifit.view.LocaleActiveManager
 
 const val LANGUAGE_SELECTION = "language_selection"
 
@@ -26,8 +26,9 @@ fun NavigationGraph(
     languageSelectionViewModel: LanguageSelectionViewModel,
     searchViewModel: SearchViewModel,
     historyViewModel: HistoryViewModel,
-    favoritesViewModel: FavoritesViewModel,
+    favoritesViewModel: FavoritesViewModel
 ) {
+    val localeManager = LocaleActiveManager.current
     NavHost(navController = navController, startDestination = startDestination) {
         composable(LANGUAGE_SELECTION) {
             LanguageSelectionScreen(
@@ -36,7 +37,8 @@ fun NavigationGraph(
                         popUpTo(navController.currentDestination?.route!!) { inclusive = true }
                     }
                 },
-                viewModel = languageSelectionViewModel
+                viewModel = languageSelectionViewModel,
+                localeManager = localeManager
             )
         }
         composable(BottomNavScreen.FavoritesNavScreen.route) {
