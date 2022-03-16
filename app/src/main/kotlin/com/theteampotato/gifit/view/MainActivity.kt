@@ -7,16 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.theteampotato.gifit.data.LocaleManager
+import com.theteampotato.gifit.data.datastore.preferencesDataStore
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
 import com.theteampotato.gifit.history.viewmodel.HistoryViewModel
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
@@ -30,6 +29,8 @@ import com.theteampotato.gifit.ui.view.GIFitBottomNavBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
+val LocaleActiveManager = compositionLocalOf<LocaleManager> { error("No locale manager found!") }
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -39,8 +40,12 @@ class MainActivity : AppCompatActivity() {
     private val searchViewModel: SearchViewModel by viewModels()
     private val splashViewModel: SplashViewModel by viewModels()
 
+    lateinit var localeManager: LocaleManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        localeManager = LocaleManager(this, preferencesDataStore)
 
         var keepSplashScreen = true
         var selectedLanguage: String?
@@ -52,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launchWhenCreated {
-            //splashViewModel.setIsSelectedLanguage(true)
+            localeManager.setLocale()
 
             selectedLanguage = splashViewModel.getIsSelectedLanguage()
 
@@ -60,16 +65,18 @@ class MainActivity : AppCompatActivity() {
             keepSplashScreen = false
 
             setContent {
-                val navController = rememberNavController()
-                GIFitTheme {
-                    NavigationGraph(
-                        navController = navController,
-                        startDestination =  getStartDestination(selectedLanguage != null),
-                        languageSelectionViewModel = languageSelectionViewModel,
-                        searchViewModel = searchViewModel,
-                        historyViewModel = historyViewModel,
-                        favoritesViewModel = favoritesViewModel
-                    )
+                CompositionLocalProvider(LocaleActiveManager provides localeManager) {
+                    val navController = rememberNavController()
+                    GIFitTheme {
+                        NavigationGraph(
+                            navController = navController,
+                            startDestination = getStartDestination(selectedLanguage != null),
+                            languageSelectionViewModel = languageSelectionViewModel,
+                            searchViewModel = searchViewModel,
+                            historyViewModel = historyViewModel,
+                            favoritesViewModel = favoritesViewModel
+                        )
+                    }
                 }
             }
         }
