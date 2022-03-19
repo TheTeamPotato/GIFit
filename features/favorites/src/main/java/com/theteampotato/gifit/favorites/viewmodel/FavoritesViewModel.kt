@@ -11,11 +11,14 @@ import com.theteampotato.gifit.domain.usecase.DeleteSearchResultsFromLocalDb
 import com.theteampotato.gifit.testing.DispatcherProvider
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+
+import javax.inject.Inject
+
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import javax.inject.Inject
 import kotlin.coroutines.EmptyCoroutineContext
+
+import timber.log.Timber
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(

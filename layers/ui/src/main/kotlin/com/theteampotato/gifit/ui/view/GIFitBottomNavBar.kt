@@ -10,8 +10,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+
 import com.theteampotato.gifit.ui.BottomNavScreen
 import com.theteampotato.gifit.ui.getBottomNavigationScreenList
+
 import timber.log.Timber
 
 @Composable

@@ -7,11 +7,9 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.hilt.navigation.compose.hiltViewModel
 
 import com.theteampotato.gifit.history.viewmodel.HistoryViewModel
 import com.theteampotato.gifit.ui.view.GIFitCard
