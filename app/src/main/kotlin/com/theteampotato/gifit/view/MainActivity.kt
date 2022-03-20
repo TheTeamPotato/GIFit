@@ -1,6 +1,7 @@
 package com.theteampotato.gifit.view
 
 import android.os.Bundle
+
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+
 import com.theteampotato.gifit.data.LocaleManager
 import com.theteampotato.gifit.data.datastore.preferencesDataStore
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
@@ -26,7 +28,9 @@ import com.theteampotato.gifit.splash.viewmodel.SplashViewModel
 import com.theteampotato.gifit.ui.BottomNavScreen
 import com.theteampotato.gifit.ui.GIFitTheme
 import com.theteampotato.gifit.ui.view.GIFitBottomNavBar
+
 import dagger.hilt.android.AndroidEntryPoint
+
 import kotlinx.coroutines.delay
 
 val LocaleActiveManager = compositionLocalOf<LocaleManager> { error("No locale manager found!") }

@@ -27,14 +27,9 @@ dependencies {
     ANDROID_TEST
     COMPOSE_UI_TEST
     COROUTINES_TEST
-    LOCAL_TEST_JUNIT5
     TESTING
 }
 
 kapt {
     correctErrorTypes = true
-}
-
-moduleConfigurations {
-    useJUnitRunner5 = true
 }

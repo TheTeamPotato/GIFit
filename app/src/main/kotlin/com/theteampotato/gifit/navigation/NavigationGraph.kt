@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+
 import com.theteampotato.gifit.favorites.view.FavoritesScreen
 import com.theteampotato.gifit.favorites.viewmodel.FavoritesViewModel
 import com.theteampotato.gifit.history.view.HistoryScreen
@@ -22,7 +23,6 @@ const val LANGUAGE_SELECTION = "language_selection"
 fun NavigationGraph(
     navController: NavHostController,
     startDestination: String = "${BottomNavScreen.SearchNavScreen.route}?searchQuery={${BottomNavScreen.SearchNavScreen.arguments?.first()}}",
-    //startDestination: String = "language_selection",
     languageSelectionViewModel: LanguageSelectionViewModel,
     searchViewModel: SearchViewModel,
     historyViewModel: HistoryViewModel,

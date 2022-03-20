@@ -2,14 +2,18 @@ package com.theteampotato.gifit.data
 
 import android.content.Context
 import android.content.res.Configuration
+
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+
 import com.theteampotato.gifit.data.datastore.APP_LANGUAGE
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
+
 import java.util.*
 import javax.inject.Inject
+
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 
 class LocaleManager @Inject constructor(
     private val activityContext: Context,

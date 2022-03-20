@@ -9,11 +9,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+
 import com.theteampotato.gifit.home.R
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
 import com.theteampotato.gifit.ui.view.GIFitLoader
 import com.theteampotato.gifit.ui.view.GIFitSearchBar
 import com.theteampotato.gifit.ui.view.ResultCard
+
 import timber.log.Timber
 
 @Composable

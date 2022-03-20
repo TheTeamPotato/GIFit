@@ -7,13 +7,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
+import javax.inject.Singleton
+
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
-
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,8 +25,6 @@ object KtorModule {
         engine {
             connectTimeout = 100_000
             socketTimeout = 100_000
-
-            // proxy = Proxy(Proxy.Type.HTTP, InetSocketAddress("localhost", serverPort))
         }
         install(JsonFeature) {
             serializer = KotlinxSerializer(json = kotlinx.serialization.json.Json {

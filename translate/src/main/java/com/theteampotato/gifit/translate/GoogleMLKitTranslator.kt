@@ -11,7 +11,7 @@ import com.google.mlkit.nl.translate.TranslatorOptions
 
 import timber.log.Timber
 
-class GoogleMLKitTranslator: ITranslator {
+class GoogleMLKitTranslator {
 
     private lateinit var translator: Translator
     private lateinit var options: TranslatorOptions
@@ -43,25 +43,18 @@ class GoogleMLKitTranslator: ITranslator {
         onSuccess: (String) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
-        //try {
-            //downloadModels(onSuccess = {
-                try {
-                    translator.translate(value)
-                        .addOnSuccessListener(onSuccess)
-                        .addOnFailureListener(onFailure)
-                } catch (e: Exception) {
-                    onFailure(e)
-                }
-//            }, onFailure = onFailure)
-/*        } catch (e: Exception) {
-            Timber.e("Exception is $e")
-        }*/
+        try {
+            translator.translate(value)
+                .addOnSuccessListener(onSuccess)
+                .addOnFailureListener(onFailure)
+        } catch (e: Exception) {
+            onFailure(e)
+        }
     }
 
     fun destroy() = translator.close()
 
     /**
-     * // TODO: Warn users about this issue in the app
      * Language models are around 30MB, so don't download them unnecessarily, and
      * only download them using Wi-Fi unless the user has specified otherwise. You
      * should also delete unneeded models.

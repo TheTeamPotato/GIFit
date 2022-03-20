@@ -3,7 +3,9 @@ package com.theteampotato.gifit.data.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+
 import com.theteampotato.gifit.data.local.entity.SearchResultEntity
+
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -19,13 +19,18 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
+
 import com.theteampotato.gifit.data.LocaleManager
+import com.theteampotato.gifit.language_selection.Language
 import com.theteampotato.gifit.language_selection.R
+import com.theteampotato.gifit.language_selection.SupportedLanguage
 import com.theteampotato.gifit.language_selection.viewmodel.LanguageSelectionViewModel
 import com.theteampotato.gifit.ui.babyBlue
 import com.theteampotato.gifit.ui.view.GIFitLanguageCard
 import com.theteampotato.gifit.ui.view.GIFitTranslateModelLoader
+
 import kotlinx.coroutines.launch
+
 import timber.log.Timber
 
 @Composable
@@ -138,24 +143,6 @@ fun LanguageSelectionScreen(
     }
 
     if (isContinueSelected.value) GIFitTranslateModelLoader()
-}
-
-data class SupportedLanguage(val name: String, val iconResourceId: Int, val languageCode: String)
-
-enum class Language(val languageCode: String) {
-    FINNISH("fi"),
-    CHINESE("zh"),
-    DANISH("da"),
-    FRENCH("fr"),
-    GERMAN("de"),
-    SPANISH("es"),
-    TURKISH("tr"),
-    ITALIAN("it"),
-    JAPANESE("ja"),
-    DUTCH("nl"),
-    NORWEGIAN("no"),
-    KOREAN("ko"),
-    SWEDISH("sv")
 }
 
 private fun getSupportedLanguages() = listOf(

@@ -12,17 +12,14 @@ android {
 }
 
 dependencies {
-    implementation("androidx.navigation:navigation-common-ktx:2.4.1")
     ACCOMPANIST
     BASE
     COMPOSE
     KOTLIN_STANDARD_LIBRARY
+    LOTTIE_COMPOSE
     MATERIAL_DESIGN
-    SHOWKASE
-
-    api("com.airbnb.android:lottie-compose:5.0.3")
+    NAVIGATION_COMMON_KTX
 
     ANDROID_TEST
     COROUTINES_TEST
-    LOCAL_TEST_JUNIT5
 }

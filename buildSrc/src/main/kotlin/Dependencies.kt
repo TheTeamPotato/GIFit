@@ -7,22 +7,8 @@ const val DAGGER_HILT_ANDROID_PLUGIN = "dagger.hilt.android.plugin"
 const val COMMON_MODULE_PLUGIN = "common-module-plugin"
 
 object BuildScript {
-    private const val ANDROID_GRADLE_VERSION = "7.0.0-alpha05"
-    private const val ANDROID_HILT_GRADLE_VERSION = "2.31.2-alpha"
-    private const val APP_GALLERY_CONNECT_VERSION = "1.4.2.301"
-    private const val KOTLIN_VERSION = "1.4.30"
-
-    const val KTLINT_PLUGIN_VERSION = "10.2.1"
     const val VERSIONS_PLUGIN_VERSION = "0.36.0"
-    const val JUNIT5_PLUGIN = "de.mannodermaus.android-junit5"
-    const val KTLINT_PLUGIN = "org.jlleitschuh.gradle.ktlint"
     const val VERSIONS_PLUGIN = "com.github.ben-manes.versions"
-
-    const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:$ANDROID_GRADLE_VERSION"
-    const val ANDROID_HILT_GRADLE_PLUGIN =
-        "com.google.dagger:hilt-android-gradle-plugin:$ANDROID_HILT_GRADLE_VERSION"
-    const val APP_GALLERY_CONNECT_PLUGIN = "com.huawei.agconnect:agcp:$APP_GALLERY_CONNECT_VERSION"
-    const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
 }
 
 object Modules {
@@ -48,19 +34,11 @@ object Modules {
 object Libraries {
     private const val COIL_VERSION = "1.4.0"
     private const val MATERIAL_DESIGN_VERSION = "1.5.0"
-    private const val PERMISSION_DISPATCHER_VERSION = "4.8.0"
-    private const val SHOWKASE_VERSION = "1.0.0-beta12"
     private const val TIMBER_VERSION = "5.0.1"
 
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:$COIL_VERSION"
     const val COIL_GIF = "io.coil-kt:coil-gif:$COIL_VERSION"
     const val MATERIAL_DESIGN = "com.google.android.material:material:$MATERIAL_DESIGN_VERSION"
-    const val PERMISSION_DISPATCHER =
-        "org.permissionsdispatcher:permissionsdispatcher:$PERMISSION_DISPATCHER_VERSION"
-    const val PERMISSION_DISPATCHER_PROCESSOR =
-        "org.permissionsdispatcher:permissionsdispatcher-processor:$PERMISSION_DISPATCHER_VERSION"
-    const val SHOWKASE = "com.airbnb.android:showkase:$SHOWKASE_VERSION"
-    const val SHOWKASE_COMPILER = "com.airbnb.android:showkase-processor:$SHOWKASE_VERSION"
     const val TIMBER = "com.jakewharton.timber:timber:$TIMBER_VERSION"
 
     object AndroidX {
@@ -69,7 +47,6 @@ object Libraries {
         private const val DATASTORE_VERSION = "1.0.0"
         private const val FRAGMENT_KTX_VERSION = "1.4.1"
         private const val MULTIDEX_VERSION = "2.0.1"
-        private const val NAVIGATION_COMPONENT_VERSION = "2.4.1"
         private const val LIFECYCLE_VERSION = "2.2.0"
         private const val ROOM_VERSION = "2.4.1"
         private const val SPLASH_API_VERSION = "1.0.0-beta01"
@@ -81,10 +58,6 @@ object Libraries {
         const val DATASTORE = "androidx.datastore:datastore-preferences:$DATASTORE_VERSION"
         const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:$FRAGMENT_KTX_VERSION"
         const val MULTIDEX = "androidx.multidex:multidex:$MULTIDEX_VERSION"
-        const val NAVIGATION_COMPONENT =
-            "androidx.navigation:navigation-fragment-ktx:$NAVIGATION_COMPONENT_VERSION"
-        const val NAVIGATION_COMPONENT_UI =
-            "androidx.navigation:navigation-ui-ktx:$NAVIGATION_COMPONENT_VERSION"
         const val LIFECYCLE_EXTENSIONS =
             "androidx.lifecycle:lifecycle-extensions:$LIFECYCLE_VERSION"
         const val LIFECYCLE_EXTENSIONS_LIVEDATA =
@@ -143,20 +116,6 @@ object Libraries {
         }
     }
 
-    object HMS {
-        const val HWID_VERSION = "5.1.0.302"
-        const val OCR_VERSION = "2.0.5.300"
-
-        const val HWID = "com.huawei.hms:hwid:$HWID_VERSION"
-        const val TEXT_RECOGNITION = "com.huawei.hms:ml-computer-vision-ocr:$OCR_VERSION"
-        const val TEXT_RECOGNITION_LATIN =
-            "com.huawei.hms:ml-computer-vision-ocr-latin-model:$OCR_VERSION"
-        const val TEXT_RECOGNITION_CHINESE_ENGLISH =
-            "com.huawei.hms:ml-computer-vision-ocr-cn-model:$OCR_VERSION"
-        const val TEXT_RECOGNITION_JAPANESE_KOREAN =
-            "com.huawei.hms:ml-computer-vision-ocr-jk-model:$OCR_VERSION"
-    }
-
     object Kotlin {
         private const val VERSION = "1.6.10"
 
@@ -164,9 +123,6 @@ object Libraries {
 
         object Coroutines {
             private const val COROUTINES_ANDROID_VERSION = "1.6.0"
-
-            const val COROUTINES_ANDROID =
-                "org.jetbrains.kotlinx:kotlinx-coroutines-android:$COROUTINES_ANDROID_VERSION"
 
             object Test {
                 const val TEST =
@@ -196,15 +152,10 @@ object Libraries {
     }
 
     object Hilt {
-        private const val HILT_VERSION = "2.40.5"
-        private const val HILT_LIFECYCLE_VIEWMODEL_VERSION = "1.0.0-alpha03"
-        private const val HILT_COMPILER_VERSION = "1.0.0-alpha03"
+        private const val HILT_VERSION = "2.41"
 
         const val HILT_ANDROID = "com.google.dagger:hilt-android:$HILT_VERSION"
         const val HILT_ANDROID_COMPILER = "com.google.dagger:hilt-compiler:$HILT_VERSION"
-        const val HILT_LIFECYCLE_VIEWMODEL =
-            "androidx.hilt:hilt-lifecycle-viewmodel:$HILT_LIFECYCLE_VIEWMODEL_VERSION"
-        const val HILT_COMPILER = "androidx.hilt:hilt-compiler:$HILT_COMPILER_VERSION"
 
         object Test {
             const val TESTING = "com.google.dagger:hilt-android-testing:$HILT_VERSION"
@@ -212,26 +163,13 @@ object Libraries {
     }
 
     object Test {
-        private const val HAMCREST_VERSION = "1.3"
         private const val JUNIT_VERSION = "4.13.2"
-        private const val KOTLINX_COROUTINES_VERSION = "1.4.2"
-        private const val MOCKITO_CORE_VERSION = "2.21.0"
-        private const val MOCKITO_INLINE_VERSION = "3.3.3"
-        private const val MOCKITO_KOTLIN_VERSION = "2.2.0"
         private const val MOCKK_VERSION = "1.10.6"
         private const val TRUTH_VERSION = "1.1.2"
 
         const val JUNIT = "junit:junit:$JUNIT_VERSION"
         const val MOCKK = "io.mockk:mockk:$MOCKK_VERSION"
-        const val MOCKK_ANDROID = "io.mockk:mockk-android:$MOCKK_VERSION"
-        const val MOCKITO_INLINE = "org.mockito:mockito-inline:$MOCKITO_INLINE_VERSION"
-        const val MOCKITO_KOTLIN =
-            "com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_KOTLIN_VERSION"
         const val TRUTH = "com.google.truth:truth:$TRUTH_VERSION"
-        const val MOCKITO_CORE = "org.mockito:mockito-core:$MOCKITO_CORE_VERSION"
-        const val KOTLINX_COROUTINES_TEST =
-            "org.jetbrains.kotlinx:kotlinx-coroutines-test:$KOTLINX_COROUTINES_VERSION"
-        const val HAMCREST = "org.hamcrest:hamcrest-all:$HAMCREST_VERSION"
 
         object AndroidX {
             private const val ARCH_VERSION = "2.1.0"
@@ -243,12 +181,6 @@ object Libraries {
             const val JUNIT_KTX = "androidx.test.ext:junit-ktx:$JUNIT_VERSION"
             const val JUNIT_RUNNER = "androidx.test:runner:$JUNIT_VERSION"
             const val JUNIT_RULES = "androidx.test:rules:$JUNIT_VERSION"
-        }
-
-        object UI {
-            private const val COMPOSE_UI_TEST_JUNIT4_VERSION = "1.0.0-alpha10"
-            const val COMPOSE_UI_TEST_JUNIT4 =
-                "androidx.compose.ui:ui-test-junit4:$COMPOSE_UI_TEST_JUNIT4_VERSION"
         }
     }
 
@@ -315,9 +247,6 @@ val DependencyHandler.COMPOSE_VIEWMODEL
 val DependencyHandler.COMPOSE_HILT_NAVIGATION
     get() = implementation(Libraries.Compose.HILT_NAVIGATION)
 
-val DependencyHandler.COROUTINES
-    get() = coroutines()
-
 val DependencyHandler.DAGGER_HILT
     get() = hilt()
 
@@ -333,18 +262,27 @@ val DependencyHandler.KTOR
 val DependencyHandler.KOTLINX_SERIALIZATION
     get() = kotlinxSerialization()
 
+val DependencyHandler.LOTTIE_COMPOSE
+    get() = implementation("com.airbnb.android:lottie-compose:5.0.3")
+
 val DependencyHandler.MATERIAL_DESIGN
     get() = implementation(Libraries.MATERIAL_DESIGN)
+
+val DependencyHandler.NAVIGATION_COMMON_KTX
+    get() = implementation("androidx.navigation:navigation-common-ktx:2.4.1")
 
 val DependencyHandler.ROOM
     get() = room()
 
-val DependencyHandler.SHOWKASE
-    get() = showkase()
+val DependencyHandler.TURBINE
+    get() = {
+        androidTestImplementation("app.cash.turbine:turbine:0.7.0")
+        testImplementation("app.cash.turbine:turbine:0.7.0")
+    }
 
 // Test
 val DependencyHandler.ANDROID_TEST
-    get() = androidInstrumentationTest(useJUnit5 = true)
+    get() = androidInstrumentationTest()
 
 val DependencyHandler.COMPOSE_UI_TEST
     get() = uiTest()
@@ -353,19 +291,13 @@ val DependencyHandler.COROUTINES_TEST
     get() = coroutinesTest()
 
 val DependencyHandler.LOCAL_TEST
-    get() = test(useJUnit5 = false)
-
-val DependencyHandler.LOCAL_TEST_JUNIT5
-    get() = test(useJUnit5 = true)
+    get() = test()
 
 val DependencyHandler.DAGGER_HILT_TEST
     get() = hiltTest()
 
 val DependencyHandler.DAGGER_HILT_ANDROID_TEST
     get() = hiltAndroidTest()
-
-val DependencyHandler.ROBOELECTRIC_TEST
-    get() = roboelectricTest()
 
 private fun DependencyHandler.accompanist() {
     implementation(Libraries.COIL_COMPOSE)
@@ -404,15 +336,9 @@ private fun DependencyHandler.compose() {
     implementation(Libraries.Compose.UI_TOOLING)
 }
 
-private fun DependencyHandler.coroutines() {
-    implementation(Libraries.Kotlin.Coroutines.COROUTINES_ANDROID)
-}
-
 private fun DependencyHandler.hilt() {
     implementation(Libraries.Hilt.HILT_ANDROID)
-    //implementation(Libraries.Hilt.HILT_LIFECYCLE_VIEWMODEL)
     kapt(Libraries.Hilt.HILT_ANDROID_COMPILER)
-    //kapt(Libraries.Hilt.HILT_COMPILER)
 }
 
 private fun DependencyHandler.ktor() {
@@ -421,55 +347,26 @@ private fun DependencyHandler.ktor() {
     api(Libraries.Ktor.KTOR_ANDROID_CLIENT)
     implementation(Libraries.Ktor.KTOR_CLIENT_CIO)
     implementation(Libraries.Ktor.KTOR_CLIENT_LOGGING)
-    //implementation(Libraries.Ktor.KTOR_KOTLINX_SERIALIZATION)
+    implementation(Libraries.Ktor.KTOR_KOTLINX_SERIALIZATION)
     implementation(Libraries.Ktor.KTOR_SERIALIZATION_JVM)
-
-    //implementation(Libraries.Ktor.KTOR_SERIALIZATION)
 }
 
 private fun DependencyHandler.kotlinxSerialization() {
     implementation(Libraries.KotlinxSerialization.KOTLINX_SERIALIZATION_JSON)
 }
 
-private fun DependencyHandler.test(useJUnit5: Boolean) {
-    if (useJUnit5) {
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.3.2")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.3.2")
-        testImplementation("org.junit.jupiter:junit-jupiter-params:5.3.2")
-        testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.3.2")
-    } else {
-        testImplementation(Libraries.Test.JUNIT)
-    }
-
-    //testImplementation(Libraries.Test.MOCKK)
+private fun DependencyHandler.test() {
+    testImplementation(Libraries.Test.JUNIT)
     testImplementation(Libraries.Test.TRUTH)
     androidTestImplementation(Libraries.Test.TRUTH)
 }
 
-fun DependencyHandler.androidInstrumentationTest(
-    useJUnit5: Boolean,
-    useRoboelectric: Boolean = false
-) {
-    if (useJUnit5) {
-        androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-        androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.3.0")
-        androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.3.0")
-    }
-
-    if (!useRoboelectric) {
-        androidTestImplementation(Libraries.Test.AndroidX.ARCH)
-        androidTestImplementation(Libraries.Test.AndroidX.CORE)
-        androidTestImplementation(Libraries.Test.AndroidX.JUNIT_KTX)
-        androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
-        androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
-        //androidTestImplementation(Libraries.Test.MOCKK_ANDROID)
-    } else {
-        testImplementation(Libraries.Test.AndroidX.ARCH)
-        testImplementation(Libraries.Test.AndroidX.CORE)
-        testImplementation(Libraries.Test.AndroidX.JUNIT_KTX)
-        testImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
-        testImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
-    }
+fun DependencyHandler.androidInstrumentationTest() {
+    testImplementation(Libraries.Test.AndroidX.ARCH)
+    testImplementation(Libraries.Test.AndroidX.CORE)
+    testImplementation(Libraries.Test.AndroidX.JUNIT_KTX)
+    testImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
+    testImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
 }
 
 private fun DependencyHandler.coroutinesTest() {
@@ -490,19 +387,10 @@ private fun DependencyHandler.uiTest() {
     androidTestImplementation(Libraries.Compose.Test.UI_TEST)
 }
 
-fun DependencyHandler.roboelectricTest() {
-    testImplementation("org.robolectric:robolectric:4.5")
-}
-
 private fun DependencyHandler.room() {
     implementation(Libraries.AndroidX.ROOM)
     implementation(Libraries.AndroidX.ROOM_KTX)
     kapt(Libraries.AndroidX.ROOM_COMPILER)
-}
-
-private fun DependencyHandler.showkase() {
-    implementation(Libraries.SHOWKASE)
-    kapt(Libraries.SHOWKASE_COMPILER)
 }
 
 private fun DependencyHandler.implementation(depName: Any) {

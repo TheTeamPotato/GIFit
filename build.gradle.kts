@@ -7,7 +7,6 @@ buildscript {
         google()
         gradlePluginPortal()
         mavenCentral()
-        maven(url = "https://developer.huawei.com/repo/")
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
@@ -20,7 +19,6 @@ allprojects {
         google()
         mavenCentral()
         maven(url = "https://jitpack.io")
-        maven(url = "https://developer.huawei.com/repo/")
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
 }

@@ -1,10 +1,13 @@
 package com.theteampotato.gifit.data.local.repository
 
 import androidx.lifecycle.LiveData
+
 import com.theteampotato.gifit.data.local.datasource.LocalDataSource
 import com.theteampotato.gifit.data.local.entity.SearchResultEntity
-import kotlinx.coroutines.flow.Flow
+
 import javax.inject.Inject
+
+import kotlinx.coroutines.flow.Flow
 
 class GIFitLocalRepository @Inject constructor(
     private val localDataSource: LocalDataSource

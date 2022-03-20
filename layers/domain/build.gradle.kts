@@ -19,7 +19,3 @@ dependencies {
 kapt {
     correctErrorTypes = true
 }
-
-moduleConfigurations {
-    useJUnitRunner5 = true
-}

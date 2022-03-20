@@ -52,6 +52,5 @@ kapt {
 }
 
 moduleConfigurations {
-    //useJUnitRunner5 = true
     useRoboelectric = true
 }

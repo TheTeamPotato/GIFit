@@ -1,6 +1,7 @@
 package com.theteampotato.gifit.data.remote
 
 import com.theteampotato.gifit.data.remote.model.GiphyResponse
+
 import javax.inject.Inject
 
 private const val BASE_URL = "https://api.giphy.com/v1/gifs"

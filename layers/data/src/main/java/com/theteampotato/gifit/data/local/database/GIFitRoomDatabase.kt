@@ -1,9 +1,11 @@
 package com.theteampotato.gifit.data.local.database
 
 import android.content.Context
+
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+
 import com.theteampotato.gifit.data.local.dao.SearchResultDao
 import com.theteampotato.gifit.data.local.entity.SearchResultEntity
 

@@ -10,13 +10,8 @@ dependencies {
 
     ANDROID_TEST
     COROUTINES_TEST
-    LOCAL_TEST_JUNIT5
 }
 
 kapt {
     correctErrorTypes = true
-}
-
-moduleConfigurations {
-    useJUnitRunner5 = true
 }
