@@ -24,7 +24,7 @@ fun InfoTip(modifier: Modifier = Modifier, origin: String, translated: String) {
 }
 
 @Composable
-fun ListenableInfoTip(modifier: Modifier = Modifier, origin: String, translated: String, onListenClicked: () -> Unit) {
+fun ListenableInfoTip(modifier: Modifier = Modifier, origin: String, onListenClicked: () -> Unit) {
     val sizeInDp = 35.dp
 
     Column(modifier) {
@@ -49,11 +49,6 @@ fun ListenableInfoTip(modifier: Modifier = Modifier, origin: String, translated:
             }
             Column {
                 Text(text = origin, fontSize = 21.sp)
-                Text(
-                    text = translated,
-                    fontSize = 16.sp,
-                    color = MaterialTheme.colors.secondaryVariant
-                )
             }
         }
     }
