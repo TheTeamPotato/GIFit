@@ -43,8 +43,6 @@ dependencies {
     DAGGER_HILT_ANDROID_TEST
     LOCAL_TEST
     TESTING
-
-    TURBINE
 }
 
 kapt {
