@@ -43,10 +43,6 @@ dependencies {
     DAGGER_HILT_ANDROID_TEST
     LOCAL_TEST
     TESTING
-
-    testImplementation(project(Modules.TESTING))
-    testImplementation(Libraries.Kotlin.Coroutines.Test.TEST)
-    TURBINE
 }
 
 kapt {

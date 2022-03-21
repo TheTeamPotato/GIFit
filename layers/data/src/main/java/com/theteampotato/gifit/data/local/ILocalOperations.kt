@@ -1,8 +1,8 @@
-package com.theteampotato.gifit.data.local.repository
+package com.theteampotato.gifit.data.local
 
 import androidx.lifecycle.LiveData
 
-interface BaseLocalRepository<T> {
+interface ILocalOperations<T> {
 
     suspend fun insert(entity : T) : Long
 

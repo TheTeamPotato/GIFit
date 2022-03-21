@@ -1,7 +1,5 @@
 package com.theteampotato.gifit.home.view
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -9,14 +7,11 @@ import com.theteampotato.gifit.domain.usecase.*
 
 import com.theteampotato.gifit.home.viewmodel.SearchViewModel
 import com.theteampotato.gifit.testing.DispatcherProvider
-import com.theteampotato.gifit.testing.getOrAwaitValue
 import com.theteampotato.gifit.ui.GIFitTheme
 
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.setMain
 
 import org.junit.Before
 import org.junit.Rule
@@ -35,6 +30,8 @@ class SearchScreenTest {
     @Inject lateinit var isSearchResultExist: IsSearchResultExist
     @Inject lateinit var removeSearchResultFromFavorites: RemoveSearchResultFromFavorites
     @Inject lateinit var getSearchResult: GetSearchResult
+    @Inject lateinit var translateText: TranslateText
+    @Inject lateinit var readText: ReadText
 
     private lateinit var searchViewModel: SearchViewModel
 
@@ -52,7 +49,9 @@ class SearchScreenTest {
             addSearchResultToFavorites = addSearchResultToFavorites,
             getSearchResult = getSearchResult,
             isSearchResultExist = isSearchResultExist,
-            removeSearchResultFromFavorites = removeSearchResultFromFavorites
+            removeSearchResultFromFavorites = removeSearchResultFromFavorites,
+            translateText = translateText,
+            readText = readText
         )
 
         composeTestRule.setContent {
@@ -73,10 +72,7 @@ class SearchScreenTest {
         val givenValue = "Ofis"
         val expectedValue = "Office"
 
-        //composeTestRule.o
-
         searchViewModel.searchKeyword(givenValue)
-        //searchViewModel.mSearchResultLiveData.getOrAwaitValue()
 
         composeTestRule.onNodeWithText(expectedValue).assertIsDisplayed()
     }

@@ -18,7 +18,7 @@ interface SearchResultDao : BaseDao<SearchResultEntity> {
     fun getResultById(id: Int): LiveData<SearchResultEntity>
 
     @Query("SELECT * FROM SearchResult WHERE id = :id and isFavorite = 1")
-    fun getFavoritesResultById(id: Int): LiveData<SearchResultEntity>
+    fun getFavoritesResultById(id: Int): Flow<SearchResultEntity>
 
     @Query("SELECT * FROM SearchResult WHERE isFavorite = 1")
     fun getAllFavoritesResults(): Flow<List<SearchResultEntity>>

@@ -1,6 +1,7 @@
 package com.theteampotato.gifit.data.local.repository
 
 import androidx.lifecycle.LiveData
+import com.theteampotato.gifit.data.local.ILocalOperations
 
 import com.theteampotato.gifit.data.local.datasource.LocalDataSource
 import com.theteampotato.gifit.data.local.entity.SearchResultEntity
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 
 class GIFitLocalRepository @Inject constructor(
     private val localDataSource: LocalDataSource
-) : BaseLocalRepository<SearchResultEntity> {
+) : ILocalOperations<SearchResultEntity> {
 
     override suspend fun insert(SearchResultEntity: SearchResultEntity) =
         localDataSource.insert(SearchResultEntity)
@@ -34,10 +35,6 @@ class GIFitLocalRepository @Inject constructor(
 
     override suspend fun getAll(): LiveData<List<SearchResultEntity>> {
         return localDataSource.getAll()
-    }
-
-    fun getFavoritesResultById(id: Int): LiveData<SearchResultEntity> {
-        return localDataSource.getFavoritesResultById(id)
     }
 
     fun getAllFavoritesResults() = localDataSource.getAllFavoritesResults()
