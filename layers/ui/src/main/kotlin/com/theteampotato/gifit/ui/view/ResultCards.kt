@@ -86,7 +86,6 @@ private fun ContentCard(modifier: Modifier = Modifier, imageURL: String, transla
                     .padding(bottom = 24.dp)
                     .padding(horizontal = horizontalPaddingInDp),
                 origin = translatedText,
-                translated = "Cümle",
                 onListenClicked = onListenClicked
             )
         }
