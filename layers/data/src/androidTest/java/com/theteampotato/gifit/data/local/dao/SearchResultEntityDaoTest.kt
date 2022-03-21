@@ -25,31 +25,31 @@ class SearchResultEntityDaoTest : GIFitRoomDatabaseTest() {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var searchResultDao: SearchResultDao
-    private lateinit var SearchResultEntity: SearchResultEntity
+    private lateinit var searchResultEntity: SearchResultEntity
     private lateinit var listOfResultEntities: List<SearchResultEntity>
 
     @Before
     fun init() = runBlocking {
         searchResultDao = database.searchResultDao()
-        SearchResultEntity = TestUtil.newSearch()
+        searchResultEntity = TestUtil.newSearch()
         listOfResultEntities = TestUtil.newListOfSearch()
     }
 
     @Test
     fun verify_inserted_testData_then_searchString_entity_should_be_equalTo_searchResult_searchString(): Unit = runBlocking {
-        searchResultDao.insert(SearchResultEntity)
+        searchResultDao.insert(searchResultEntity)
         val results = searchResultDao.getAll().getOrAwaitValue()
-        assertThat(results[0].searchText).isEqualTo(SearchResultEntity.searchText)
+        assertThat(results[0].searchText).isEqualTo(searchResultEntity.searchText)
     }
 
     @Test
     fun verify_deleted_testData_then_check_searchString_should_be_contain(): Unit = runBlocking {
         searchResultDao.insertAll(listOfResultEntities)
-        searchResultDao.insert(SearchResultEntity)
+        searchResultDao.insert(searchResultEntity)
         val result = searchResultDao.getResultById(2).getOrAwaitValue()
         searchResultDao.delete(result)
         val results = searchResultDao.getAll().getOrAwaitValue()
-        assertThat(results[2].searchText).contains(SearchResultEntity.searchText)
+        assertThat(results[2].searchText).contains(searchResultEntity.searchText)
     }
 
     @Test

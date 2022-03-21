@@ -44,8 +44,6 @@ dependencies {
     LOCAL_TEST
     TESTING
 
-    testImplementation(project(Modules.TESTING))
-    testImplementation(Libraries.Kotlin.Coroutines.Test.TEST)
     TURBINE
 }
 

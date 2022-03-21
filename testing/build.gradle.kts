@@ -7,7 +7,7 @@ dependencies {
     BASE
     KOTLIN_STANDARD_LIBRARY
 
-    implementation(Libraries.Kotlin.Coroutines.Test.TEST)
+    //implementation(Libraries.Kotlin.Coroutines.Test.TEST)
 
     implementation(Libraries.Hilt.Test.TESTING)
     kapt(Libraries.Hilt.HILT_ANDROID_COMPILER)

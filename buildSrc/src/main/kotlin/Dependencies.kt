@@ -123,11 +123,7 @@ object Libraries {
 
         object Coroutines {
             private const val COROUTINES_ANDROID_VERSION = "1.6.0"
-
-            object Test {
-                const val TEST =
-                    "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_ANDROID_VERSION"
-            }
+            const val TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$COROUTINES_ANDROID_VERSION"
         }
     }
 
@@ -188,10 +184,6 @@ object Libraries {
 
 // Internal Libraries
 val DependencyHandler.TESTING
-    //get() = androidTestImplementation(project(Modules.TESTING))
-    get() = implementation(project(Modules.TESTING))
-
-val DependencyHandler.TESTING_IMPL
     get() = implementation(project(Modules.TESTING))
 
 fun DependencyHandler.testing() {
@@ -362,15 +354,15 @@ private fun DependencyHandler.test() {
 }
 
 fun DependencyHandler.androidInstrumentationTest() {
-    testImplementation(Libraries.Test.AndroidX.ARCH)
-    testImplementation(Libraries.Test.AndroidX.CORE)
-    testImplementation(Libraries.Test.AndroidX.JUNIT_KTX)
-    testImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
-    testImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
+    androidTestImplementation(Libraries.Test.AndroidX.ARCH)
+    androidTestImplementation(Libraries.Test.AndroidX.CORE)
+    androidTestImplementation(Libraries.Test.AndroidX.JUNIT_KTX)
+    androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RUNNER)
+    androidTestImplementation(Libraries.Test.AndroidX.JUNIT_RULES)
 }
 
 private fun DependencyHandler.coroutinesTest() {
-    androidTestImplementation(Libraries.Kotlin.Coroutines.Test.TEST)
+    androidTestImplementation(Libraries.Kotlin.Coroutines.TEST)
 }
 
 fun DependencyHandler.hiltTest() {

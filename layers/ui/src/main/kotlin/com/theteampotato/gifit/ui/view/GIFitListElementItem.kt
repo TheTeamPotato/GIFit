@@ -46,8 +46,4 @@ fun GIFitListElementItem(
 @Preview
 @Composable
 fun PreviewGIFitListElementItem() =
-    GIFitListElementItem(
-        "Ask Me Anything",
-        Modifier.padding(8.dp),
-        {}
-    )
+    GIFitListElementItem("Ask Me Anything", Modifier.padding(8.dp)) {}

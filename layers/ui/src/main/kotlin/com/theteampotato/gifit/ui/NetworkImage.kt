@@ -18,7 +18,7 @@ fun ProvideImageLoader(content: @Composable () -> Unit) {
         ImageLoader.Builder(context)
             .componentRegistry {
                 if (SDK_INT >= 28)
-                    add(ImageDecoderDecoder())
+                    add(ImageDecoderDecoder(context))
                 else
                     add(GifDecoder())
             }.build()
