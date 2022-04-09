@@ -13,7 +13,7 @@ GIFit is a full-featured MVVM Android app built entirely with Jetpack Compose. I
   <img src="docs/preview02.gif" width="32%"/>
 </p>
 
-## Features
+## 🛠 Features
 
 - Add search result to favorites
 - Inspect your search history
@@ -37,7 +37,7 @@ GIFit is a full-featured MVVM Android app built entirely with Jetpack Compose. I
 
 Go to the [Releases](https://github.com/TheTeamPotato/GIFit/releases) to download the latest APK.
 
-## 🛠 Tech Stack
+## 🏗 Tech Stack
 
 ### Architecture
 
@@ -98,7 +98,7 @@ PRs are encouraged.
 
 ## ❤️ Find this repository useful?
 
-Support the repository by becoming a __[stargazer](hhttps://github.com/TheTeamPotato/GIFit/stargazers)__ 🎖 </br>
+Support the repository by becoming a __[stargazer](https://github.com/TheTeamPotato/GIFit/stargazers)__ 🎖 </br>
 
 ## License
 
