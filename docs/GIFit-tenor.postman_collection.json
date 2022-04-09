@@ -1,0 +1,419 @@
+{
+	"info": {
+		"_postman_id": "61bb15e3-5bdc-4eb5-bf28-503e359fb570",
+		"name": "GIFit-tenor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/search?key={{API_KEY}}&q=a&locale=en_US",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}",
+							"description": "client key for privileged API access"
+						},
+						{
+							"key": "q",
+							"value": "a",
+							"description": "a search string"
+						},
+						{
+							"key": "locale",
+							"value": "en_US",
+							"description": "specify default language to interpret search string; xx is ISO 639-1 language code, _YY (optional) is 2-letter ISO 3166-1 country code"
+						},
+						{
+							"key": "contentfilter",
+							"value": "off",
+							"description": "(values: off | low | medium | high) specify the content safety filter level",
+							"disabled": true
+						},
+						{
+							"key": "media_filter",
+							"value": "n/a",
+							"description": "(values: basic | minimal) Reduce the Number of GIF formats returned in the GIF_OBJECT list.\n\nminimal - tinygif, gif, and mp4.\n\nbasic - nanomp4, tinygif, tinymp4, gif, mp4, and nanogi",
+							"disabled": true
+						},
+						{
+							"key": "ar_range",
+							"value": "all",
+							"description": "(values: all | wide | standard ) Filter the response GIF_OBJECT list to only include GIFs with aspect ratios that fit with in the selected range.\n\nall - no constraints\n\nwide - 0.42 <= aspect ratio <= 2.36\n\nstandard - .56 <= aspect ratio <= 1.7",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "5",
+							"description": "fetch up to a specified number of results (max: 50).",
+							"disabled": true
+						},
+						{
+							"key": "pos",
+							"value": "n/a",
+							"description": "get results starting at position \"value\". Use a non-zero \"next\" value returned by API results to get the next set of results. pos is not an index and may be an integer, float, or string",
+							"disabled": true
+						},
+						{
+							"key": "anon_id",
+							"value": "n/a",
+							"description": "specify the anonymous_id tied to the given user",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/categories?key={{API_KEY}}&locale=en_US",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"categories"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}",
+							"description": "client key for privileged API access"
+						},
+						{
+							"key": "locale",
+							"value": "en_US",
+							"description": "specify default language to interpret search string; xx is ISO 639-1 language code, _YY (optional) is 2-letter ISO 3166-1 country code"
+						},
+						{
+							"key": "type",
+							"value": "featured",
+							"description": "(values: featured | emoji | trending ) determines the type of categories returned\n",
+							"disabled": true
+						},
+						{
+							"key": "contentfilter",
+							"value": "off",
+							"description": "(values: off | low | medium | high) specify the content safety filter level",
+							"disabled": true
+						},
+						{
+							"key": "anon_id",
+							"value": "n/a",
+							"description": "specify the anonymous_id tied to the given user",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "trending",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/trending?key={{API_KEY}}&locale=en_US&limit=5",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"trending"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}",
+							"description": "client key for privileged API access"
+						},
+						{
+							"key": "locale",
+							"value": "en_US",
+							"description": "specify default language to interpret search string; xx is ISO 639-1 language code, _YY (optional) is 2-letter ISO 3166-1 country code"
+						},
+						{
+							"key": "media_filter",
+							"value": "n/a",
+							"description": "(values: basic | minimal) Reduce the Number of GIF formats returned in the GIF_OBJECT list.\n\nminimal - tinygif, gif, and mp4.\n\nbasic - nanomp4, tinygif, tinymp4, gif, mp4, and nanogi",
+							"disabled": true
+						},
+						{
+							"key": "ar_range",
+							"value": "all",
+							"description": "(values: all | wide | standard ) Filter the response GIF_OBJECT list to only include GIFs with aspect ratios that fit with in the selected range.\nall - no constraints\nwide - 0.42 <= aspect ratio <= 2.36 \nstandard - .56 <= aspect ratio <= 1.7",
+							"disabled": true
+						},
+						{
+							"key": "contentfilter",
+							"value": "off",
+							"description": "(values: off | low | medium | high) specify the content safety filter level",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "5",
+							"description": "fetch up to a specified number of results (max: 50)."
+						},
+						{
+							"key": "pos",
+							"value": "n/a",
+							"description": "get results starting at position \"value\". Use a non-zero \"next\" value returned by API results to get the next set of results. pos is not an index and may be an integer, float, or string",
+							"disabled": true
+						},
+						{
+							"key": "anon_id",
+							"value": "n/a",
+							"description": "specify the anonymous_id tied to the given user",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchsuggestions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/search_suggestions?key={{API_KEY}}&q=foo&locale=en_US&limit=5",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"search_suggestions"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}",
+							"description": "client key for privileged API access"
+						},
+						{
+							"key": "q",
+							"value": "foo",
+							"description": "a search string"
+						},
+						{
+							"key": "locale",
+							"value": "en_US",
+							"description": "specify default language to interpret search string; xx is ISO 639-1 language code, _YY (optional) is 2-letter ISO 3166-1 country code"
+						},
+						{
+							"key": "limit",
+							"value": "5",
+							"description": "fetch up to a specified number of results (max: 50)."
+						},
+						{
+							"key": "anon_id",
+							"value": "n/a",
+							"description": "specify the anonymous_id tied to the given user",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autocomplete",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/autocomplete?key={{API_KEY}}&q=fo&locale=en_US&limit=20",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"autocomplete"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}",
+							"description": "client key for privileged API access"
+						},
+						{
+							"key": "q",
+							"value": "fo",
+							"description": "a search string"
+						},
+						{
+							"key": "locale",
+							"value": "en_US",
+							"description": "specify default language to interpret search string; xx is ISO 639-1 language code, _YY (optional) is 2-letter ISO 3166-1 country code"
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"description": "fetch up to a specified number of results (max: 50)."
+						},
+						{
+							"key": "anon_id",
+							"value": "n/a",
+							"description": "specify the anonymous_id tied to the given user",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "trendingterms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/trending_terms?key={{API_KEY}}&locale=en_US&limit=20",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"trending_terms"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}",
+							"description": "client key for privileged API access"
+						},
+						{
+							"key": "locale",
+							"value": "en_US",
+							"description": "specify default language to interpret search string; xx is ISO 639-1 language code, _YY (optional) is 2-letter ISO 3166-1 country code"
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"description": "fetch up to a specified number of results (max: 50)."
+						},
+						{
+							"key": "anon_id",
+							"value": "n/a",
+							"description": "specify the anonymous_id tied to the given user",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "random",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/random?key={{API_KEY}}&q=hello&locale=en_US&limit=20",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"random"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}",
+							"description": "client key for privileged API access"
+						},
+						{
+							"key": "q",
+							"value": "hello",
+							"description": "a search string"
+						},
+						{
+							"key": "locale",
+							"value": "en_US",
+							"description": "specify default language to interpret search string; xx is ISO 639-1 language code, _YY (optional) is 2-letter ISO 3166-1 country code"
+						},
+						{
+							"key": "contentfilter",
+							"value": "off",
+							"description": "(values: off | low | medium | high) specify the content safety filter level",
+							"disabled": true
+						},
+						{
+							"key": "media_filter",
+							"value": "n/a",
+							"description": "(values: basic | minimal) Reduce the Number of GIF formats returned in the GIF_OBJECT list.\n\nminimal - tinygif, gif, and mp4.\n\nbasic - nanomp4, tinygif, tinymp4, gif, mp4, and nanogi",
+							"disabled": true
+						},
+						{
+							"key": "ar_range",
+							"value": "all",
+							"description": "(values: all | wide | standard ) Filter the response GIF_OBJECT list to only include GIFs with aspect ratios that fit with in the selected range.\n\nall - no constraints\n\nwide - 0.42 <= aspect ratio <= 2.36\n\nstandard - .56 <= aspect ratio <= 1.78",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"description": "fetch up to a specified number of results (max: 50)."
+						},
+						{
+							"key": "pos",
+							"value": "n/a",
+							"description": "get results starting at position \"value\". Use a non-zero \"next\" value returned by API results to get the next set of results. pos is not an index and may be an integer, float, or string",
+							"disabled": true
+						},
+						{
+							"key": "anon_id",
+							"value": "n/a",
+							"description": "specify the anonymous_id tied to the given user",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "https://api.tenor.com/v1"
+		},
+		{
+			"key": "API_KEY",
+			"value": "2RJXWAG8HHJC"
+		}
+	]
+}
